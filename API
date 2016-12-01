@@ -1,0 +1,13 @@
+URL: http://developers.deezer.com/api
+USER: albertocuberonavas@gmail.com
+
+---------------------------------------------------------------------
+
+URL: https://developer.spotify.com/web-api
+Entrypoints: https://developer.spotify.com/web-api/console/browse/
+USER: albertocuberonavas@gmail.com
+Client ID: 025200ce49b547a993af36486f5d625f
+Client Secret: 318477b7d9e24b93a1b17408bb43003a
+
+EXAMPLE:
+http://jsfiddle.net/JMPerez/0u0v7e1b/
