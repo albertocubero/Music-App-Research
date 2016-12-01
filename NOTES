@@ -1,0 +1,5 @@
+Installation Steps:
+1.- Bower
+# npm install -g bower
+2.- Polymer CLI
+# npm install -g polymer-cli
