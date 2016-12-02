@@ -1,40 +1,170 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<!-- <link rel="import" href="../bower_components/paper-fab/paper-fab.html"> -->
+
+<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
+<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
+<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
+<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="my-view1">
   <template>
     <style include="shared-styles">
-      :host {
-        display: block;
-
-        padding: 10px;
-      }
+    app-header {
+    color: #fff;
+    background-color: #00AA8D;
+  }
+  app-toolbar {
+    height: 120px;
+  }
+  [condensed-title] {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-image: url('//app-layout-assets.appspot.com/assets/pesto/logo_m.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 90px;
+    /* The difference in font size is used to calculate the scale of the title in the transition. */
+    font-size: 16px;
+  }
+  [main-title] {
+    position: absolute;
+    top: -120px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-image: url('//app-layout-assets.appspot.com/assets/pesto/logo_l.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 240px;
+    -webkit-transform-origin: center top !important;
+    transform-origin: center top !important;
+    /* The difference in font size is used to calculate the scale of the title in the transition. */
+    font-size: 32px;
+  }
+  .content {
+    display: block;
+    position: relative;
+    max-width: 1000px;
+    margin: 5px auto;
+  }
+  .card-container {
+    display: inline-block;
+    width: 33.33%;
+    color: black;
+    text-decoration: none;
+  }
+  paper-card {
+    display: block;
+    margin: 5px;
+    --paper-card-header-image: {
+      height: 200px;
+    }
+  }
+  paper-card h2 {
+    margin: 4px;
+    font-weight: normal;
+  }
+  paper-card p {
+    margin: 4px;
+    color: #999;
+  }
+  /*paper-fab {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    --paper-fab-background: #EF5458;
+    --paper-fab-keyboard-focus-background: #DF4448;
+  }*/
+  @media (max-width: 960px) {
+    .content {
+      max-width: 800px;
+    }
+    .card-container {
+      width: 50%;
+    }
+  }
+  @media (max-width: 719px) {
+    app-toolbar {
+      height: 60px;
+    }
+    [condensed-title] {
+      background-image: url('//app-layout-assets.appspot.com/assets/pesto/logo_s.png');
+      background-size: 60px;
+    }
+    [main-title] {
+      top: -60px;
+      background-image: url('//app-layout-assets.appspot.com/assets/pesto/logo_m.png');
+      background-size: 90px;
+    }
+    .content {
+      max-width: 400px;
+    }
+    .card-container {
+      width: 100%;
+    }
+  }
     </style>
 
-    <div class="card">
-        
-        <iron-ajax
-            auto
-            url="https://api.spotify.com/v1/browse/new-releases"
-            headers='{"Accept": "application/json", "Authorization": "Bearer BQDDQvCrgIacP4NthqX_FHSwimcwbfc3CP28EKbKi09W8Pw2XjjzeKz-VmnMAEjj4K5J1863_R4UO2_prRM8vK7JoAT3B8pTewZObdEH660M-C7o9Hf0_8zkne3864p5XmGLaPNd18g"}'
-            handle-as="json"
-            on-response="onGetNewReleases"
-            debounce-duration="300">
-        </iron-ajax>
+    <!-- <iron-ajax
+        auto
+        url="https://api.spotify.com/v1/browse/new-releases"
+        headers='{"Accept": "application/json", "Authorization": "Bearer BQDDQvCrgIacP4NthqX_FHSwimcwbfc3CP28EKbKi09W8Pw2XjjzeKz-VmnMAEjj4K5J1863_R4UO2_prRM8vK7JoAT3B8pTewZObdEH660M-C7o9Hf0_8zkne3864p5XmGLaPNd18g"}'
+        handle-as="json"
+        on-response="onGetNewReleases"
+        debounce-duration="300">
+    </iron-ajax> -->
 
-      <div class="circle">1</div>
-      <h1>View One</h1>
-      <p>Ut labores minimum atomorum pro. Laudem tibique ut has.
-      <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
-    </div>
+    <app-header-layout>
+
+      <app-header effects="resize-title" condenses fixed shadow>
+        <app-toolbar class="top-toolbar">
+          <content select="[drawer-toggle]"></content>
+          <div condensed-title></div>
+        </app-toolbar>
+        <app-toolbar class="bottom-toolbar">
+          <div main-title></div>
+        </app-toolbar>
+      </app-header>
+
+      <div class="content">
+        <!-- <template is="dom-repeat" items="{{recipes}}"><!-- No empty text node -->
+        <!-- <a href="#/detail/{{item.id}}" class="card-container">
+            <paper-card image="https://app-layout-assets.appspot.com/assets/pesto/food/image2-01.png">
+              <div class="card-content">
+                <h2>NAME{{item.name}}</h2>
+                <p>By <span>AUTHOR{{item.author}}</span></p>
+              </div>
+            </paper-card>
+          </a> -->
+      <!-- </template> -->
+      </div>
+
+    </app-header-layout>
+
+
+
+
+
+
+
   </template>
 
   <script>
     Polymer({
       is: 'my-view1',
-      onGetNewReleases: function (data) {
-          console.log('data: ', data);
+      attached: function () {
+          console.log('my-view1');
       }
+    //   onGetNewReleases: function (data) {
+    //       console.log('data: ', data);
+    //   }
     });
   </script>
 </dom-module>
