@@ -12,6 +12,16 @@
     </style>
 
     <div class="card">
+        
+        <iron-ajax
+            auto
+            url="https://api.spotify.com/v1/browse/new-releases"
+            headers='{"Accept": "application/json", "Authorization": "Bearer BQDDQvCrgIacP4NthqX_FHSwimcwbfc3CP28EKbKi09W8Pw2XjjzeKz-VmnMAEjj4K5J1863_R4UO2_prRM8vK7JoAT3B8pTewZObdEH660M-C7o9Hf0_8zkne3864p5XmGLaPNd18g"}'
+            handle-as="json"
+            on-response="onGetNewReleases"
+            debounce-duration="300">
+        </iron-ajax>
+
       <div class="circle">1</div>
       <h1>View One</h1>
       <p>Ut labores minimum atomorum pro. Laudem tibique ut has.
@@ -21,7 +31,10 @@
 
   <script>
     Polymer({
-      is: 'my-view1'
+      is: 'my-view1',
+      onGetNewReleases: function (data) {
+          console.log('data: ', data);
+      }
     });
   </script>
 </dom-module>
