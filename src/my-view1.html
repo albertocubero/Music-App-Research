@@ -3,6 +3,7 @@
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <!-- <link rel="import" href="../bower_components/paper-fab/paper-fab.html"> -->
 
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
@@ -97,6 +98,12 @@
     }
   }
 
+
+  /*paper-icon-button.pink {
+    color: red;
+    --paper-icon-button-ink-color: red;
+  }*/
+
     </style>
 
     <!-- TOKEN UPDATE NEEDED -->
@@ -144,9 +151,21 @@
 
       <div class="content">
 
+
+<!-- <paper-card heading="" image="{{item.images.0.url}}" alt="DARKNESS AND LIGHT" class="card-container"></paper-card> -->
 <template is="dom-repeat" items="{{albums.albums.items}}">
 
-    <paper-card heading="" image="{{item.images.0.url}}" alt="DARKNESS AND LIGHT" class="card-container">
+    <paper-card image="{{item.images.0.url}}" class="card-container" style="margin-bottom:8px;">
+      <div class="card-content">
+            <h3>{{item.artists.0.name}}</h3>
+            <div>{{item.name}}</div>
+      </div>
+      <div class="card-actions">
+          <paper-icon-button icon="favorite"></paper-icon-button>
+          <a href="{{item.external_urls.spotify}}" target="_blank">
+              <paper-icon-button icon="link"></paper-icon-button>
+          </a>
+      </div>
     </paper-card>
 
 </template>
@@ -169,10 +188,7 @@
 
   <script>
     Polymer({
-      is: 'my-view1',
-      attached: function () {
-          console.log('my-view1');
-      }
+      is: 'my-view1'
     });
   </script>
 </dom-module>
