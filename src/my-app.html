@@ -16,7 +16,7 @@
 <link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="../bower_components/app-layout/app-scrollpos-control/app-scrollpos-control.html">
-<link rel="import" href="my-view1.html">
+<link rel="import" href="album-list.html">
 
 
 <link rel="import" href="../bower_components/polymer-themes/la-resistance.html">
@@ -109,9 +109,9 @@
       <!-- list/detail pages -->
       <iron-pages selected="[[_pageData.page]]" attr-for-selected="name">
 
-          <my-view1 name="home">
+          <album-list name="home">
               <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
-          </my-view1>
+          </album-list>
 
       </iron-pages>
 

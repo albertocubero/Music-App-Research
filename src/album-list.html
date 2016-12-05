@@ -12,102 +12,59 @@
 
 <link rel="import" href="shared-styles.html">
 
-<dom-module id="my-view1">
+<dom-module id="album-list">
   <template>
     <style include="shared-styles">
-    app-header {
-    color: #fff;
-    background-color: #00AA8D;
-  }
-  app-toolbar {
-    height: 120px;
-  }
-  .title-text {
-    width: 100%;
-    text-align: left;
-    font-size: 60px;
-    font-weight: 800;
-    text-align: center;
-
-  }
-  /*.content {
-    display: block;
-    position: relative;
-    max-width: 1000px;
-    padding: 0 10px;
-    margin: 5px auto;
-  }*/
-  /*.card-container {
-    display: inline-block;
-    padding: 0.2%;
-    width: 33.1%;
-    color: black;
-    text-decoration: none;
-  }*/
-
-  .content {
-    display: block;
-    position: relative;
-    max-width: 1000px;
-    padding: 0 10px;
-    margin: 5px auto;
-  }
-  .card-container {
-    display: inline-block;
-    padding: 0.2%;
-    width: 33%;
-    color: black;
-    text-decoration: none;
-  }
-
-
-
-
-  /*paper-card {
-    display: block;
-    margin: 5px;
-    --paper-card-header-image: {
-      height: 200px;
-    }
-  }
-  paper-card h2 {
-    margin: 4px;
-    font-weight: normal;
-  }
-  paper-card p {
-    margin: 4px;
-    color: #999;
-  }*/
-  @media (max-width: 960px) {
-    .content {
-      max-width: 800px;
-    }
-    .card-container {
-      width: 49%;
-    }
-  }
-  @media (max-width: 719px) {
-    app-toolbar {
-      height: 60px;
-    }
-    .content {
-      max-width: 400px;
-    }
-    .card-container {
-      width: 100%;
-    }
-  }
-
-  .external {
-      color: inherit;
-  }
-
-
-  /*paper-icon-button.pink {
-    color: red;
-    --paper-icon-button-ink-color: red;
-  }*/
-
+      app-header {
+        color: #fff;
+        background-color: #00AA8D;
+      }
+      app-toolbar {
+        height: 120px;
+      }
+      .title-text {
+        width: 100%;
+        text-align: left;
+        font-size: 60px;
+        font-weight: 800;
+        text-align: center;
+      }
+      .content {
+        display: block;
+        position: relative;
+        max-width: 1000px;
+        padding: 0 10px;
+        margin: 5px auto;
+      }
+      .card-container {
+        display: inline-block;
+        padding: 0.2%;
+        width: 33%;
+        color: black;
+        text-decoration: none;
+      }
+      @media (max-width: 960px) {
+        .content {
+          max-width: 800px;
+        }
+        .card-container {
+          width: 49%;
+        }
+      }
+      @media (max-width: 719px) {
+        app-toolbar {
+          height: 60px;
+        }
+        .content {
+          max-width: 400px;
+        }
+        .card-container {
+          width: 100%;
+        }
+      }
+      .external {
+          color: inherit;
+      }
     </style>
 
     <!-- TOKEN UPDATE NEEDED -->
@@ -154,36 +111,22 @@
       </app-header>
 
       <div class="content">
+        <template is="dom-repeat" items="{{albums.albums.items}}">
 
-
-<!-- <paper-card heading="" image="{{item.images.0.url}}" alt="DARKNESS AND LIGHT" class="card-container"></paper-card> -->
-<template is="dom-repeat" items="{{albums.albums.items}}">
-
-    <paper-card image="{{item.images.0.url}}" class="card-container" style="margin-bottom:8px;">
-      <div class="card-content">
-            <h3>{{item.artists.0.name}}</h3>
-            <div>{{item.name}}</div>
-      </div>
-      <div class="card-actions">
-          <paper-icon-button icon="favorite"></paper-icon-button>
-          <a href="{{item.external_urls.spotify}}" target="_blank" class="external">
-              <paper-icon-button icon="link"></paper-icon-button>
-          </a>
-      </div>
-    </paper-card>
-
-</template>
-
-        <!-- <template is="dom-repeat" items="{{recipes}}"><!-- No empty text node -->
-        <!-- <a href="#/detail/{{item.id}}" class="card-container">
-            <paper-card image="https://app-layout-assets.appspot.com/assets/pesto/food/image2-01.png">
+            <paper-card image="{{item.images.0.url}}" class="card-container" style="margin-bottom:8px;">
               <div class="card-content">
-                <h2>NAME{{item.name}}</h2>
-                <p>By <span>AUTHOR{{item.author}}</span></p>
+                    <h3>{{item.artists.0.name}}</h3>
+                    <div>{{item.name}}</div>
+              </div>
+              <div class="card-actions">
+                  <paper-icon-button icon="favorite"></paper-icon-button>
+                  <a href="{{item.external_urls.spotify}}" target="_blank" class="external">
+                      <paper-icon-button icon="link"></paper-icon-button>
+                  </a>
               </div>
             </paper-card>
-          </a> -->
-      <!-- </template> -->
+
+        </template>
       </div>
 
     </app-header-layout>
@@ -192,7 +135,7 @@
 
   <script>
     Polymer({
-      is: 'my-view1'
+      is: 'album-list'
     });
   </script>
 </dom-module>
