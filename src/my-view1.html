@@ -1,8 +1,9 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
-<!-- <link rel="import" href="../bower_components/paper-card/paper-card.html"> -->
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
 <!-- <link rel="import" href="../bower_components/paper-fab/paper-fab.html"> -->
 
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
@@ -32,16 +33,17 @@
   .content {
     display: block;
     position: relative;
-    max-width: 1000px;
+    /*max-width: 1000px;*/
     margin: 5px auto;
   }
   .card-container {
     display: inline-block;
-    width: 33.33%;
+    /*width: 33.33%;*/
+    width: 33%;
     color: black;
     text-decoration: none;
   }
-  paper-card {
+  /*paper-card {
     display: block;
     margin: 5px;
     --paper-card-header-image: {
@@ -55,7 +57,7 @@
   paper-card p {
     margin: 4px;
     color: #999;
-  }
+  }*/
   @media (max-width: 960px) {
     .content {
       max-width: 800px;
@@ -77,14 +79,14 @@
   }
     </style>
 
-    <!-- <iron-ajax
+    <iron-ajax
         auto
         url="https://api.spotify.com/v1/browse/new-releases"
-        headers='{"Accept": "application/json", "Authorization": "Bearer BQDDQvCrgIacP4NthqX_FHSwimcwbfc3CP28EKbKi09W8Pw2XjjzeKz-VmnMAEjj4K5J1863_R4UO2_prRM8vK7JoAT3B8pTewZObdEH660M-C7o9Hf0_8zkne3864p5XmGLaPNd18g"}'
+        headers='{"Accept": "application/json", "Authorization": "Bearer BQCB6jt-4fLxpRsAfCex79Y04wg_ooDcSyVFplgmItX-V1-8pcCNMEUBr6sMWKVCwXBJWcBbWRot7BZx8wcnPgRPZKAV-hb_CHlqVojvATk4j4fpvPUcpKFQ16bb_oArjurOzALxL4s"}'
         handle-as="json"
-        on-response="onGetNewReleases"
+        last-response="{{albums}}"
         debounce-duration="300">
-    </iron-ajax> -->
+    </iron-ajax>
 
     <app-header-layout>
 
@@ -92,10 +94,22 @@
         <app-toolbar class="top-toolbar">
           <content select="[drawer-toggle]"></content>
           <div class="title-text">Albums Novelty</div>
+          <div condensed-title></div>
+        </app-toolbar>
+        <app-toolbar class="bottom-toolbar">
+          <div main-title></div>
         </app-toolbar>
       </app-header>
 
       <div class="content">
+
+<template is="dom-repeat" items="{{albums.albums.items}}">
+
+    <paper-card heading="" image="{{item.images.0.url}}" alt="DARKNESS AND LIGHT" class="card-container">
+    </paper-card>
+
+</template>
+
         <!-- <template is="dom-repeat" items="{{recipes}}"><!-- No empty text node -->
         <!-- <a href="#/detail/{{item.id}}" class="card-container">
             <paper-card image="https://app-layout-assets.appspot.com/assets/pesto/food/image2-01.png">
@@ -118,7 +132,8 @@
       attached: function () {
           console.log('my-view1');
       }
-    //   onGetNewReleases: function (data) {
+    //   ,onGetNewReleases: function (data) {
+    //       console.log(arguments);
     //       console.log('data: ', data);
     //   }
     });
