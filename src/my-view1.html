@@ -98,6 +98,10 @@
     }
   }
 
+  .external {
+      color: inherit;
+  }
+
 
   /*paper-icon-button.pink {
     color: red;
@@ -162,7 +166,7 @@
       </div>
       <div class="card-actions">
           <paper-icon-button icon="favorite"></paper-icon-button>
-          <a href="{{item.external_urls.spotify}}" target="_blank">
+          <a href="{{item.external_urls.spotify}}" target="_blank" class="external">
               <paper-icon-button icon="link"></paper-icon-button>
           </a>
       </div>
