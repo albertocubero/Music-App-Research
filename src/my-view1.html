@@ -1,6 +1,6 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 
-<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<!-- <link rel="import" href="../bower_components/paper-card/paper-card.html"> -->
 <!-- <link rel="import" href="../bower_components/paper-fab/paper-fab.html"> -->
 
 <link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
@@ -20,33 +20,14 @@
   app-toolbar {
     height: 120px;
   }
-  [condensed-title] {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-image: url('//app-layout-assets.appspot.com/assets/pesto/logo_m.png');
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 90px;
-    /* The difference in font size is used to calculate the scale of the title in the transition. */
-    font-size: 16px;
-  }
-  [main-title] {
-    position: absolute;
-    top: -120px;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-image: url('//app-layout-assets.appspot.com/assets/pesto/logo_l.png');
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 240px;
-    -webkit-transform-origin: center top !important;
-    transform-origin: center top !important;
-    /* The difference in font size is used to calculate the scale of the title in the transition. */
-    font-size: 32px;
+  .title-text {
+    width: 100%;
+    text-align: left;
+    font-size: 60px;
+    font-weight: 800;
+    text-align: center;
+    text-shadow: rgb(0,170,141) 2px 2px 0px, rgb(140, 140, 140)  4px 4px 0px;
+
   }
   .content {
     display: block;
@@ -87,15 +68,6 @@
     app-toolbar {
       height: 60px;
     }
-    [condensed-title] {
-      background-image: url('//app-layout-assets.appspot.com/assets/pesto/logo_s.png');
-      background-size: 60px;
-    }
-    [main-title] {
-      top: -60px;
-      background-image: url('//app-layout-assets.appspot.com/assets/pesto/logo_m.png');
-      background-size: 90px;
-    }
     .content {
       max-width: 400px;
     }
@@ -119,10 +91,7 @@
       <app-header effects="resize-title" condenses fixed shadow>
         <app-toolbar class="top-toolbar">
           <content select="[drawer-toggle]"></content>
-          <div condensed-title></div>
-        </app-toolbar>
-        <app-toolbar class="bottom-toolbar">
-          <div main-title></div>
+          <div class="title-text">Albums Novelty</div>
         </app-toolbar>
       </app-header>
 
