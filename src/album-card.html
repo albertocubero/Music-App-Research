@@ -84,6 +84,9 @@
     Polymer({
       is: 'album-card',
       properties: {
+          album: {
+              type: Object
+          },
           isFavorite: {
               type: Boolean,
               value: false
@@ -98,12 +101,12 @@
           return isFavorite === false;
       },
 
-      updateFavorite: function () {
+      _updateFavorite: function () {
           this.set('isFavorite', !this.isFavorite);
       },
 
       onClickFavorite: function () {
-          this.updateFavorite();
+          this._updateFavorite();
       }
     });
   </script>
