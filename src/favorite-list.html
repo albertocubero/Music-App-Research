@@ -90,7 +90,7 @@
 
         attached: function () {
             this._addEventHandlers();
-            this._getFavoriteAlbums();
+            this._getFavoriteAlbumsFromLS();
         },
 
         detached: function () {
@@ -98,21 +98,22 @@
         },
 
         refresh: function () {
-            this._getFavoriteAlbums();
+            this._getFavoriteAlbumsFromLS();
         },
 
         _addEventHandlers: function () {
             this.addEventListener('card:favorite:updated', function (data) {
+                this._getFavoriteAlbumsFromLS();
                 this.fire('favorites:updated', data);
             }.bind(this));
         },
 
-        _removeEventHandlers: function () {
-            this.removeEventListener('card:favorite:updated');
+        _getFavoriteAlbumsFromLS: function () {
+            this.set('albums', window.App.localStorage.albums.getAll());
         },
 
-        _getFavoriteAlbums: function () {
-            this.set('albums', window.App.localStorage.albums.getAll());
+        _removeEventHandlers: function () {
+            this.removeEventListener('card:favorite:updated');
         }
     });
   </script>

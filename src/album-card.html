@@ -79,7 +79,8 @@
     properties: {
         album: {
             type: Object,
-            value: {}
+            value: {},
+            observer: '_albumChanged'
         },
         isFavorite: {
             type: Boolean,
@@ -143,6 +144,10 @@
     _showMessage: function () {
         var text = (this.isFavorite) ? 'Favorite Saved !' : 'Favorite Removed !';
         this.$.toast.show(text);
+    },
+
+    _albumChanged: function() {
+        this._updateFavoriteStatusFromLS();
     }
 });
   </script>
