@@ -106,12 +106,25 @@
           return isFavorite === false;
       },
 
-      _updateFavorite: function () {
-          this.set('isFavorite', !this.isFavorite);
-      },
-
       onClickFavorite: function () {
           this._updateFavorite();
+      },
+
+      _updateFavorite: function () {
+          this.set('isFavorite', !this.isFavorite);
+          this._manageLocalStorage();
+      },
+
+      _manageLocalStorage: function () {
+          (this.isFavorite) ? this._saveAlbumToLS() : this._removeAlbumFromLS();
+      },
+
+      _saveAlbumToLS: function () {
+          localStorage.setItem(this.album.id, JSON.stringify(this.album));
+      },
+
+      _removeAlbumFromLS: function () {
+          localStorage.removeItem(this.album.id);
       }
     });
   </script>
