@@ -14,6 +14,7 @@
         width: 33%;
         color: black;
         text-decoration: none;
+        margin-bottom: 8px;
       }
       @media (max-width: 960px) {
         .card-container {
@@ -24,6 +25,9 @@
         .card-container {
           width: 100%;
         }
+      }
+      .album-artist {
+          font-weight: bold;
       }
       paper-icon-button.pink {
         color: var(--paper-pink-500);
@@ -54,12 +58,13 @@
         debounce-duration="300">
     </iron-ajax> -->
 
-    <paper-card image="{{album.images.0.url}}" class="card-container" style="margin-bottom:8px;">
+    <paper-card image="{{album.images.0.url}}" class="card-container">
       <div class="card-content">
-            <h3>{{album.artists.0.name}}</h3>
-            <div>{{album.name}}</div>
+            <div class="album-artist">{{album.artists.0.name}}</div>
+            <p>{{album.name}}</p>
       </div>
       <div class="card-actions">
+
           <template is="dom-if" if="{{_isTruthy(isFavorite)}}">
               <paper-icon-button icon="favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="pink"></paper-icon-button>
           </template>
@@ -100,12 +105,6 @@
       onClickFavorite: function () {
           this.updateFavorite();
       }
-    //   ,
-
-    //   _getFavoriteClass (isFavorite) {
-    //       //console.log('_getFavoriteClass: ', ((this.isFavorite) ? 'pink' : ''));
-    //       return (this.isFavorite) ? 'pink' : '';
-    //   }
     });
   </script>
 </dom-module>
