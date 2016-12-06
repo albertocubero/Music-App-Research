@@ -99,7 +99,8 @@
       properties: {
           album: {
               type: Object,
-              value: {}
+              value: {},
+              observer: '_albumChanged'
           },
           isFavorite: {
               type: Boolean,
@@ -147,6 +148,12 @@
           this.fire('card:favorite:updated');
           var text = (this.isFavorite) ? 'Favorite Saved !' : 'Favorite Removed !';
           this.$.toast.show(text);
+      },
+
+      _albumChanged: function () {
+          if (window.App.localStorage.album.exist(this.album.id)) {
+              this.set('isFavorite', true);
+          }
       }
     });
   </script>

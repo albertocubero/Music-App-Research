@@ -68,8 +68,8 @@
       </app-header>
 
       <div class="content">
-        <template is="dom-repeat" items="{{albums}}">
-            <album-card album={{item}}></album-card>
+        <template is="dom-repeat" items="[[albums]]">
+            <album-card album=[[item]]></album-card>
         </template>
       </div>
 
@@ -80,6 +80,12 @@
   <script>
     Polymer({
       is: 'favorite-list',
+      properties: {
+          albums: {
+              type: Array,
+              value: []
+          }
+      },
       ready: function () {
           this._getFavoriteAlbums();
       },
@@ -87,7 +93,8 @@
           this._getFavoriteAlbums();
       },
       _getFavoriteAlbums: function () {
-          this.albums = window.App.localStorage.albums.getAll();
+        //   var favoriteList = Polymer.dom(this.root).querySelector("album-card");
+        this.set('albums', window.App.localStorage.albums.getAll());
       }
     });
   </script>
