@@ -116,23 +116,28 @@
 
       onClickFavorite: function () {
           this._updateFavorite();
+          this._manageLocalStorage();
+          this._notifyFavoriteUpdated();
       },
 
       _updateFavorite: function () {
           this.set('isFavorite', !this.isFavorite);
-          this._manageLocalStorage();
       },
 
       _manageLocalStorage: function () {
-          (this.isFavorite) ? this._saveAlbumToLS() : this._removeAlbumFromLS();
+          (this.isFavorite) ? this._saveAlbum() : this._removeAlbum();
       },
 
-      _saveAlbumToLS: function () {
+      _saveAlbum: function () {
           window.App.localStorage.album.save(this.album.id, this.album);
       },
 
-      _removeAlbumFromLS: function () {
+      _removeAlbum: function () {
           window.App.localStorage.album.remove(this.album.id);
+      },
+
+      _notifyFavoriteUpdated: function () {
+          
       }
     });
   </script>
