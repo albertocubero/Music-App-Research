@@ -29,6 +29,11 @@
       .album-artist {
           font-weight: bold;
       }
+      .album-title {
+          overflow:hidden;
+          white-space:nowrap;
+          text-overflow: ellipsis;
+      }
       paper-icon-button.pink {
         color: var(--paper-pink-500);
         --paper-icon-button-ink-color: var(--paper-indigo-500);
@@ -61,7 +66,7 @@
     <paper-card image="{{album.images.0.url}}" class="card-container">
       <div class="card-content">
             <div class="album-artist">{{album.artists.0.name}}</div>
-            <p>{{album.name}}</p>
+            <p class="album-title">{{album.name}}</p>
       </div>
       <div class="card-actions">
 
