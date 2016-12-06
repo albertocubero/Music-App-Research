@@ -1,6 +1,7 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
 <!-- <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html"> -->
 
 <link rel="import" href="album-storage-manager.html">
@@ -11,8 +12,8 @@
     <style include="shared-styles">
       .card-container {
         display: inline-block;
-        padding: 0.2%;
-        width: 33%;
+        padding: 0.4%;
+        width: 32.8%;
         color: black;
         text-decoration: none;
         margin-bottom: 8px;
@@ -42,6 +43,10 @@
       .external {
           color: inherit;
       }
+      paper-toast {
+          left: inherit !important;
+          right: 0 !important;
+      }
     </style>
 
     <!-- TOKEN UPDATE NEEDED -->
@@ -63,6 +68,8 @@
         last-response="{{albums}}"
         debounce-duration="300">
     </iron-ajax> -->
+
+    <paper-toast id="toast"></paper-toast>
 
     <paper-card image="{{album.images.0.url}}" class="card-container">
       <div class="card-content">
@@ -138,6 +145,8 @@
 
       _notifyFavoriteUpdated: function () {
           this.fire('card:favorite:updated');
+          var text = (this.isFavorite) ? 'Favorite Saved !' : 'Favorite Removed !';
+          this.$.toast.show(text);
       }
     });
   </script>

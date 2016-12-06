@@ -8,11 +8,11 @@ Installation Steps:
 
 
 
-Si se actualizan los favoritos, notificar para actualizar
-    https://scotch.io/tutorials/build-a-real-time-polymer-to-do-app
 Al quitar y poner favoritos, mostrar un mensaje toast
     https://elements.polymer-project.org/elements/paper-toast?view=demo:demo/index.html&active=paper-toast
+Si estamos en favoritos, y quitamos un favorito, que se actualize el card que sea
 Quitar '_subRoute'
+si no hay albums o favoritos, mostrar vista por defecto.
 Refactor Styles (favorite y album list)
 Common Toolbar (favorite y album list)
 Search Album
