@@ -98,6 +98,12 @@
           }
       },
 
+      ready: function () {
+          if (localStorage.getItem(this.album.id) !== null) {
+              this.set('isFavorite', true);
+          }
+      },
+
       _isTruthy: function (isFavorite) {
           return isFavorite === true;
       },
