@@ -3,6 +3,7 @@
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <!-- <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html"> -->
 
+<link rel="import" href="album-storage-manager.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="album-card">
@@ -90,7 +91,8 @@
       is: 'album-card',
       properties: {
           album: {
-              type: Object
+              type: Object,
+              value: {}
           },
           isFavorite: {
               type: Boolean,
@@ -99,7 +101,7 @@
       },
 
       ready: function () {
-          if (localStorage.getItem(this.album.id) !== null) {
+          if (window.App.localStorage.album.exist(this.album.id)) {
               this.set('isFavorite', true);
           }
       },
@@ -126,11 +128,11 @@
       },
 
       _saveAlbumToLS: function () {
-          localStorage.setItem(this.album.id, JSON.stringify(this.album));
+          window.App.localStorage.album.save(this.album.id, this.album);
       },
 
       _removeAlbumFromLS: function () {
-          localStorage.removeItem(this.album.id);
+          window.App.localStorage.album.remove(this.album.id);
       }
     });
   </script>

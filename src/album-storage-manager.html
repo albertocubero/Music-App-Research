@@ -1,0 +1,23 @@
+<script>
+    var localStorageManager = {
+        prefix: 'album-',
+        album: {
+            exist: function (id) {
+                return (localStorage.getItem(this.prefix+id) !== null);
+            },
+            save: function (id, album) {
+                localStorage.setItem(this.prefix+id, JSON.stringify(album));
+            },
+            remove: function (id) {
+                localStorage.removeItem(this.prefix+id);
+            }
+        },
+        albums: {
+            getAll: function () {
+                // var keys = Object.keys(localStorage);
+            }
+        }
+    }
+
+    window.App = window.App || { localStorage: localStorageManager };
+</script>
