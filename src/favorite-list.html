@@ -83,6 +83,9 @@
       ready: function () {
           this._getFavoriteAlbums();
       },
+      refresh: function () {
+          this._getFavoriteAlbums();
+      },
       _getFavoriteAlbums: function () {
           this.albums = window.App.localStorage.albums.getAll();
       }

@@ -113,7 +113,7 @@
               <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
           </album-list>
 
-          <favorite-list name="favorites">
+          <favorite-list name="favorites" data-role="favorites">
               <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
           </favorite-list>
 
@@ -133,6 +133,15 @@
         _pageData: Object,
         _idData: Object
       },
+
+      ready: function () {
+          var favoriteList = Polymer.dom(this.root).querySelector("favorite-list");
+          var parent = this.parentNode;
+          parent.addEventListener('card:favorite:updated', function(e) {
+              favoriteList.refresh();
+          });
+      },
+
       attached: function() {
         this.async(function() {
           if (!this._route.path) {
