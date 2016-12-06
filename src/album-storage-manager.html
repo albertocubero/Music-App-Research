@@ -1,23 +1,45 @@
 <script>
-    var localStorageManager = {
-        prefix: 'album-',
-        album: {
-            exist: function (id) {
-                return (localStorage.getItem(this.prefix+id) !== null);
-            },
-            save: function (id, album) {
-                localStorage.setItem(this.prefix+id, JSON.stringify(album));
-            },
-            remove: function (id) {
-                localStorage.removeItem(this.prefix+id);
-            }
-        },
-        albums: {
-            getAll: function () {
-                // var keys = Object.keys(localStorage);
-            }
+    function getLocalStorageManager () {
+        var prefix = 'album-';
+
+        var get = function (id) {
+            return JSON.parse(localStorage.getItem(id));
         }
+
+        var exist = function (id) {
+            return (get(prefix+id) !== null);
+        };
+
+        var save = function (id, album) {
+            localStorage.setItem(prefix+id, JSON.stringify(album));
+        };
+
+        var remove = function (id) {
+            localStorage.removeItem(prefix+id);
+        };
+
+        var getAll = function () {
+            return Object.keys(localStorage)
+            .filter(function (key) {
+                return (key.indexOf(prefix) !== -1);
+            })
+            .map(function (key) {
+                return get(key);
+            });
+        }
+
+        return {
+            album: {
+                exist: exist,
+                save: save,
+                remove: remove
+            },
+            albums: {
+                getAll: getAll
+            }
+        };
     }
 
-    window.App = window.App || { localStorage: localStorageManager };
+    window.App = window.App || {};
+    window.App.localStorage = window.App.localStorage || getLocalStorageManager();
 </script>
