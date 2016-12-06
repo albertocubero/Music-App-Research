@@ -109,9 +109,7 @@
       },
 
       ready: function () {
-          if (window.App.localStorage.album.exist(this.album.id)) {
-              this.set('isFavorite', true);
-          }
+          this.set('isFavorite', window.App.localStorage.album.exist(this.album.id));
       },
 
       _isTruthy: function (isFavorite) {
@@ -151,9 +149,7 @@
       },
 
       _albumChanged: function () {
-          if (window.App.localStorage.album.exist(this.album.id)) {
-              this.set('isFavorite', true);
-          }
+          this.set('isFavorite', window.App.localStorage.album.exist(this.album.id));
       }
     });
   </script>

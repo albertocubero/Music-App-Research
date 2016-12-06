@@ -87,6 +87,10 @@
           }
       },
       ready: function () {
+          this.addEventListener('card:favorite:updated', function(e) {
+              this.fire('favorites:updated');
+          }.bind(this));
+
           this._getFavoriteAlbums();
       },
       refresh: function () {

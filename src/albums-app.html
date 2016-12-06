@@ -109,7 +109,7 @@
       <!-- list/detail pages -->
       <iron-pages selected="[[_pageData.page]]" attr-for-selected="name">
 
-          <album-list id="album-list" name="home">
+          <album-list name="home" id="albumsList">
               <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
           </album-list>
 
@@ -136,9 +136,11 @@
 
       ready: function () {
         //   var favoriteList = Polymer.dom(this.root).querySelector("favorite-list");
-          var parent = this.parentNode;
-          parent.addEventListener('card:favorite:updated', function(e) {
+          this.addEventListener('albumList:updated', function(e) {
               this.$.favorites.refresh();
+          }.bind(this));
+          this.addEventListener('favorites:updated', function(e) {
+              this.$.albumsList.refresh();
           }.bind(this));
       },
 
@@ -153,7 +155,7 @@
         return page === 'detail';
       },
       _drawerSelected: function() {
-          //   if (!this.$.drawer.persistent) this.$.drawer.close();
+        if (!this.$.drawer.persistent) this.$.drawer.close();
       }
     });
   </script>
