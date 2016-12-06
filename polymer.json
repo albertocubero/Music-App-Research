@@ -1,6 +1,6 @@
 {
   "entrypoint": "index.html",
-  "shell": "src/my-app.html",
+  "shell": "src/albums-app.html",
   "fragments": [
     "src/album-list.html",
     "src/my-view2.html"
