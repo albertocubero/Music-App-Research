@@ -98,21 +98,33 @@
     Polymer({
         is: 'album-list',
 
-        ready: function() {
-            this.addEventListener('card:favorite:updated', function() {
-                this.fire('albumList:updated');
-            }.bind(this));
+        attached: function () {
+            this._addEventHandlers();
         },
 
-        refresh: function(data) {
+        detached: function () {
+            this._removeEventHandlers();
+        },
+
+        refresh: function (data) {
             var albumCardsNodes = Polymer.dom(this.root).querySelectorAll("album-card");
-            var albumCardsNode = albumCardsNodes.filter(function(card) {
+            var albumCardsNode = albumCardsNodes.filter(function (card) {
                 return card['albumId'] === data.detail.id;
             })[0];
 
             if (albumCardsNode) {
-                albumCardsNode.updateFavorite();
+                albumCardsNode.refresh();
             }
+        },
+
+        _addEventHandlers: function () {
+            this.addEventListener('card:favorite:updated', function () {
+                this.fire('albumList:updated');
+            }.bind(this));
+        },
+
+        _removeEventHandlers: function () {
+            this.removeEventListener('card:favorite:updated');
         }
 
     });

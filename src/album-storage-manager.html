@@ -2,28 +2,28 @@
     function getLocalStorageManager() {
         var prefix = 'album-';
 
-        var get = function(id) {
+        var get = function (id) {
             return JSON.parse(localStorage.getItem(id));
         }
 
-        var exist = function(id) {
+        var exist = function (id) {
             return (get(prefix + id) !== null);
         };
 
-        var save = function(id, album) {
+        var save = function (id, album) {
             localStorage.setItem(prefix + id, JSON.stringify(album));
         };
 
-        var remove = function(id) {
+        var remove = function (id) {
             localStorage.removeItem(prefix + id);
         };
 
-        var getAll = function() {
+        var getAll = function () {
             return Object.keys(localStorage)
-                .filter(function(key) {
+                .filter(function (key) {
                     return (key.indexOf(prefix) !== -1);
                 })
-                .map(function(key) {
+                .map(function (key) {
                     return get(key);
                 });
         }

@@ -11,8 +11,10 @@ Installation Steps:
 (OK) - Al quitar y poner favoritos, mostrar un mensaje toast (https://elements.polymer-project.org/elements/paper-toast?view=demo:demo/index.html&active=paper-toast)
 (OK) - Si estamos en favoritos, y quitamos un favorito, que se actualize el card que sea
 (OK) - Quitar '_subRoute'
-Refactor Styles (favorite y album list)
-Common Toolbar (favorite y album list)
+(OK)- cada addEventListener poner un eventremovelistener en el detach
+- Cuando quito un favorito en la lista de favoritos, que se elimine
+- Refactor Styles (favorite y album list)
+- Common Toolbar (favorite y album list)
 si no hay albums o favoritos, mostrar vista por defecto.
 Escuchar el album
 Search Album

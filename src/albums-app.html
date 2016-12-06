@@ -124,28 +124,42 @@
             _pageData: Object
         },
 
-        ready: function() {
-            this.addEventListener('albumList:updated', function(e) {
-                this.$.favorites.refresh();
-            }.bind(this));
-            this.addEventListener('favorites:updated', function(data) {
-                this.$.albumsList.refresh(data.detail);
-            }.bind(this));
+        attached: function () {
+            this._initRoute();
+            this._addEventHandlers();
         },
 
-        attached: function() {
-            this.async(function() {
+        detached: function () {
+            this._removeEventHandlers();
+        },
+
+        _initRoute: function () {
+            this.async(function () {
                 if (!this._route.path) {
                     this.set('_route.path', '/home');
                 }
             });
         },
 
-        _isDetailPage: function(page) {
+        _addEventHandlers: function () {
+            this.addEventListener('albumList:updated', function () {
+                this.$.favorites.refresh();
+            }.bind(this));
+            this.addEventListener('favorites:updated', function (data) {
+                this.$.albumsList.refresh(data.detail);
+            }.bind(this));
+        },
+
+        _removeEventHandlers: function () {
+            this.removeEventListener('albumList:updated');
+            this.removeEventListener('favorites:updated');
+        },
+
+        _isDetailPage: function (page) {
             return page === 'detail';
         },
 
-        _drawerSelected: function() {
+        _drawerSelected: function () {
             if (!this.$.drawer.persistent) this.$.drawer.close();
         }
     });

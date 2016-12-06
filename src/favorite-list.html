@@ -88,19 +88,30 @@
             }
         },
 
-        ready: function() {
-            this.addEventListener('card:favorite:updated', function(data) {
+        attached: function () {
+            this._addEventHandlers();
+            this._getFavoriteAlbums();
+        },
+
+        detached: function () {
+            this._removeEventHandlers();
+        },
+
+        refresh: function () {
+            this._getFavoriteAlbums();
+        },
+
+        _addEventHandlers: function () {
+            this.addEventListener('card:favorite:updated', function (data) {
                 this.fire('favorites:updated', data);
             }.bind(this));
-
-            this._getFavoriteAlbums();
         },
 
-        refresh: function() {
-            this._getFavoriteAlbums();
+        _removeEventHandlers: function () {
+            this.removeEventListener('card:favorite:updated');
         },
 
-        _getFavoriteAlbums: function() {
+        _getFavoriteAlbums: function () {
             this.set('albums', window.App.localStorage.albums.getAll());
         }
     });
