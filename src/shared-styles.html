@@ -4,38 +4,48 @@
 <dom-module id="shared-styles">
   <template>
     <style>
-      .card {
-        margin: 24px;
-        padding: 16px;
-
-        color: #757575;
-        border-radius: 5px;
-        background-color: #fff;
-        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+      app-header {
+        color: #fff;
+        background-color: #00AA8D;
       }
 
-      .circle {
-        display: inline-block;
+      app-toolbar {
+        height: 120px;
+      }
 
-        width: 64px;
-        height: 64px;
-
+      .title-text {
+        width: 100%;
+        text-align: left;
+        font-size: 60px;
+        font-weight: 800;
         text-align: center;
-
-        color: #555;
-        border-radius: 50%;
-        background: #ddd;
-
-        font-size: 30px;
-        line-height: 64px;
       }
 
-      h1 {
-        margin: 16px 0;
-
-        color: #212121;
-
-        font-size: 22px;
+      .content {
+        display: block;
+        position: relative;
+        max-width: 1000px;
+        padding: 0 10px;
+        margin: 5px auto;
+      }
+      @media (max-width: 960px) {
+        .title-text {
+            font-size: 48px;
+        }
+        .content {
+            max-width: 800px;
+        }
+      }
+      @media (max-width: 719px) {
+        app-toolbar {
+            height: 60px;
+        }
+        .title-text {
+            font-size: 36px;
+        }
+        .content {
+            max-width: 400px;
+        }
       }
     </style>
   </template>
