@@ -3,13 +3,14 @@
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <!-- <link rel="import" href="../bower_components/paper-fab/paper-fab.html"> -->
 
-<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
 
+<link rel="import" href="album-card.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="album-list">
@@ -36,34 +37,24 @@
         padding: 0 10px;
         margin: 5px auto;
       }
-      .card-container {
-        display: inline-block;
-        padding: 0.2%;
-        width: 33%;
-        color: black;
-        text-decoration: none;
-      }
       @media (max-width: 960px) {
+        .title-text {
+            font-size: 48px;
+        }
         .content {
           max-width: 800px;
-        }
-        .card-container {
-          width: 49%;
         }
       }
       @media (max-width: 719px) {
         app-toolbar {
           height: 60px;
         }
+        .title-text {
+            font-size: 36px;
+        }
         .content {
           max-width: 400px;
         }
-        .card-container {
-          width: 100%;
-        }
-      }
-      .external {
-          color: inherit;
       }
     </style>
 
@@ -112,20 +103,7 @@
 
       <div class="content">
         <template is="dom-repeat" items="{{albums.albums.items}}">
-
-            <paper-card image="{{item.images.0.url}}" class="card-container" style="margin-bottom:8px;">
-              <div class="card-content">
-                    <h3>{{item.artists.0.name}}</h3>
-                    <div>{{item.name}}</div>
-              </div>
-              <div class="card-actions">
-                  <paper-icon-button icon="favorite"></paper-icon-button>
-                  <a href="{{item.external_urls.spotify}}" target="_blank" class="external">
-                      <paper-icon-button icon="link"></paper-icon-button>
-                  </a>
-              </div>
-            </paper-card>
-
+            <album-card album={{item}}></album-card>
         </template>
       </div>
 

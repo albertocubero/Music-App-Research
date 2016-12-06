@@ -1,13 +1,9 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-<!-- <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
-<link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
-<link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
-<link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html"> -->
+<!-- <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html"> -->
 
-<!-- <link rel="import" href="shared-styles.html"> -->
+<link rel="import" href="shared-styles.html">
 
 <dom-module id="album-card">
   <template>
@@ -28,6 +24,10 @@
         .card-container {
           width: 100%;
         }
+      }
+      paper-icon-button.pink {
+        color: var(--paper-pink-500);
+        --paper-icon-button-ink-color: var(--paper-indigo-500);
       }
       .external {
           color: inherit;
@@ -53,15 +53,21 @@
         last-response="{{albums}}"
         debounce-duration="300">
     </iron-ajax> -->
-    
-    <paper-card image="{{item.images.0.url}}" class="card-container" style="margin-bottom:8px;">
+
+    <paper-card image="{{album.images.0.url}}" class="card-container" style="margin-bottom:8px;">
       <div class="card-content">
-            <h3>{{item.artists.0.name}}</h3>
-            <div>{{item.name}}</div>
+            <h3>{{album.artists.0.name}}</h3>
+            <div>{{album.name}}</div>
       </div>
       <div class="card-actions">
-          <paper-icon-button icon="favorite"></paper-icon-button>
-          <a href="{{item.external_urls.spotify}}" target="_blank" class="external">
+          <template is="dom-if" if="{{_isTruthy(isFavorite)}}">
+              <paper-icon-button icon="favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="pink"></paper-icon-button>
+          </template>
+          <template is="dom-if" if="{{_isFalsy(isFavorite)}}">
+              <paper-icon-button icon="favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class=""></paper-icon-button>
+          </template>
+
+          <a href="{{album.external_urls.spotify}}" target="_blank" class="external">
               <paper-icon-button icon="link"></paper-icon-button>
           </a>
       </div>
@@ -71,7 +77,35 @@
 
   <script>
     Polymer({
-      is: 'album-card'
+      is: 'album-card',
+      properties: {
+          isFavorite: {
+              type: Boolean,
+              value: false
+          }
+      },
+
+      _isTruthy: function (isFavorite) {
+          return isFavorite === true;
+      },
+
+      _isFalsy: function (isFavorite) {
+          return isFavorite === false;
+      },
+
+      updateFavorite: function () {
+          this.set('isFavorite', !this.isFavorite);
+      },
+
+      onClickFavorite: function () {
+          this.updateFavorite();
+      }
+    //   ,
+
+    //   _getFavoriteClass (isFavorite) {
+    //       //console.log('_getFavoriteClass: ', ((this.isFavorite) ? 'pink' : ''));
+    //       return (this.isFavorite) ? 'pink' : '';
+    //   }
     });
   </script>
 </dom-module>
