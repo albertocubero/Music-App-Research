@@ -13,67 +13,47 @@
 <dom-module id="album-list">
   <template>
     <style include="shared-styles">
-      app-header {
-        color: #fff;
-        background-color: #00AA8D;
-      }
-      app-toolbar {
-        height: 120px;
-      }
-      .title-text {
-        width: 100%;
-        text-align: left;
-        font-size: 60px;
-        font-weight: 800;
-        text-align: center;
-      }
-      .content {
-        display: block;
-        position: relative;
-        max-width: 1000px;
-        padding: 0 10px;
-        margin: 5px auto;
-      }
-      @media (max-width: 960px) {
-        .title-text {
-            font-size: 48px;
+        app-header {
+          color: #fff;
+          background-color: #00AA8D;
         }
-        .content {
-          max-width: 800px;
-        }
-      }
-      @media (max-width: 719px) {
         app-toolbar {
-          height: 60px;
+          height: 120px;
         }
         .title-text {
-            font-size: 36px;
+          width: 100%;
+          text-align: left;
+          font-size: 60px;
+          font-weight: 800;
+          text-align: center;
         }
         .content {
-          max-width: 400px;
+          display: block;
+          position: relative;
+          max-width: 1000px;
+          padding: 0 10px;
+          margin: 5px auto;
         }
-      }
+        @media (max-width: 960px) {
+          .title-text {
+              font-size: 48px;
+          }
+          .content {
+              max-width: 800px;
+          }
+        }
+        @media (max-width: 719px) {
+          app-toolbar {
+              height: 60px;
+          }
+          .title-text {
+              font-size: 36px;
+          }
+          .content {
+              max-width: 400px;
+          }
+        }
     </style>
-
-    <!-- TOKEN UPDATE NEEDED -->
-    <!-- <iron-ajax
-        auto
-        url="https://accounts.spotify.com/api/token"
-        method="POST"
-        headers='{"Accept": "application/json", "Content-Type": "application/x-www-form-urlencoded", "Authorization": "Basic MDI1MjAwY2U0OWI1NDdhOTkzYWYzNjQ4NmY1ZDYyNWY6MzE4NDc3YjdkOWUyNGI5M2ExYjE3NDA4YmI0MzAwM2E="}'
-        params='{"grant_type":"client_credentials"}'
-        handle-as="json"
-        verbose="true"
-        last-response="{{credentials}}"
-    </iron-ajax>
-
-    <iron-ajax
-        url="https://api.spotify.com/v1/browse/new-releases"
-        headers='{"Accept": "application/json", "Authorization": "{{credentials.token_type}} {{credentials.access_token}}"}'
-        handle-as="json"
-        last-response="{{albums}}"
-        debounce-duration="300">
-    </iron-ajax> -->
 
     <iron-ajax
         auto
@@ -116,24 +96,25 @@
 
   <script>
     Polymer({
-      is: 'album-list',
+        is: 'album-list',
 
-      ready: function () {
-        //   var favoriteList = Polymer.dom(this.root).querySelector("favorite-list");
-          this.addEventListener('card:favorite:updated', function() {
-              this.fire('albumList:updated');
-          }.bind(this));
-      },
-      refresh: function (data) {
-        var albumCardsNodes = Polymer.dom(this.root).querySelectorAll("album-card");
-        var albumCardsNode = albumCardsNodes.filter(function (card) {
-            return card['albumId'] === data.detail.id;
-        })[0];
+        ready: function() {
+            this.addEventListener('card:favorite:updated', function() {
+                this.fire('albumList:updated');
+            }.bind(this));
+        },
 
-        if(albumCardsNode) {
-            albumCardsNode.updateFavorite();
+        refresh: function(data) {
+            var albumCardsNodes = Polymer.dom(this.root).querySelectorAll("album-card");
+            var albumCardsNode = albumCardsNodes.filter(function(card) {
+                return card['albumId'] === data.detail.id;
+            })[0];
+
+            if (albumCardsNode) {
+                albumCardsNode.updateFavorite();
+            }
         }
-      }
+
     });
   </script>
 </dom-module>

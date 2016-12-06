@@ -2,7 +2,6 @@
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-toast/paper-toast.html">
-<!-- <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html"> -->
 
 <link rel="import" href="album-storage-manager.html">
 <link rel="import" href="shared-styles.html">
@@ -10,64 +9,44 @@
 <dom-module id="album-card">
   <template>
     <style include="shared-styles">
-      .card-container {
-        display: inline-block;
-        padding: 0.4%;
-        width: 32.8%;
-        color: black;
-        text-decoration: none;
-        margin-bottom: 8px;
-      }
-      @media (max-width: 960px) {
         .card-container {
-          width: 49%;
+          display: inline-block;
+          padding: 0.4%;
+          width: 32.8%;
+          color: black;
+          text-decoration: none;
+          margin-bottom: 8px;
         }
-      }
-      @media (max-width: 719px) {
-        .card-container {
-          width: 100%;
+        @media (max-width: 960px) {
+          .card-container {
+              width: 49%;
+          }
         }
-      }
-      .album-artist {
+        @media (max-width: 719px) {
+          .card-container {
+              width: 100%;
+          }
+        }
+        .album-artist {
           font-weight: bold;
-      }
-      .album-title {
-          overflow:hidden;
-          white-space:nowrap;
+        }
+        .album-title {
+          overflow: hidden;
+          white-space: nowrap;
           text-overflow: ellipsis;
-      }
-      paper-icon-button.pink {
-        color: var(--paper-pink-500);
-        --paper-icon-button-ink-color: var(--paper-indigo-500);
-      }
-      .external {
+        }
+        paper-icon-button.pink {
+          color: var(--paper-pink-500);
+          --paper-icon-button-ink-color: var(--paper-indigo-500);
+        }
+        .external {
           color: inherit;
-      }
-      paper-toast {
+        }
+        paper-toast {
           left: inherit !important;
           right: 0 !important;
-      }
+        }
     </style>
-
-    <!-- TOKEN UPDATE NEEDED -->
-    <!-- <iron-ajax
-        auto
-        url="https://accounts.spotify.com/api/token"
-        method="POST"
-        headers='{"Accept": "application/json", "Content-Type": "application/x-www-form-urlencoded", "Authorization": "Basic MDI1MjAwY2U0OWI1NDdhOTkzYWYzNjQ4NmY1ZDYyNWY6MzE4NDc3YjdkOWUyNGI5M2ExYjE3NDA4YmI0MzAwM2E="}'
-        params='{"grant_type":"client_credentials"}'
-        handle-as="json"
-        verbose="true"
-        last-response="{{credentials}}"
-    </iron-ajax>
-
-    <iron-ajax
-        url="https://api.spotify.com/v1/browse/new-releases"
-        headers='{"Accept": "application/json", "Authorization": "{{credentials.token_type}} {{credentials.access_token}}"}'
-        handle-as="json"
-        last-response="{{albums}}"
-        debounce-duration="300">
-    </iron-ajax> -->
 
     <paper-toast id="toast"></paper-toast>
 
@@ -95,66 +74,69 @@
 
   <script>
     Polymer({
-      is: 'album-card',
-      properties: {
-          album: {
-              type: Object,
-              value: {},
-              observer: '_albumChanged'
-          },
-          isFavorite: {
-              type: Boolean,
-              value: false
-          }
-      },
+    is: 'album-card',
+    
+    properties: {
+        album: {
+            type: Object,
+            value: {},
+            observer: '_albumChanged'
+        },
+        isFavorite: {
+            type: Boolean,
+            value: false
+        }
+    },
 
-      ready: function () {
-          this.set('isFavorite', window.App.localStorage.album.exist(this.album.id));
-      },
+    ready: function() {
+        this.set('isFavorite', window.App.localStorage.album.exist(this.album.id));
+    },
 
-      _isTruthy: function (isFavorite) {
-          return isFavorite === true;
-      },
+    _isTruthy: function(isFavorite) {
+        return isFavorite === true;
+    },
 
-      _isFalsy: function (isFavorite) {
-          return isFavorite === false;
-      },
+    _isFalsy: function(isFavorite) {
+        return isFavorite === false;
+    },
 
-      onClickFavorite: function () {
-          this._updateFavorite();
-          this._manageLocalStorage();
-          this._notifyFavoriteUpdated();
-      },
+    onClickFavorite: function() {
+        this._updateFavorite();
+        this._manageLocalStorage();
+        this._notifyFavoriteUpdated();
+    },
 
-      _updateFavorite: function () {
-          this.set('isFavorite', !this.isFavorite);
-      },
+    _updateFavorite: function() {
+        this.set('isFavorite', !this.isFavorite);
+    },
 
-      _manageLocalStorage: function () {
-          (this.isFavorite) ? this._saveAlbum() : this._removeAlbum();
-      },
+    _manageLocalStorage: function() {
+        (this.isFavorite) ? this._saveAlbum(): this._removeAlbum();
+    },
 
-      _saveAlbum: function () {
-          window.App.localStorage.album.save(this.album.id, this.album);
-      },
+    _saveAlbum: function() {
+        window.App.localStorage.album.save(this.album.id, this.album);
+    },
 
-      _removeAlbum: function () {
-          window.App.localStorage.album.remove(this.album.id);
-      },
+    _removeAlbum: function() {
+        window.App.localStorage.album.remove(this.album.id);
+    },
 
-      _notifyFavoriteUpdated: function () {
-          this.fire('card:favorite:updated', {id: this.album.id});
-          var text = (this.isFavorite) ? 'Favorite Saved !' : 'Favorite Removed !';
-          this.$.toast.show(text);
-      },
+    _notifyFavoriteUpdated: function() {
+        this.fire('card:favorite:updated', {
+            id: this.album.id
+        });
+        var text = (this.isFavorite) ? 'Favorite Saved !' : 'Favorite Removed !';
+        this.$.toast.show(text);
+    },
 
-      _albumChanged: function () {
-          this.updateFavorite();
-      },
+    _albumChanged: function() {
+        this.updateFavorite();
+    },
 
-      updateFavorite: function () {
-          this.set('isFavorite', window.App.localStorage.album.exist(this.album.id));
-      }
-    });
+    updateFavorite: function() {
+        this.set('isFavorite', window.App.localStorage.album.exist(this.album.id));
+    }
+});
   </script>
 </dom-module>
