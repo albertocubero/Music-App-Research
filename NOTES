@@ -8,10 +8,9 @@ Installation Steps:
 
 
 
-Al quitar y poner favoritos, mostrar un mensaje toast
-    https://elements.polymer-project.org/elements/paper-toast?view=demo:demo/index.html&active=paper-toast
-Si estamos en favoritos, y quitamos un favorito, que se actualize el card que sea
-Quitar '_subRoute'
+(OK) - Al quitar y poner favoritos, mostrar un mensaje toast (https://elements.polymer-project.org/elements/paper-toast?view=demo:demo/index.html&active=paper-toast)
+(OK) - Si estamos en favoritos, y quitamos un favorito, que se actualize el card que sea
+(OK) - Quitar '_subRoute'
 si no hay albums o favoritos, mostrar vista por defecto.
 Refactor Styles (favorite y album list)
 Common Toolbar (favorite y album list)
