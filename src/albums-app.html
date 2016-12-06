@@ -139,8 +139,8 @@
           this.addEventListener('albumList:updated', function(e) {
               this.$.favorites.refresh();
           }.bind(this));
-          this.addEventListener('favorites:updated', function(e) {
-              this.$.albumsList.refresh();
+          this.addEventListener('favorites:updated', function(data) {
+              this.$.albumsList.refresh(data.detail);
           }.bind(this));
       },
 

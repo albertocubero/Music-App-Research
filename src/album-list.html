@@ -106,7 +106,7 @@
 
       <div class="content">
         <template is="dom-repeat" items="{{persistedAlbums.albums.items}}" id="albumsList">
-            <album-card album={{item}}></album-card>
+            <album-card album=[[item]] album-id="[[item.id]]"></album-card>
         </template>
       </div>
 
@@ -120,24 +120,19 @@
 
       ready: function () {
         //   var favoriteList = Polymer.dom(this.root).querySelector("favorite-list");
-          this.addEventListener('card:favorite:updated', function(e) {
+          this.addEventListener('card:favorite:updated', function() {
               this.fire('albumList:updated');
           }.bind(this));
       },
-      refresh: function () {
-          this.persistedAlbums = {
-              albums: {
-                  items: []
-              }
-          };
-          this.$.albumsList.render();
+      refresh: function (data) {
+        var albumCardsNodes = Polymer.dom(this.root).querySelectorAll("album-card");
+        var albumCardsNode = albumCardsNodes.filter(function (card) {
+            return card['albumId'] === data.detail.id;
+        })[0];
 
-          this.persistedAlbums = {
-              albums: {
-                  items: this.albums.albums.items
-              }
-          };
-          this.$.albumsList.render();
+        if(albumCardsNode) {
+            albumCardsNode.updateFavorite();
+        }
       }
     });
   </script>

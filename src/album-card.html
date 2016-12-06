@@ -143,12 +143,16 @@
       },
 
       _notifyFavoriteUpdated: function () {
-          this.fire('card:favorite:updated');
+          this.fire('card:favorite:updated', {id: this.album.id});
           var text = (this.isFavorite) ? 'Favorite Saved !' : 'Favorite Removed !';
           this.$.toast.show(text);
       },
 
       _albumChanged: function () {
+          this.updateFavorite();
+      },
+
+      updateFavorite: function () {
           this.set('isFavorite', window.App.localStorage.album.exist(this.album.id));
       }
     });

@@ -69,7 +69,7 @@
 
       <div class="content">
         <template is="dom-repeat" items="[[albums]]">
-            <album-card album=[[item]]></album-card>
+            <album-card album=[[item]] album-id=[[item.id]]></album-card>
         </template>
       </div>
 
@@ -87,8 +87,8 @@
           }
       },
       ready: function () {
-          this.addEventListener('card:favorite:updated', function(e) {
-              this.fire('favorites:updated');
+          this.addEventListener('card:favorite:updated', function(data) {
+              this.fire('favorites:updated', data);
           }.bind(this));
 
           this._getFavoriteAlbums();
