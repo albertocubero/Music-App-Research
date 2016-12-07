@@ -2,6 +2,7 @@
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="../bower_components/iron-image/iron-image.html">
 
 <link rel="import" href="album-storage-manager.html">
 <link rel="import" href="shared-styles.html">
@@ -9,7 +10,7 @@
 <dom-module id="album-card">
   <template>
     <style>
-        .card-container {
+        paper-card {
           display: inline-block;
           padding: 0.4%;
           width: 32.8%;
@@ -17,13 +18,16 @@
           text-decoration: none;
           margin-bottom: 8px;
         }
+        paper-card /deep/ .header iron-image /deep/ img {
+            height: 300px !important;
+        }
         @media (max-width: 960px) {
-          .card-container {
+          paper-card {
               width: 49%;
           }
         }
         @media (max-width: 719px) {
-          .card-container {
+          paper-card {
               width: 100%;
           }
         }
@@ -50,7 +54,7 @@
 
     <paper-toast id="toast"></paper-toast>
 
-    <paper-card image="{{album.images.0.url}}" class="card-container">
+    <paper-card image="{{album.images.0.url}}">
       <div class="card-content">
             <div class="album-artist">{{album.artists.0.name}}</div>
             <p class="album-title">{{album.name}}</p>
