@@ -14,7 +14,7 @@ Installation Steps:
 (OK) - Refactor Styles (favorite y album list)
 (OK) - Ajustar el tamano de las cover de los albumes, a todos iguales
 (OK) - Si no hay albums o favoritos, mostrar vista por defecto.
-- Search Album
+(OK) - Search Album
 - Refactor Search service to a new element
 - Common View (favorite y album list)
 - Color comun para el avatar, el header y la barra de busqueda.

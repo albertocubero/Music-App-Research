@@ -29,7 +29,9 @@
             <album-card album=[[item]] album-id=[[item.id]]></album-card>
         </template>
         <template is="dom-if" if="{{_isEmpty(albums)}}">
-            <div class="empty">There is no favorites stored :-( </div>
+            <div class="content-message">
+              <h3 class="title">There is no favorites stored</h3>
+            </div>
         </template>
       </div>
 
