@@ -68,7 +68,41 @@
         properties: {
             query: {
                 type: String,
-                value: 'u2',
+                value: function () {
+
+                    var list = [
+                        'Michael Jackson',
+                        'Prince',
+                        'U2',
+                        'Bruce Springsteen',
+                        'Guns N’ Roses',
+                        'George Michael',
+                        'Metallica',
+                        'Dire Straits',
+                        'Heroes del Silencio',
+                        'AC/DC',
+                        'Iron Maiden',
+                        'Bon Jovi',
+                        'R.E.M.',
+                        'The Cure',
+                        'Kool and the Gang',
+                        'Queen',
+                        'Bryan Adams',
+                        'INXS',
+                        'Aerosmith',
+                        'Stevie Wonder',
+                        'Pet Shop Boys',
+                        'Depeche Mode',
+                        'Pink Floyd',
+                        'Whitesnake',
+                        'Sade',
+                        'Scorpions'
+                    ];
+
+                    var position = Math.floor(Math.random() * list.length);
+
+                    return list[position];
+                },
                 observer: '_queryChanged'
             },
             onRequest: {
