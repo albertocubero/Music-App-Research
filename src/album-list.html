@@ -7,6 +7,7 @@
 <link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
 
+<link rel="import" href="search-bar.html">
 <link rel="import" href="album-card.html">
 <link rel="import" href="shared-styles.html">
 
@@ -36,12 +37,16 @@
         <app-toolbar class="top-toolbar">
           <content select="[drawer-toggle]"></content>
           <div class="title">Albums Novelty</div>
+          <div main-title></div>
           <div condensed-title></div>
         </app-toolbar>
-        <app-toolbar class="bottom-toolbar">
-          <div main-title></div>
-        </app-toolbar>
       </app-header>
+
+      <search-bar
+			class="search"
+			query="u2"
+            placeholder="Enter the title of album to perform a search">
+	 </search-bar>
 
       <div class="content">
         <template is="dom-repeat" items="{{persistedAlbums.albums.items}}" id="albumsList">
@@ -79,6 +84,7 @@
             }
         },
 
+        // Private methods
         _addEventHandlers: function () {
             this.addEventListener('card:favorite:updated', function () {
                 this.fire('albumList:updated');

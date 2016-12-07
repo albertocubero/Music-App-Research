@@ -120,6 +120,7 @@
         this._updateFavoriteStatusFromLS();
     },
 
+    // Private methods
     _updateFavoriteStatusFromLS: function () {
         this.set('isFavorite', window.App.localStorage.album.exist(this.album.id));
     },

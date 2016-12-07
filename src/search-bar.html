@@ -1,0 +1,121 @@
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
+<link rel="import" href="../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-icons/image-icons.html">
+<link rel="import" href="../bower_components/iron-input/iron-input.html">
+<link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+
+<!--
+Bar in which the user can enter search terms
+-->
+<dom-module id="search-bar">
+
+	<template>
+		<style>
+			:host {
+				background: var(--background-color, white);
+				display: block;
+				padding: 0 16px;
+				@apply(--layout-horizontal);
+				@apply(--layout-center);
+			}
+
+			.input-panel {
+				@apply(--layout-horizontal);
+				@apply(--layout-center);
+                flex-grow: 2;
+			}
+
+			.icon {
+				color: var(--disabled-text-color);
+				@apply(--icon-styles);
+			}
+
+			#input {
+				margin: 0 10px;
+				border: 0;
+				outline: 0;
+				padding: 16px 0;
+				cursor: text;
+				background: transparent;
+				color: inherit;
+				@apply(--input-styles);
+                flex-grow: 2;
+			}
+
+			#input[disabled] {
+				@apply(--disabled-input-styles);
+			}
+		</style>
+
+		<div class="input-panel flex">
+			<iron-icon icon="search" class="icon"></iron-icon>
+			<input is="iron-input" id="input" bind-value="{{query}}" placeholder="[[placeholder]]" class="flex"></input>
+		</div>
+		<paper-icon-button icon="clear" hidden$="[[!query]]" on-tap="_clear" class="icon"></paper-icon-button>
+	</template>
+
+</dom-module>
+
+<script>
+
+(function() {
+
+	Polymer({
+		is: 'search-bar',
+
+		 /**
+		 * Fired when the user requests to search for a query
+		 *
+		 * @event paper-search-search
+		 */
+		 /**
+		 * Fired when the user taps the clear icon
+		 *
+		 * @event paper-search-clear
+		 */
+
+		properties: {
+			/**
+			 * Text for which the user is searching
+			 */
+			query: {
+				type: String,
+				notify: true,
+				value: ''
+			},
+			/**
+			 * Text shown in the search box if the user didn't enter any query
+			 */
+			placeholder: {
+				type: String,
+				value: 'Search'
+			},
+		},
+
+		behaviors: [
+			Polymer.IronA11yKeysBehavior
+		],
+
+		keyBindings: {
+			'enter': '_search'
+		},
+
+		// Private methods
+		_clear: function() {
+			this.query = "";
+			this.$.input.focus();
+			this.fire('search-bar-clear');
+		},
+		_search: function() {
+            debugger;
+			this.fire('search-bar-search');
+		}
+	});
+
+})();
+
+</script>
