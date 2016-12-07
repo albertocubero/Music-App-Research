@@ -18,7 +18,7 @@
       <app-header effects="resize-title" condenses fixed shadow>
         <app-toolbar class="top-toolbar">
           <content select="[drawer-toggle]"></content>
-          <div class="title-text">Albums Favorites</div>
+          <div class="title-text">Favorites</div>
           <div condensed-title></div>
         </app-toolbar>
         <app-toolbar class="bottom-toolbar">
@@ -29,6 +29,9 @@
       <div class="content">
         <template is="dom-repeat" items="[[albums]]">
             <album-card album=[[item]] album-id=[[item.id]]></album-card>
+        </template>
+        <template is="dom-if" if="{{_isEmpty(albums)}}">
+            <div class="empty">There is no favorites stored :-( </div>
         </template>
       </div>
 
@@ -73,6 +76,10 @@
 
         _removeEventHandlers: function () {
             this.removeEventListener('card:favorite:updated');
+        },
+
+        _isEmpty: function () {
+            return (this.albums.length === 0);
         }
     });
   </script>

@@ -6,8 +6,6 @@ Installation Steps:
 
 -----
 
-
-
 (OK) - Al quitar y poner favoritos, mostrar un mensaje toast (https://elements.polymer-project.org/elements/paper-toast?view=demo:demo/index.html&active=paper-toast)
 (OK) - Si estamos en favoritos, y quitamos un favorito, que se actualize el card que sea
 (OK) - Quitar '_subRoute'
@@ -15,8 +13,8 @@ Installation Steps:
 (OK) - Cuando quito un favorito en la lista de favoritos, que se elimine
 (OK) - Refactor Styles (favorite y album list)
 (OK) - Ajustar el tamano de las cover de los albumes, a todos iguales
+- Common View (favorite y album list)
 - Color comun para el avatar, el header y la barra de busqueda.
-- Common Toolbar (favorite y album list)
 si no hay albums o favoritos, mostrar vista por defecto.
 Escuchar el album
 Search Album

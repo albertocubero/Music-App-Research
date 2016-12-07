@@ -47,6 +47,9 @@
         <template is="dom-repeat" items="{{persistedAlbums.albums.items}}" id="albumsList">
             <album-card album=[[item]] album-id="[[item.id]]"></album-card>
         </template>
+        <template is="dom-if" if="{{_isEmpty(persistedAlbums.albums.items)}}">
+            <div class="empty">No results found</div>
+        </template>
       </div>
 
     </app-header-layout>
@@ -84,8 +87,11 @@
 
         _removeEventHandlers: function () {
             this.removeEventListener('card:favorite:updated');
-        }
+        },
 
+        _isEmpty: function () {
+            return (this.persistedAlbums.albums.items.length === 0);
+        }
     });
   </script>
 </dom-module>
