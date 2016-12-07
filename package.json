@@ -4,6 +4,8 @@
   "description": "Albums Novelty App",
   "main": "index.js",
   "scripts": {
+    "dev": "polymer serve",
+    "build": "polymer build --entrypoint index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

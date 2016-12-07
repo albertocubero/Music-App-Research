@@ -6,21 +6,9 @@ Installation Steps:
 
 -----
 
-(OK) - Al quitar y poner favoritos, mostrar un mensaje toast (https://elements.polymer-project.org/elements/paper-toast?view=demo:demo/index.html&active=paper-toast)
-(OK) - Si estamos en favoritos, y quitamos un favorito, que se actualize el card que sea
-(OK) - Quitar '_subRoute'
-(OK) - Cada addEventListener poner un eventremovelistener en el detach
-(OK) - Cuando quito un favorito en la lista de favoritos, que se elimine
-(OK) - Refactor Styles (favorite y album list)
-(OK) - Ajustar el tamano de las cover de los albumes, a todos iguales
-(OK) - Si no hay albums o favoritos, mostrar vista por defecto.
-(OK) - Search Album
-(OK)- Refactor Search service to a new element
 (DEPRECATED)- Common View (favorite y album list)
 (DEPRECATED)- Color comun para el avatar, el header y la barra de busqueda.
-(OK)- Quitar el theme
-(OK) - Pagina 404
-(OK) - random artist to init search
+(DEPRECATED) - Antes de quitar un favorito, que salga un dialog preguntando
+(OK) - NPM scripts
+(OK) - Build produccion
 - Escuchar el album
-- Antes de quitar un favorito, que salga un dialog preguntando
-- Build produccion

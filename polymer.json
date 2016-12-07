@@ -3,7 +3,7 @@
   "shell": "src/albums-app.html",
   "fragments": [
     "src/album-list.html",
-    "src/my-view2.html"
+    "src/favorite-list.html"
   ],
   "sourceGlobs": [
    "src/**/*",
