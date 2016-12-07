@@ -15,11 +15,11 @@ Installation Steps:
 (OK) - Ajustar el tamano de las cover de los albumes, a todos iguales
 (OK) - Si no hay albums o favoritos, mostrar vista por defecto.
 (OK) - Search Album
-- Refactor Search service to a new element
-- Common View (favorite y album list)
-- Color comun para el avatar, el header y la barra de busqueda.
-- Escuchar el album
-- Pagina 404
+(OK)- Refactor Search service to a new element
+(DEPRECATED)- Common View (favorite y album list)
+(DEPRECATED)- Color comun para el avatar, el header y la barra de busqueda.
 - Quitar el theme
+- Pagina 404
+- Escuchar el album
 - Antes de quitar un favorito, que salga un dialog preguntando
 - Build produccion
