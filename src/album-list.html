@@ -35,7 +35,7 @@
       <app-header effects="resize-title" condenses fixed shadow>
         <app-toolbar class="top-toolbar">
           <content select="[drawer-toggle]"></content>
-          <div class="title-text">Albums Novelty</div>
+          <div class="title">Albums Novelty</div>
           <div condensed-title></div>
         </app-toolbar>
         <app-toolbar class="bottom-toolbar">
@@ -48,7 +48,7 @@
             <album-card album=[[item]] album-id="[[item.id]]"></album-card>
         </template>
         <template is="dom-if" if="{{_isEmpty(persistedAlbums.albums.items)}}">
-            <div class="empty">No results found</div>
+            <div class="empty">No matching results found.</div>
         </template>
       </div>
 
