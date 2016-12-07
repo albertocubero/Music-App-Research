@@ -18,8 +18,9 @@ Installation Steps:
 (OK)- Refactor Search service to a new element
 (DEPRECATED)- Common View (favorite y album list)
 (DEPRECATED)- Color comun para el avatar, el header y la barra de busqueda.
-- Quitar el theme
-- Pagina 404
+(OK)- Quitar el theme
+(OK) - Pagina 404
+- ramdom artist to init search
 - Escuchar el album
 - Antes de quitar un favorito, que salga un dialog preguntando
 - Build produccion

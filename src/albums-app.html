@@ -16,6 +16,7 @@
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="../bower_components/app-layout/app-scrollpos-control/app-scrollpos-control.html">
 
+<link rel="import" href="view-404.html">
 <link rel="import" href="album-list.html">
 <link rel="import" href="favorite-list.html">
 <link rel="import" href="icons.html">
@@ -97,7 +98,7 @@
           selected="[[_pageData.page]]"
           reset="[[_isDetailPage(_pageData.page)]]"></app-scrollpos-control>
 
-      <iron-pages selected="[[_pageData.page]]" attr-for-selected="name">
+      <iron-pages selected="[[_pageData.page]]" attr-for-selected="name" fallback-selection="404">
 
           <album-list name="home" id="albumsList">
               <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
@@ -106,6 +107,10 @@
           <favorite-list name="favorites" id="favorites">
               <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
           </favorite-list>
+
+          <view-404 name="404">
+              <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
+          </view-404>
 
       </iron-pages>
 
