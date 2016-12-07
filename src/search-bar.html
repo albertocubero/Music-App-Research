@@ -18,7 +18,7 @@ Bar in which the user can enter search terms
 			:host {
 				background: var(--background-color, white);
 				display: block;
-				padding: 0 16px;
+				padding: 0 24px;
 				@apply(--layout-horizontal);
 				@apply(--layout-center);
 			}
@@ -35,15 +35,16 @@ Bar in which the user can enter search terms
 			}
 
 			#input {
-				margin: 0 10px;
+				margin: 0 12px;
 				border: 0;
 				outline: 0;
-				padding: 16px 0;
+				padding: 24px 0;
 				cursor: text;
 				background: transparent;
 				color: inherit;
 				@apply(--input-styles);
                 flex-grow: 2;
+                font-size: 24px;
 			}
 
 			#input[disabled] {
@@ -111,8 +112,7 @@ Bar in which the user can enter search terms
 			this.fire('search-bar-clear');
 		},
 		_search: function() {
-            debugger;
-			this.fire('search-bar-search');
+			this.fire('search-bar-search', {query: this.$.input.value});
 		}
 	});
 
