@@ -12,40 +12,54 @@
     <style>
         paper-card {
           display: inline-block;
-          padding: 0.4%;
-          width: 32.8%;
+          width: 31%;
           color: black;
           text-decoration: none;
-          margin-bottom: 8px;
+          margin: 1%;
         }
+
         paper-card /deep/ .header iron-image /deep/ img {
-            height: 300px !important;
+            height: 283px !important;
         }
+
         @media (max-width: 960px) {
           paper-card {
-              width: 49%;
+              width: 47.7%;
+          }
+          paper-card /deep/ .header iron-image /deep/ img {
+              height: 362px !important;
           }
         }
+
         @media (max-width: 719px) {
           paper-card {
               width: 100%;
+              margin: 3% 1%;
+          }
+          paper-card /deep/ .header iron-image /deep/ img {
+              height: inherit !important;
           }
         }
+
         .album-artist {
           font-weight: bold;
         }
+
         .album-title {
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
         }
+
         paper-icon-button.pink {
           color: var(--paper-pink-500);
           --paper-icon-button-ink-color: var(--paper-indigo-500);
         }
+
         .external {
           color: inherit;
         }
+
         paper-toast {
           left: inherit !important;
           right: 0 !important;
@@ -54,7 +68,7 @@
 
     <paper-toast id="toast"></paper-toast>
 
-    <paper-card image="{{album.images.0.url}}">
+    <paper-card image="{{album.images.0.url}}" elevation="5">
       <div class="card-content">
             <div class="album-artist">{{album.artists.0.name}}</div>
             <p class="album-title">{{album.name}}</p>

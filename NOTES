@@ -14,7 +14,8 @@ Installation Steps:
 (OK) - Cada addEventListener poner un eventremovelistener en el detach
 (OK) - Cuando quito un favorito en la lista de favoritos, que se elimine
 (OK) - Refactor Styles (favorite y album list)
-- Ajustar el tamano de las cover de los albumes, a todos iguales
+(OK) - Ajustar el tamano de las cover de los albumes, a todos iguales
+- Color comun para el avatar, el header y la barra de busqueda.
 - Common Toolbar (favorite y album list)
 si no hay albums o favoritos, mostrar vista por defecto.
 Escuchar el album
