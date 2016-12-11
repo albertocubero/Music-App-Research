@@ -73,9 +73,8 @@
         border-bottom: 1px solid #ddd;
         font-size: 12px;
     }
-    paper-card p {
-      margin: 12px 0;
-      color: #999;
+    paper-card .extra {
+        color: #999;
     }
     h4 {
       margin: 60px 0 12px;
@@ -156,7 +155,7 @@
 
             <div class="info">
                 <p class="artist">{{album.artists.0.name}}</p>
-                <p>
+                <p class="extra">
                     <span class="date">{{album.release_date}}</span>
                     &#8226;
                     <span class="total-tracks">{{album.tracks.total}} songs</span>
