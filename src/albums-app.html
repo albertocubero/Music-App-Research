@@ -18,6 +18,8 @@
 
 <link rel="import" href="view-404.html">
 <link rel="import" href="album-list.html">
+<link rel="import" href="album-list.html">
+<link rel="import" href="album-detail.html">
 <link rel="import" href="favorite-list.html">
 <link rel="import" href="icons.html">
 
@@ -67,6 +69,11 @@
         route="{{_route}}"
         pattern="/:page"
         data="{{_pageData}}"></app-route>
+    <app-route
+        route="{{_subRoute}}"
+        pattern="/:id"
+        data="{{_idData}}"></app-route>
+
 
     <app-drawer-layout responsive-width="1280px">
 
@@ -108,6 +115,11 @@
               <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
           </favorite-list>
 
+          <album-detail
+            id="detailView"
+            name="detail"
+            album="[[_idData.id]]"></album-detail>
+
           <view-404 name="404">
               <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
           </view-404>
@@ -124,7 +136,9 @@
 
         properties: {
             _route: Object,
-            _pageData: Object
+            _subRoute: Object,
+            _pageData: Object,
+            _idData: Object
         },
 
         attached: function () {

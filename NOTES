@@ -6,9 +6,15 @@ Installation Steps:
 
 -----
 
-(DEPRECATED)- Common View (favorite y album list)
-(DEPRECATED)- Color comun para el avatar, el header y la barra de busqueda.
-(DEPRECATED) - Antes de quitar un favorito, que salga un dialog preguntando
-(OK) - NPM scripts
-(OK) - Build produccion
+- Pagina de detalle
+    (OK) - Mostrar toda la info
+    - Navegar desde lista de albums/lista de favoritos
+    - Actualizar Favorito
+    https://www.cooper.com/journal/2016/11/stretching-google-material-to-make-better-desktop-navigation
+- Refactor services
 - Escuchar el album
+    - Si estoy en favoritos, voy a un detail, reproduzco musica, y le quito favorite, parar la reproduccion.
+- Mostrar resultados por tipo
+- Modificar README.md (Guidelines: https://github.com/xDae/readme-boilerplate)
+- Colgar la pagina en Github Pages para que este life
+- Cambiar el color a naranja (Como google Play music)
