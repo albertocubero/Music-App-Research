@@ -157,7 +157,7 @@
                 <p class="extra">
                     <span class="date">{{_getYear(album.release_date)}}</span>
                     &#8226;
-                    <span class="total-tracks">{{album.tracks.total}} songs</span>
+                    <span class="total-tracks">{{album.tracks.total}} {{_getTotalTracksText(album.tracks.total)}}</span>
                     &#8226;
                     <span class="duration">{{_getAlbumDuration(album.tracks.items)}}</span>
                 </p>
@@ -250,6 +250,11 @@
 
     _getYear: function (date) {
         return (date) ? date.split('-')[0] : '';
+    },
+
+    _getTotalTracksText: function (tracks) {
+        if(!tracks) return '';
+        return (tracks <= 1) ? 'song' : 'songs';
     }
   });
   </script>

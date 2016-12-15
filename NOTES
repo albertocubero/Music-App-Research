@@ -8,8 +8,8 @@ Installation Steps:
 
 - Pagina de detalle
     (OK) - Mostrar toda la info
-    - Mostrar 'song' o 'songs' dependiendo del numero de canciones
-    - Navegar desde lista de albums/lista de favoritos
+    (OK) - Navegar desde lista de albums/lista de favoritos
+    (OK) - Mostrar 'song' o 'songs' dependiendo del numero de canciones
     - Actualizar Favorito
     https://www.cooper.com/journal/2016/11/stretching-google-material-to-make-better-desktop-navigation
 - Refactor services
