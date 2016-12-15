@@ -110,10 +110,9 @@
     }
     </style>
 
+    <!-- query="0sNOF9WDwhWunNAHPD3Baj" -->
     <iron-detail-ajax
-        auto
         id="detailAjax"
-        query="0sNOF9WDwhWunNAHPD3Baj"
         response="{{album}}">
     </iron-detail-ajax>
 
@@ -156,7 +155,7 @@
             <div class="info">
                 <p class="artist">{{album.artists.0.name}}</p>
                 <p class="extra">
-                    <span class="date">{{album.release_date}}</span>
+                    <span class="date">{{_getYear(album.release_date)}}</span>
                     &#8226;
                     <span class="total-tracks">{{album.tracks.total}} songs</span>
                     &#8226;
@@ -188,7 +187,12 @@
   <script>
   Polymer({
     is: 'album-detail',
+
     properties: {
+      albumId: {
+        type: Object,
+        observer: '__albumIdChanged'
+      },
       album: {
         type: Object,
         observer: '__albumChanged'
@@ -198,68 +202,55 @@
         value: false
       }
     },
+
     attached: function () {
-        //this.album = this._getAlbum();
-        this.$.detailAjax.generateRequest();
+        if(this.albumId) {
+            this.$.detailAjax.query = this.albumId;
+            this.$.detailAjax.generateRequest();
+        }
     },
+
+    __albumIdChanged: function () {
+      this.$.detailAjax.query = this.albumId;
+      this.$.detailAjax.generateRequest();
+    },
+
     __albumChanged: function(album) {
         console.log('__albumChanged: ', album);
       if (album) {
         this.style.backgroundImage = 'url(' + album.images[0].url + ')';
       }
     },
+
     __toggleFavorite: function(event, detail) {
       this.__favorite = !this.__favorite;
     },
+
     __computeFavIcon: function(favorite) {
         return favorite ? 'favorite' : 'favorite-outline';
     },
-    _getAlbumDuration: function (tracks) {
-        var duration = tracks.reduce(function (sum, item) {
-            return sum + item.duration_ms;
-        }, 0);
 
-        return this._formatDuration(duration);
+    _getAlbumDuration: function (tracks) {
+        if(tracks) {
+            var duration = tracks.reduce(function (sum, item) {
+                return sum + item.duration_ms;
+            }, 0);
+
+            return this._formatDuration(duration);
+        }
     },
+
     _formatDuration: function (ms) {
         var date = new Date(ms);
         var minutes = date.getMinutes();
         var seconds = date.getSeconds();
         seconds = (seconds <= 9) ? '0'+seconds : seconds;
         return minutes+':'+seconds;
+    },
+
+    _getYear: function (date) {
+        return (date) ? date.split('-')[0] : '';
     }
-    // _getAlbum: function() {
-    //   return {
-    //     "id": "1",
-    //     "name": "Pesto Bruchetta",
-    //     "author": "Peter Carlsson",
-    //     "imageUrl": "https://app-layout-assets.appspot.com/assets/pesto/food/image2-01.png",
-    //     "description": "Bask in greens this season by trying this delightful take on traditional bruschetta. Top with a dollop of homemade pesto, and season with freshly ground sea salt and pepper.",
-    //     "ingredients": [{
-    //         "amount": "6 pieces",
-    //         "description": "Mozzarella cheese"
-    //     }, {
-    //         "amount": "6 pieces",
-    //         "description": "Toasts"
-    //     }, {
-    //         "amount": "⅔ cup",
-    //         "description": "Homemade pesto"
-    //     }, {
-    //         "amount": "1tbsp",
-    //         "description": "Freshly ground pepper"
-    //     }, {
-    //         "amount": "1 tsp",
-    //         "description": "Salt"
-    //     }],
-    //     "steps": [{
-    //         "duration": "3 min",
-    //         "description": "Stir"
-    //     }, {
-    //         "duration": "45 min",
-    //         "description": "Cook"
-    //     }]
-    //     };
-    // }
   });
   </script>
 

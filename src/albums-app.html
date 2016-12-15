@@ -68,7 +68,8 @@
     <app-route
         route="{{_route}}"
         pattern="/:page"
-        data="{{_pageData}}"></app-route>
+        data="{{_pageData}}"
+        tail="{{_subRoute}}"></app-route>
     <app-route
         route="{{_subRoute}}"
         pattern="/:id"
@@ -118,7 +119,7 @@
           <album-detail
             id="detailView"
             name="detail"
-            album="[[_idData.id]]"></album-detail>
+            album-id="[[_idData.id]]"></album-detail>
 
           <view-404 name="404">
               <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>

@@ -8,13 +8,14 @@ Installation Steps:
 
 - Pagina de detalle
     (OK) - Mostrar toda la info
+    - Mostrar 'song' o 'songs' dependiendo del numero de canciones
     - Navegar desde lista de albums/lista de favoritos
     - Actualizar Favorito
     https://www.cooper.com/journal/2016/11/stretching-google-material-to-make-better-desktop-navigation
 - Refactor services
 - Escuchar el album
     - Si estoy en favoritos, voy a un detail, reproduzco musica, y le quito favorite, parar la reproduccion.
-- Mostrar resultados por tipo
+- Mostrar resultados por tipo (artista, albums)
 - Modificar README.md (Guidelines: https://github.com/xDae/readme-boilerplate)
 - Colgar la pagina en Github Pages para que este life
 - Cambiar el color a naranja (Como google Play music)

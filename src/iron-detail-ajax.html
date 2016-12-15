@@ -27,7 +27,8 @@
 
         properties: {
             query: {
-                type: String
+                type: String,
+                observer: '__queryChanged'
             },
             response: {
                 notify: true
@@ -48,6 +49,10 @@
         },
 
         // Private methods
+        __queryChanged: function () {
+            this.generateRequest();
+        },
+
         _cancelCurrentRequest: function () {
             if (this.$.detail.lastRequest) {
               this.$.detail.lastRequest.abort();

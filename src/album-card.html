@@ -18,6 +18,10 @@
           margin: 1%;
         }
 
+        paper-card /deep/ .header {
+            cursor: pointer;
+        }
+
         paper-card /deep/ .header iron-image /deep/ img {
             height: 283px !important;
         }
@@ -68,25 +72,27 @@
 
     <paper-toast id="toast"></paper-toast>
 
-    <paper-card image="{{album.images.0.url}}" elevation="5">
-      <div class="card-content">
-            <div class="album-artist">{{album.artists.0.name}}</div>
-            <p class="album-title">{{album.name}}</p>
-      </div>
-      <div class="card-actions">
-
-          <template is="dom-if" if="{{_isTruthy(isFavorite)}}">
-              <paper-icon-button icon="favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="pink"></paper-icon-button>
-          </template>
-          <template is="dom-if" if="{{_isFalsy(isFavorite)}}">
-              <paper-icon-button icon="favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class=""></paper-icon-button>
-          </template>
-
-          <a href="{{album.external_urls.spotify}}" target="_blank" class="external">
-              <paper-icon-button icon="link"></paper-icon-button>
+        <paper-card id="card" image="{{album.images.0.url}}" elevation="5">
+          <a href="#/detail/{{album.id}}" class="card-container" style="color: inherit;text-decoration: inherit;">
+            <div class="card-content">
+                <div class="album-artist">{{album.artists.0.name}}</div>
+                <p class="album-title">{{album.name}}</p>
+            </div>
           </a>
-      </div>
-    </paper-card>
+          <div class="card-actions">
+
+              <template is="dom-if" if="{{_isTruthy(isFavorite)}}">
+                  <paper-icon-button icon="favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="pink"></paper-icon-button>
+              </template>
+              <template is="dom-if" if="{{_isFalsy(isFavorite)}}">
+                  <paper-icon-button icon="favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class=""></paper-icon-button>
+              </template>
+
+              <a href="{{album.external_urls.spotify}}" target="_blank" class="external">
+                  <paper-icon-button icon="link"></paper-icon-button>
+              </a>
+          </div>
+        </paper-card>
 
   </template>
 
@@ -107,12 +113,13 @@
     },
 
     attached: function () {
-        this._updateFavoriteStatusFromLS();
+        this._createClickCoverHandler();
+        this._initAlbumConfiguration();
     },
 
     onClickFavorite: function () {
         this._updateFavorite();
-        this._manageLocalStorage();
+        this._toggleAlbumOnLS();
         this._notifyFavoriteUpdated();
     },
 
@@ -121,8 +128,22 @@
     },
 
     // Private methods
-    _updateFavoriteStatusFromLS: function () {
-        this.set('isFavorite', window.App.localStorage.album.exist(this.album.id));
+    _createClickCoverHandler: function () {
+        this.clickCoverHandler = this._onClickCoverHandler.bind(this)
+    },
+
+    _onClickCoverHandler: function () {
+        window.location.hash = '#/detail/' + this.album.id;
+    },
+
+    _initAlbumConfiguration: function () {
+        this._addEventHandlers();
+        this._updateFavoriteStatusFromLS();
+    },
+
+    _addEventHandlers: function () {
+        this.$.card.shadowRoot.querySelector('.header').removeEventListener('click', this.clickCoverHandler);
+        this.$.card.shadowRoot.querySelector('.header').addEventListener('click', this.clickCoverHandler);
     },
 
     _isTruthy: function (isFavorite) {
@@ -137,15 +158,19 @@
         this.set('isFavorite', !this.isFavorite);
     },
 
-    _manageLocalStorage: function () {
-        (this.isFavorite) ? this._saveAlbum(): this._removeAlbum();
+    _updateFavoriteStatusFromLS: function () {
+        this.set('isFavorite', window.App.localStorage.album.exist(this.album.id));
     },
 
-    _saveAlbum: function () {
+    _toggleAlbumOnLS: function () {
+        (this.isFavorite) ? this._saveAlbumToLS(): this._removeAlbumToLS();
+    },
+
+    _saveAlbumToLS: function () {
         window.App.localStorage.album.save(this.album.id, this.album);
     },
 
-    _removeAlbum: function () {
+    _removeAlbumToLS: function () {
         window.App.localStorage.album.remove(this.album.id);
     },
 
@@ -166,7 +191,7 @@
     },
 
     _albumChanged: function() {
-        this._updateFavoriteStatusFromLS();
+        this._initAlbumConfiguration();
     }
 });
   </script>
