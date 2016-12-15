@@ -21,96 +21,101 @@
 
   <template>
 
-    <style>
-    :host {
-      display: block;
-      background-attachment: fixed;
-      background-size: 100% auto;
-      background-repeat: no-repeat;
-      background-size: calc(100vw - 256px);
-      background-position: top right;
-    }
-    @media (max-width: 1280px) {
-        :host {
-            background-size: 100vw;
-            background-position: inherit;
+    <style include="shared-styles">
+        #header {
+          color: white;
+          --app-header-background-rear-layer: {
+            background-color: #00AA8D;
+          };
         }
-    }
-    #header {
-      color: white;
-      --app-header-background-rear-layer: {
-        background-color: #00AA8D;
-      };
-    }
-    paper-icon-button {
-      color: white;
-      --paper-icon-button-ink-color: white;
-    }
-    .card-container {
-      position: relative;
-      width: 720px;
-      margin: 300px auto 40px;
-    }
-    paper-fab {
-      position: absolute;
-      top: -28px;
-      right: 40px;
-      --paper-fab-background: #EF5458;
-      --paper-fab-keyboard-focus-background: #DF4448;
-    }
-    paper-card {
-      padding: 16px 10px 16px 100px;
-      width: 100%;
-      sizing: border-box;
-    }
-    paper-card .card-content {
-        padding-top: 0 !important;
-    }
-    paper-card .header {
-        padding-bottom: 0 !important;
-    }
-    paper-card .info {
-        border-bottom: 1px solid #ddd;
-        font-size: 12px;
-    }
-    paper-card .extra {
-        color: #999;
-    }
-    h4 {
-      margin: 60px 0 12px;
-    }
-    .track-item {
-      margin: 20px 0;
-      @apply(--layout-horizontal);
-    }
-    .track-number {
-      margin-left: -80px;
-      width: 60px;
-      padding-right: 20px;
-      color: rgb(33, 169, 143);
-      text-align: right;
-    }
-    .track-duration {
-        width: 60px;
-        margin-right: 10px;
-        text-align: left;
-        color: #999;
-    }
-    .track-options {
-        color: #999;
-    }
-    .track-name {
-      @apply(--layout-flex);
-    }
-    @media (max-width: 720px) {
-      .card-container {
-        width: 100%;
-        margin: 150px 0 0;
-      }
-    }
+        paper-icon-button {
+          color: white;
+          --paper-icon-button-ink-color: white;
+        }
+
+        #cover {
+          padding-top: 300px;
+          background-attachment: fixed;
+          background-size: 100% auto;
+          background-repeat: no-repeat;
+          background-size: calc(100vw - 256px);
+          background-position: top right;
+        }
+        @media (max-width: 1280px) {
+            #cover {
+                background-size: 100vw;
+                background-position: inherit;
+            }
+        }
+        @media (max-width: 720px) {
+            #cover {
+                padding-top: 150px;
+            }
+        }
+        .card-container {
+          position: relative;
+          width: 720px;
+          margin: 40px auto 40px;
+        }
+        paper-fab {
+          position: absolute;
+          top: -28px;
+          right: 40px;
+          --paper-fab-background: #EF5458;
+          --paper-fab-keyboard-focus-background: #DF4448;
+        }
+        paper-card {
+          padding: 16px 10px 16px 100px;
+          width: 100%;
+          sizing: border-box;
+        }
+        paper-card .card-content {
+            padding-top: 0 !important;
+        }
+        paper-card .header {
+            padding-bottom: 0 !important;
+        }
+        paper-card .info {
+            border-bottom: 1px solid #ddd;
+            font-size: 12px;
+        }
+        paper-card .extra {
+            color: #999;
+        }
+        h4 {
+          margin: 60px 0 12px;
+        }
+        .track-item {
+          margin: 20px 0;
+          @apply(--layout-horizontal);
+        }
+        .track-number {
+          margin-left: -80px;
+          width: 60px;
+          padding-right: 20px;
+          color: rgb(33, 169, 143);
+          text-align: right;
+        }
+        .track-duration {
+            width: 60px;
+            margin-right: 10px;
+            text-align: left;
+            color: #999;
+        }
+        .track-options {
+            color: #999;
+        }
+        .track-name {
+          @apply(--layout-flex);
+        }
+        @media (max-width: 720px) {
+          .card-container {
+            width: 100%;
+            margin: 0;
+          }
+        }
     </style>
 
-    <!-- query="0sNOF9WDwhWunNAHPD3Baj" -->
     <iron-detail-ajax
         id="detailAjax"
         response="{{album}}">
@@ -147,37 +152,39 @@
 
       </app-header>
 
-      <div class="card-container">
+      <div id="cover" class="fadein">
+          <div id="cardContainer" class="card-container">
 
-        <paper-card heading="{{album.name}}">
-          <div class="card-content">
+            <paper-card heading="{{album.name}}">
+              <div class="card-content">
 
-            <div class="info">
-                <p class="artist">{{album.artists.0.name}}</p>
-                <p class="extra">
-                    <span class="date">{{_getYear(album.release_date)}}</span>
-                    &#8226;
-                    <span class="total-tracks">{{album.tracks.total}} {{_getTotalTracksText(album.tracks.total)}}</span>
-                    &#8226;
-                    <span class="duration">{{_getAlbumDuration(album.tracks.items)}}</span>
-                </p>
-            </div>
+                <div class="info">
+                    <p class="artist">{{album.artists.0.name}}</p>
+                    <p class="extra">
+                        <span class="date">{{_getYear(album.release_date)}}</span>
+                        &#8226;
+                        <span class="total-tracks">{{album.tracks.total}} {{_getTotalTracksText(album.tracks.total)}}</span>
+                        &#8226;
+                        <span class="duration">{{_getAlbumDuration(album.tracks.items)}}</span>
+                    </p>
+                </div>
 
-            <h4>Tracks</h4>
+                <h4>Tracks</h4>
 
-            <template is="dom-repeat" items="{{album.tracks.items}}">
-              <div class="track-item">
-                <div class="track-number">{{item.track_number}}</div>
-                <div class="track-name">{{item.name}}</div>
-                <div class="track-duration">{{_formatDuration(item.duration_ms)}}</div>
-                <div class="track-options"><iron-icon icon="icons:more-vert" item-icon></iron-icon></div>
+                <template is="dom-repeat" items="{{album.tracks.items}}">
+                  <div class="track-item">
+                    <div class="track-number">{{item.track_number}}</div>
+                    <div class="track-name">{{item.name}}</div>
+                    <div class="track-duration">{{_formatDuration(item.duration_ms)}}</div>
+                    <div class="track-options"><iron-icon icon="icons:more-vert" item-icon></iron-icon></div>
+                  </div>
+                </template>
+
               </div>
-            </template>
+            </paper-card>
 
+            <paper-fab icon="{{__computeFavIcon(__favorite)}}" on-tap="__toggleFavorite"></paper-fab>
           </div>
-        </paper-card>
-
-        <paper-fab icon="{{__computeFavIcon(__favorite)}}" on-tap="__toggleFavorite"></paper-fab>
       </div>
 
     </app-header-layout>
@@ -211,15 +218,27 @@
     },
 
     __albumIdChanged: function () {
-      this.$.detailAjax.query = this.albumId;
-      this.$.detailAjax.generateRequest();
+      this._removeCover();
+      this._performRequest();
     },
 
-    __albumChanged: function(album) {
-        console.log('__albumChanged: ', album);
-      if (album) {
-        this.style.backgroundImage = 'url(' + album.images[0].url + ')';
-      }
+    _performRequest: function () {
+        this.$.detailAjax.query = this.albumId;
+        this.$.detailAjax.generateRequest();
+    },
+
+    __albumChanged: function() {
+        this._updateCover();
+    },
+
+    _removeCover: function () {
+        this.$.cover.style.backgroundImage = 'url()';
+    },
+
+    _updateCover: function () {
+        if (this.album) {
+            this.$.cover.style.backgroundImage = 'url(' + this.album.images[0].url + ')';
+        }
     },
 
     __toggleFavorite: function(event, detail) {

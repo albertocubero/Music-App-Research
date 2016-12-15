@@ -1,4 +1,5 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-toast/paper-toast.html">
@@ -9,7 +10,7 @@
 
 <dom-module id="album-card">
   <template>
-    <style>
+    <style include="shared-styles">
         paper-card {
           display: inline-block;
           width: 31%;
@@ -139,6 +140,11 @@
     _initAlbumConfiguration: function () {
         this._addEventHandlers();
         this._updateFavoriteStatusFromLS();
+        this._fadeInEfect();
+    },
+
+    _fadeInEfect: function () {
+        $(this.$.card).removeClass('fadein').addClass('fadein');
     },
 
     _addEventHandlers: function () {

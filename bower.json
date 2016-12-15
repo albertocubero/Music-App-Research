@@ -27,7 +27,8 @@
     "iron-icons": "PolymerElements/iron-icons#^1.2.0",
     "iron-a11y-keys-behavior": "^1.1.9",
     "paper-fab": "PolymerElements/paper-fab#^1.2.1",
-    "paper-menu-button": "PolymerElements/paper-menu-button#^1.5.2"
+    "paper-menu-button": "PolymerElements/paper-menu-button#^1.5.2",
+    "jquery2": "^2.0.0"
   },
   "devDependencies": {
     "web-component-tester": "^4.0.0"

@@ -6,13 +6,18 @@ Installation Steps:
 
 -----
 
+
 - Pagina de detalle
     (OK) - Mostrar toda la info
     (OK) - Navegar desde lista de albums/lista de favoritos
     (OK) - Mostrar 'song' o 'songs' dependiendo del numero de canciones
+    (OK) - Efecto Blink en el cover
+        (OK) - Incluir Jquery
+        (OK) - CARD y DETALLE
     - Actualizar Favorito
     https://www.cooper.com/journal/2016/11/stretching-google-material-to-make-better-desktop-navigation
 - Refactor services
+- BUG: se lanzan 2 peticiones siempre
 - Escuchar el album
     - Si estoy en favoritos, voy a un detail, reproduzco musica, y le quito favorite, parar la reproduccion.
 - Mostrar resultados por tipo (artista, albums)
