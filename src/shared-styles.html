@@ -4,29 +4,30 @@
 <dom-module id="shared-styles">
   <template>
     <style>
+
       app-header {
-        color: #fff;
-        background-color: #00AA8D;
+          color: #fff;
+          background-color: #00AA8D;
       }
 
       app-toolbar {
-        height: 120px;
+          height: 120px;
       }
 
       .title {
-        width: 100%;
-        text-align: left;
-        font-size: 48px;
-        font-weight: 800;
-        text-align: center;
+          width: 100%;
+          text-align: left;
+          font-size: 48px;
+          font-weight: 800;
+          text-align: center;
       }
 
       .content {
-        display: block;
-        position: relative;
-        max-width: 1000px;
-        padding: 0 10px;
-        margin: 5px auto;
+          display: block;
+          position: relative;
+          max-width: 1000px;
+          padding: 0 10px;
+          margin: 5px auto;
       }
 
       .content-message {
@@ -38,40 +39,42 @@
           line-height: 32px;
       }
 
-      @media (max-width: 960px) {
-        app-toolbar {
-            height: 90px;
-        }
-        .content {
-            max-width: 800px;
-        }
-      }
-      @media (max-width: 719px) {
-        app-toolbar {
-            height: 60px;
-        }
-        .title {
-            font-size: 36px;
-        }
-        .content {
-            max-width: 400px;
-        }
-      }
-
       .fadein {
-            opacity: 0;
-            -webkit-animation: fadein 0.4s linear 0.5s forwards;
+          opacity: 0;
+          -webkit-animation: fadein 0.4s linear 0.5s forwards;
       }
 
       @-webkit-keyframes fadein {
-        from {
-            opacity: 0;
-        }
+          from {
+              opacity: 0;
+          }
 
-        to {
-            opacity: 1;
-        }
+          to {
+              opacity: 1;
+          }
       }
+
+      @media (max-width: 960px) {
+          app-toolbar {
+              height: 90px;
+          }
+          .content {
+              max-width: 800px;
+          }
+      }
+
+      @media (max-width: 719px) {
+          app-toolbar {
+              height: 60px;
+          }
+          .title {
+              font-size: 36px;
+          }
+          .content {
+              max-width: 400px;
+          }
+      }
+
     </style>
   </template>
 </dom-module>
