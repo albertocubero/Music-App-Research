@@ -76,134 +76,131 @@
     </style>
 
     <paper-toast id="toast"></paper-toast>
-
-        <paper-card id="card" image="{{album.images.0.url}}" elevation="5">
-          <a href="#/detail/{{album.id}}" class="card-container" style="color: inherit;text-decoration: inherit;">
+    <paper-card id="card" image="{{album.images.0.url}}" elevation="5">
+        <a href="#/detail/{{album.id}}" class="card-container" style="color: inherit;text-decoration: inherit;">
             <div class="card-content">
                 <div class="album-artist">{{album.artists.0.name}}</div>
                 <p class="album-title">{{album.name}}</p>
             </div>
-          </a>
-          <div class="card-actions">
-
-              <template is="dom-if" if="{{_isTruthy(isFavorite)}}">
-                  <paper-icon-button icon="favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="pink"></paper-icon-button>
-              </template>
-              <template is="dom-if" if="{{_isFalsy(isFavorite)}}">
-                  <paper-icon-button icon="favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class=""></paper-icon-button>
-              </template>
-
-              <a href="{{album.external_urls.spotify}}" target="_blank" class="external">
-                  <paper-icon-button icon="link"></paper-icon-button>
-              </a>
-          </div>
-        </paper-card>
+        </a>
+        <div class="card-actions">
+            <template is="dom-if" if="{{_isTruthy(isFavorite)}}">
+                <paper-icon-button icon="favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="pink"></paper-icon-button>
+            </template>
+            <template is="dom-if" if="{{_isFalsy(isFavorite)}}">
+                <paper-icon-button icon="favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class=""></paper-icon-button>
+            </template>
+            <a href="{{album.external_urls.spotify}}" target="_blank" class="external">
+                <paper-icon-button icon="link"></paper-icon-button>
+            </a>
+        </div>
+    </paper-card>
 
   </template>
 
   <script>
     Polymer({
-    is: 'album-card',
+        is: 'album-card',
 
-    properties: {
-        album: {
-            type: Object,
-            value: {},
-            observer: '_albumChanged'
+        properties: {
+            album: {
+                type: Object,
+                value: {},
+                observer: '_albumChanged'
+            },
+            isFavorite: {
+                type: Boolean,
+                value: false
+            }
         },
-        isFavorite: {
-            type: Boolean,
-            value: false
+
+        attached: function () {
+            this._createClickCoverHandler();
+            this._initAlbumConfiguration();
+        },
+
+        onClickFavorite: function () {
+            this._updateFavorite();
+            this._toggleAlbumOnLS();
+            this._notifyFavoriteUpdated();
+        },
+
+        refresh: function () {
+            this._updateFavoriteStatusFromLS();
+        },
+
+        // Private methods
+        _createClickCoverHandler: function () {
+            this.clickCoverHandler = this._onClickCoverHandler.bind(this)
+        },
+
+        _onClickCoverHandler: function () {
+            window.location.hash = '#/detail/'; // Needed to refresh detail view
+            window.location.hash = '#/detail/' + this.album.id;
+        },
+
+        _albumChanged: function() {
+            this._initAlbumConfiguration();
+        },
+
+        _initAlbumConfiguration: function () {
+            this._addEventHandlers();
+            this._updateFavoriteStatusFromLS();
+            this._fadeInEffect();
+        },
+
+        _addEventHandlers: function () {
+            this.$.card.shadowRoot.querySelector('.header').removeEventListener('click', this.clickCoverHandler);
+            this.$.card.shadowRoot.querySelector('.header').addEventListener('click', this.clickCoverHandler);
+        },
+
+        _updateFavoriteStatusFromLS: function () {
+            this.set('isFavorite', window.App.localStorage.album.exist(this.album.id));
+        },
+
+        _fadeInEffect: function () {
+            $(this.$.card).removeClass('fadein').addClass('fadein');
+        },
+
+        _isTruthy: function (isFavorite) {
+            return isFavorite === true;
+        },
+
+        _isFalsy: function (isFavorite) {
+            return isFavorite === false;
+        },
+
+        _updateFavorite: function () {
+            this.set('isFavorite', !this.isFavorite);
+        },
+
+        _toggleAlbumOnLS: function () {
+            (this.isFavorite) ? this._saveAlbumToLS(): this._removeAlbumToLS();
+        },
+
+        _saveAlbumToLS: function () {
+            window.App.localStorage.album.save(this.album.id, this.album);
+        },
+
+        _removeAlbumToLS: function () {
+            window.App.localStorage.album.remove(this.album.id);
+        },
+
+        _notifyFavoriteUpdated: function () {
+            this._sendFavoriteEventUpdated();
+            this._showMessage();
+        },
+
+        _sendFavoriteEventUpdated: function () {
+            this.fire('card:favorite:updated', {
+                id: this.album.id
+            });
+        },
+
+        _showMessage: function () {
+            var text = (this.isFavorite) ? 'Favorite Saved !' : 'Favorite Removed !';
+            this.$.toast.show(text);
         }
-    },
-
-    attached: function () {
-        this._createClickCoverHandler();
-        this._initAlbumConfiguration();
-    },
-
-    onClickFavorite: function () {
-        this._updateFavorite();
-        this._toggleAlbumOnLS();
-        this._notifyFavoriteUpdated();
-    },
-
-    refresh: function () {
-        this._updateFavoriteStatusFromLS();
-    },
-
-    // Private methods
-    _createClickCoverHandler: function () {
-        this.clickCoverHandler = this._onClickCoverHandler.bind(this)
-    },
-
-    _onClickCoverHandler: function () {
-        window.location.hash = '#/detail/'; // Needed to refresh detail view
-        window.location.hash = '#/detail/' + this.album.id;
-    },
-
-    _albumChanged: function() {
-        this._initAlbumConfiguration();
-    },
-
-    _initAlbumConfiguration: function () {
-        this._addEventHandlers();
-        this._updateFavoriteStatusFromLS();
-        this._fadeInEffect();
-    },
-
-    _addEventHandlers: function () {
-        this.$.card.shadowRoot.querySelector('.header').removeEventListener('click', this.clickCoverHandler);
-        this.$.card.shadowRoot.querySelector('.header').addEventListener('click', this.clickCoverHandler);
-    },
-
-    _updateFavoriteStatusFromLS: function () {
-        this.set('isFavorite', window.App.localStorage.album.exist(this.album.id));
-    },
-
-    _fadeInEffect: function () {
-        $(this.$.card).removeClass('fadein').addClass('fadein');
-    },
-
-    _isTruthy: function (isFavorite) {
-        return isFavorite === true;
-    },
-
-    _isFalsy: function (isFavorite) {
-        return isFavorite === false;
-    },
-
-    _updateFavorite: function () {
-        this.set('isFavorite', !this.isFavorite);
-    },
-
-    _toggleAlbumOnLS: function () {
-        (this.isFavorite) ? this._saveAlbumToLS(): this._removeAlbumToLS();
-    },
-
-    _saveAlbumToLS: function () {
-        window.App.localStorage.album.save(this.album.id, this.album);
-    },
-
-    _removeAlbumToLS: function () {
-        window.App.localStorage.album.remove(this.album.id);
-    },
-
-    _notifyFavoriteUpdated: function () {
-        this._sendFavoriteEventUpdated();
-        this._showMessage();
-    },
-
-    _sendFavoriteEventUpdated: function () {
-        this.fire('card:favorite:updated', {
-            id: this.album.id
-        });
-    },
-
-    _showMessage: function () {
-        var text = (this.isFavorite) ? 'Favorite Saved !' : 'Favorite Removed !';
-        this.$.toast.show(text);
-    }
-});
+    });
   </script>
 </dom-module>

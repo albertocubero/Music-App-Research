@@ -140,79 +140,66 @@
     </style>
 
     <paper-toast id="toast"></paper-toast>
-
     <iron-detail-ajax
         id="detailAjax"
         response="{{album}}">
     </iron-detail-ajax>
-
     <!-- main panel -->
     <app-header-layout>
-
-      <app-header id="header" effects="waterfall fade-background toolbar-header" reveals>
-
-        <!-- top toolbar -->
-        <app-toolbar>
-          <!-- back button -->
-          <a href="#/home" tabindex="-1">
-            <paper-icon-button icon="arrow-back"></paper-icon-button>
-          </a>
-
-          <div main-title>Search</div>
-          <div class="title">{{album.name}}</div>
-
-          <paper-menu-button horizontal-align="right">
-            <paper-icon-button icon="more-vert" class="dropdown-trigger" alt="menu"></paper-icon-button>
-            <paper-listbox class="dropdown-content">
-              <paper-icon-item>
-                <iron-icon icon="share" item-icon></iron-icon>
-                Tweet album
-              </paper-icon-item>
-              <paper-icon-item>
-                <iron-icon icon="group" item-icon></iron-icon>
-                Share on Facebook
-              </paper-icon-item>
-            </paper-listbox>
-          </paper-menu-button>
-        </app-toolbar>
-
-      </app-header>
-
-      <div id="cover" class="fadein cover">
-          <div id="cardContainer" class="card-container">
-
-            <paper-card heading="{{album.name}}">
-              <div class="card-content">
-
-                <div class="info">
-                    <p class="artist">{{album.artists.0.name}}</p>
-                    <p class="extra">
-                        <span class="date">{{_getYear(album.release_date)}}</span>
-                        &#8226;
-                        <span class="total-tracks">{{album.tracks.total}} {{_getTotalTracksText(album.tracks.total)}}</span>
-                        &#8226;
-                        <span class="duration">{{_getAlbumDuration(album.tracks.items)}}</span>
-                    </p>
-                </div>
-
-                <h4 class="section-title">Tracks</h4>
-
-                <template is="dom-repeat" items="{{album.tracks.items}}">
-                  <div class="track-item">
-                    <div class="track-number">{{item.track_number}}</div>
-                    <div class="track-name">{{item.name}}</div>
-                    <div class="track-duration">{{_formatDuration(item.duration_ms)}}</div>
-                    <div class="track-options"><iron-icon icon="icons:more-vert" item-icon></iron-icon></div>
-                  </div>
-                </template>
-
-              </div>
-            </paper-card>
-
-            <paper-fab icon="{{__computeFavIcon(__favorite)}}" on-tap="onClickFavorite"></paper-fab>
-          </div>
-      </div>
-
+        <app-header id="header" effects="waterfall fade-background toolbar-header" reveals>
+            <!-- top toolbar -->
+            <app-toolbar>
+                <!-- back button -->
+                <a href="#/home" tabindex="-1">
+                    <paper-icon-button icon="arrow-back"></paper-icon-button>
+                </a>
+                <div main-title>Search</div>
+                <div class="title">{{album.name}}</div>
+                <paper-menu-button horizontal-align="right">
+                    <paper-icon-button icon="more-vert" class="dropdown-trigger" alt="menu"></paper-icon-button>
+                    <paper-listbox class="dropdown-content">
+                        <paper-icon-item>
+                            <iron-icon icon="share" item-icon></iron-icon>
+                            Tweet album
+                        </paper-icon-item>
+                        <paper-icon-item>
+                            <iron-icon icon="group" item-icon></iron-icon>
+                            Share on Facebook
+                        </paper-icon-item>
+                    </paper-listbox>
+                </paper-menu-button>
+            </app-toolbar>
+        </app-header>
+        <div id="cover" class="fadein cover">
+            <div id="cardContainer" class="card-container">
+                <paper-card heading="{{album.name}}">
+                    <div class="card-content">
+                        <div class="info">
+                            <p class="artist">{{album.artists.0.name}}</p>
+                            <p class="extra">
+                                <span class="date">{{_getYear(album.release_date)}}</span>
+                                &#8226;
+                                <span class="total-tracks">{{album.tracks.total}} {{_getTotalTracksText(album.tracks.total)}}</span>
+                                &#8226;
+                                <span class="duration">{{_getAlbumDuration(album.tracks.items)}}</span>
+                            </p>
+                        </div>
+                        <h4 class="section-title">Tracks</h4>
+                        <template is="dom-repeat" items="{{album.tracks.items}}">
+                            <div class="track-item">
+                                <div class="track-number">{{item.track_number}}</div>
+                                <div class="track-name">{{item.name}}</div>
+                                <div class="track-duration">{{_formatDuration(item.duration_ms)}}</div>
+                                <div class="track-options">
+                                    <iron-icon icon="icons:more-vert" item-icon></iron-icon>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </paper-card>
+                <paper-fab icon="{{__computeFavIcon(__favorite)}}" on-tap="onClickFavorite"></paper-fab>
+            </div>
+        </div>
     </app-header-layout>
 
   </template>

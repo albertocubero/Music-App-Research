@@ -84,56 +84,42 @@
         route="{{_subRoute}}"
         pattern="/:id"
         data="{{_idData}}"></app-route>
-
-
     <app-drawer-layout responsive-width="1280px">
-
-      <app-drawer id="drawer" swipe-open>
-        <app-header-layout has-scrolling-region>
-
-          <app-header fixed>
-            <div class="avatar-container">
-              <div class="image"></div>
-            </div>
-            <div class="contact-info">
-              <div class="name">Alberto Cubero</div>
-              <div class="email">albertocuberonavas@gmail.com</div>
-            </div>
-          </app-header>
-
-          <paper-listbox
-              selected="{{_pageData.page}}"
-              attr-for-selected="name"
-              on-iron-activate="_drawerSelected">
-            <paper-item name="home" class="option">Home</paper-item>
-            <paper-item name="favorites" class="option">Favorites</paper-item>
-          </paper-listbox>
-
-        </app-header-layout>
-      </app-drawer>
-
-      <app-scrollpos-control
-          selected="[[_pageData.page]]"
-          reset="[[_isDetailPage(_pageData.page)]]"></app-scrollpos-control>
-
-      <iron-pages selected="[[_pageData.page]]" attr-for-selected="name" fallback-selection="404">
-
-          <album-list name="home" id="albumsList">
-              <paper-icon-button icon="menu" class="toolbar-menu-btn" drawer-toggle></paper-icon-button>
-          </album-list>
-
-          <favorite-list name="favorites" id="favorites">
-              <paper-icon-button icon="menu" class="toolbar-menu-btn" drawer-toggle></paper-icon-button>
-          </favorite-list>
-
-          <album-detail id="detail" name="detail" album-id="[[_idData.id]]"></album-detail>
-
-          <view-404 name="404">
-              <paper-icon-button icon="menu" class="toolbar-menu-btn" drawer-toggle></paper-icon-button>
-          </view-404>
-
-      </iron-pages>
-
+        <app-drawer id="drawer" swipe-open>
+            <app-header-layout has-scrolling-region>
+                <app-header fixed>
+                    <div class="avatar-container">
+                        <div class="image"></div>
+                    </div>
+                    <div class="contact-info">
+                        <div class="name">Alberto Cubero</div>
+                        <div class="email">albertocuberonavas@gmail.com</div>
+                    </div>
+                </app-header>
+                <paper-listbox
+                    selected="{{_pageData.page}}"
+                    attr-for-selected="name"
+                    on-iron-activate="_drawerSelected">
+                    <paper-item name="home" class="option">Home</paper-item>
+                    <paper-item name="favorites" class="option">Favorites</paper-item>
+                </paper-listbox>
+            </app-header-layout>
+        </app-drawer>
+        <app-scrollpos-control
+            selected="[[_pageData.page]]"
+            reset="[[_isDetailPage(_pageData.page)]]"></app-scrollpos-control>
+        <iron-pages selected="[[_pageData.page]]" attr-for-selected="name" fallback-selection="404">
+            <album-list name="home" id="albumsList">
+                <paper-icon-button icon="menu" class="toolbar-menu-btn" drawer-toggle></paper-icon-button>
+            </album-list>
+            <favorite-list name="favorites" id="favorites">
+                <paper-icon-button icon="menu" class="toolbar-menu-btn" drawer-toggle></paper-icon-button>
+            </favorite-list>
+            <album-detail id="detail" name="detail" album-id="[[_idData.id]]"></album-detail>
+            <view-404 name="404">
+                <paper-icon-button icon="menu" class="toolbar-menu-btn" drawer-toggle></paper-icon-button>
+            </view-404>
+        </iron-pages>
     </app-drawer-layout>
 
   </template>
