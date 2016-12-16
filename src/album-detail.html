@@ -31,7 +31,7 @@
             };
         }
 
-        paper-icon-button {
+        .toolbar-btn {
             color: white;
             --paper-icon-button-ink-color: white;
         }
@@ -151,12 +151,12 @@
             <app-toolbar>
                 <!-- back button -->
                 <a href="#/home" tabindex="-1">
-                    <paper-icon-button icon="arrow-back"></paper-icon-button>
+                    <paper-icon-button icon="arrow-back" class="toolbar-btn"></paper-icon-button>
                 </a>
                 <div main-title>Search</div>
                 <div class="title">{{album.name}}</div>
                 <paper-menu-button horizontal-align="right">
-                    <paper-icon-button icon="more-vert" class="dropdown-trigger" alt="menu"></paper-icon-button>
+                    <paper-icon-button icon="more-vert" class="toolbar-btn dropdown-trigger" alt="menu"></paper-icon-button>
                     <paper-listbox class="dropdown-content">
                         <paper-icon-item>
                             <iron-icon icon="share" item-icon></iron-icon>

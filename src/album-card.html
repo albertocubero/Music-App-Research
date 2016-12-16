@@ -14,7 +14,7 @@
 
     <style include="shared-styles">
 
-        paper-card {
+        .card {
             display: inline-block;
             width: 31%;
             color: black;
@@ -22,30 +22,30 @@
             margin: 1%;
         }
 
-        paper-card /deep/ .header {
+        .card /deep/ .header {
             cursor: pointer;
         }
 
-        paper-card /deep/ .header iron-image /deep/ img {
+        .card /deep/ .header iron-image /deep/ img {
             height: 283px !important;
         }
 
-        .album-artist {
+        .info-artist-name {
             font-weight: bold;
         }
 
-        .album-title {
+        .info-title {
             overflow: hidden;
             white-space: nowrap;
             text-overflow: ellipsis;
         }
 
-        paper-icon-button.pink {
+        .btn-favorite.pink {
             color: var(--paper-pink-500);
             --paper-icon-button-ink-color: var(--paper-indigo-500);
         }
 
-        .external {
+        .btn-external {
             color: inherit;
         }
 
@@ -55,20 +55,20 @@
         }
 
         @media (max-width: 960px) {
-            paper-card {
+            .card {
                 width: 47.7%;
             }
-            paper-card /deep/ .header iron-image /deep/ img {
+            .card /deep/ .header iron-image /deep/ img {
                 height: 362px !important;
             }
         }
 
         @media (max-width: 719px) {
-            paper-card {
+            .card {
                 width: 100%;
                 margin: 3% 1%;
             }
-            paper-card /deep/ .header iron-image /deep/ img {
+            .card /deep/ .header iron-image /deep/ img {
                 height: inherit !important;
             }
         }
@@ -76,21 +76,21 @@
     </style>
 
     <paper-toast id="toast"></paper-toast>
-    <paper-card id="card" image="{{album.images.0.url}}" elevation="5">
+    <paper-card id="card" class="card" image="{{album.images.0.url}}" elevation="5">
         <a href="#/detail/{{album.id}}" class="card-container" style="color: inherit;text-decoration: inherit;">
             <div class="card-content">
-                <div class="album-artist">{{album.artists.0.name}}</div>
-                <p class="album-title">{{album.name}}</p>
+                <div class="info-artist-name">{{album.artists.0.name}}</div>
+                <p class="info-title">{{album.name}}</p>
             </div>
         </a>
         <div class="card-actions">
             <template is="dom-if" if="{{_isTruthy(isFavorite)}}">
-                <paper-icon-button icon="favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="pink"></paper-icon-button>
+                <paper-icon-button icon="favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="btn-favorite pink"></paper-icon-button>
             </template>
             <template is="dom-if" if="{{_isFalsy(isFavorite)}}">
-                <paper-icon-button icon="favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class=""></paper-icon-button>
+                <paper-icon-button icon="favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="btn-favorite"></paper-icon-button>
             </template>
-            <a href="{{album.external_urls.spotify}}" target="_blank" class="external">
+            <a href="{{album.external_urls.spotify}}" target="_blank" class="btn-external">
                 <paper-icon-button icon="link"></paper-icon-button>
             </a>
         </div>
