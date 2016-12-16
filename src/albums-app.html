@@ -117,7 +117,7 @@
           </favorite-list>
 
           <album-detail
-            id="detailView"
+            id="detail"
             name="detail"
             album-id="[[_idData.id]]"></album-detail>
 
@@ -166,12 +166,18 @@
             }.bind(this));
             this.addEventListener('favorites:updated', function (data) {
                 this.$.albumsList.refresh(data.detail);
+                this.$.detail.refresh();
+            }.bind(this));
+            this.addEventListener('detail:updated', function (data) {
+                this.$.albumsList.refresh(data.detail);
+                this.$.favorites.refresh();
             }.bind(this));
         },
 
         _removeEventHandlers: function () {
             this.removeEventListener('albumList:updated');
             this.removeEventListener('favorites:updated');
+            this.removeEventListener('detail:updated');
         },
 
         _isDetailPage: function (page) {

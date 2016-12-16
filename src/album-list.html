@@ -1,4 +1,5 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
+
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
@@ -23,7 +24,7 @@
     <app-header-layout>
 
       <app-header effects="resize-title" condenses fixed shadow>
-        <app-toolbar class="top-toolbar large-toolbar">
+        <app-toolbar class="top-toolbar">
           <content select="[drawer-toggle]"></content>
           <div class="title">Albums Novelty</div>
           <div main-title></div>
@@ -119,13 +120,14 @@
         },
 
         refresh: function (data) {
+            // CAMBIAR A .shadowDom
             var albumCardsNodes = Polymer.dom(this.root).querySelectorAll("album-card");
-            var albumCardsNode = albumCardsNodes.filter(function (card) {
-                return card['albumId'] === data.detail.id;
-            })[0];
+            var selectedNodes = albumCardsNodes.filter(function (card) {
+                return card['albumId'] === data.id;
+            });
 
-            if (albumCardsNode) {
-                albumCardsNode.refresh();
+            if (selectedNodes.length) {
+                selectedNodes[0].refresh();
             }
         },
 

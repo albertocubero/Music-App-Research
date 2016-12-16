@@ -14,6 +14,7 @@
 <link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
 
 <link rel="import" href="iron-detail-ajax.html">
 
@@ -32,7 +33,6 @@
           color: white;
           --paper-icon-button-ink-color: white;
         }
-
         #cover {
           padding-top: 300px;
           background-attachment: fixed;
@@ -47,15 +47,10 @@
                 background-position: inherit;
             }
         }
-        @media (max-width: 720px) {
-            #cover {
-                padding-top: 150px;
-            }
-        }
         .card-container {
           position: relative;
           width: 720px;
-          margin: 40px auto 40px;
+          margin: 0 auto;
         }
         paper-fab {
           position: absolute;
@@ -107,14 +102,24 @@
         }
         .track-name {
           @apply(--layout-flex);
+          padding-right: 20px;
         }
         @media (max-width: 720px) {
           .card-container {
             width: 100%;
             margin: 0;
           }
+          paper-card {
+              padding-left: 40px;
+          }
+        }
+        paper-toast {
+          left: inherit !important;
+          right: 0 !important;
         }
     </style>
+
+    <paper-toast id="toast"></paper-toast>
 
     <iron-detail-ajax
         id="detailAjax"
@@ -133,7 +138,8 @@
             <paper-icon-button icon="arrow-back"></paper-icon-button>
           </a>
 
-          <div main-title></div>
+          <div main-title>Search</div>
+          <div class="title">{{album.name}}</div>
 
           <paper-menu-button horizontal-align="right">
             <paper-icon-button icon="more-vert" class="dropdown-trigger" alt="menu"></paper-icon-button>
@@ -183,7 +189,7 @@
               </div>
             </paper-card>
 
-            <paper-fab icon="{{__computeFavIcon(__favorite)}}" on-tap="__toggleFavorite"></paper-fab>
+            <paper-fab icon="{{__computeFavIcon(__favorite)}}" on-tap="onClickFavorite"></paper-fab>
           </div>
       </div>
 
@@ -217,6 +223,16 @@
         }
     },
 
+    onClickFavorite: function(event, detail) {
+        this._updateFavorite();
+        this._toggleAlbumOnLS();
+        this._notifyFavoriteUpdated();
+    },
+
+    refresh: function () {
+        this._updateFavoriteStatusFromLS();
+    },
+
     __albumIdChanged: function () {
       this._removeCover();
       this._performRequest();
@@ -228,6 +244,7 @@
     },
 
     __albumChanged: function() {
+        this._updateFavoriteStatusFromLS();
         this._updateCover();
     },
 
@@ -241,8 +258,30 @@
         }
     },
 
-    __toggleFavorite: function(event, detail) {
-      this.__favorite = !this.__favorite;
+    _sendFavoriteEventUpdated: function () {
+        this.fire('detail:updated', {
+            id: this.album.id
+        });
+    },
+
+    _updateFavorite: function () {
+        this.__favorite = !this.__favorite;
+    },
+
+    _updateFavoriteStatusFromLS: function () {
+        this.set('__favorite', window.App.localStorage.album.exist(this.album.id));
+    },
+
+    _toggleAlbumOnLS: function () {
+        (this.__favorite) ? this._saveAlbumToLS(): this._removeAlbumToLS();
+    },
+
+    _saveAlbumToLS: function () {
+        window.App.localStorage.album.save(this.album.id, this.album);
+    },
+
+    _removeAlbumToLS: function () {
+        window.App.localStorage.album.remove(this.album.id);
     },
 
     __computeFavIcon: function(favorite) {
@@ -274,7 +313,17 @@
     _getTotalTracksText: function (tracks) {
         if(!tracks) return '';
         return (tracks <= 1) ? 'song' : 'songs';
-    }
+    },
+
+    _notifyFavoriteUpdated: function () {
+        this._sendFavoriteEventUpdated();
+        this._showMessage();
+    },
+
+    _showMessage: function () {
+        var text = (this.__favorite) ? 'Favorite Saved !' : 'Favorite Removed !';
+        this.$.toast.show(text);
+    },
   });
   </script>
 

@@ -16,7 +16,7 @@
     <app-header-layout>
 
       <app-header effects="resize-title" condenses fixed shadow>
-        <app-toolbar class="top-toolbar large-toolbar">
+        <app-toolbar class="top-toolbar">
           <content select="[drawer-toggle]"></content>
           <div class="title">Favorites</div>
           <div main-title></div>
@@ -67,7 +67,7 @@
         _addEventHandlers: function () {
             this.addEventListener('card:favorite:updated', function (data) {
                 this._getFavoriteAlbumsFromLS();
-                this.fire('favorites:updated', data);
+                this.fire('favorites:updated', data.detail);
             }.bind(this));
         },
 

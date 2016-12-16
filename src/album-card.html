@@ -134,22 +134,31 @@
     },
 
     _onClickCoverHandler: function () {
+        window.location.hash = '#/detail/'; // Needed to refresh detail view
         window.location.hash = '#/detail/' + this.album.id;
+    },
+
+    _albumChanged: function() {
+        this._initAlbumConfiguration();
     },
 
     _initAlbumConfiguration: function () {
         this._addEventHandlers();
         this._updateFavoriteStatusFromLS();
-        this._fadeInEfect();
-    },
-
-    _fadeInEfect: function () {
-        $(this.$.card).removeClass('fadein').addClass('fadein');
+        this._fadeInEffect();
     },
 
     _addEventHandlers: function () {
         this.$.card.shadowRoot.querySelector('.header').removeEventListener('click', this.clickCoverHandler);
         this.$.card.shadowRoot.querySelector('.header').addEventListener('click', this.clickCoverHandler);
+    },
+
+    _updateFavoriteStatusFromLS: function () {
+        this.set('isFavorite', window.App.localStorage.album.exist(this.album.id));
+    },
+
+    _fadeInEffect: function () {
+        $(this.$.card).removeClass('fadein').addClass('fadein');
     },
 
     _isTruthy: function (isFavorite) {
@@ -162,10 +171,6 @@
 
     _updateFavorite: function () {
         this.set('isFavorite', !this.isFavorite);
-    },
-
-    _updateFavoriteStatusFromLS: function () {
-        this.set('isFavorite', window.App.localStorage.album.exist(this.album.id));
     },
 
     _toggleAlbumOnLS: function () {
@@ -194,10 +199,6 @@
     _showMessage: function () {
         var text = (this.isFavorite) ? 'Favorite Saved !' : 'Favorite Removed !';
         this.$.toast.show(text);
-    },
-
-    _albumChanged: function() {
-        this._initAlbumConfiguration();
     }
 });
   </script>
