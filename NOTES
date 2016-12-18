@@ -6,6 +6,8 @@ Installation Steps:
 
 -----
 
+https://www.cooper.com/journal/2016/11/stretching-google-material-to-make-better-desktop-navigation
+
 
 - Pagina de detalle
     (OK) - Mostrar toda la info
@@ -20,7 +22,6 @@ Installation Steps:
         (OK) - Mostrar Toast
         (OK) - estilos
         (DEPRECATED)- Usar Jquery Events?
-    https://www.cooper.com/journal/2016/11/stretching-google-material-to-make-better-desktop-navigation
 - Refactor services
 - Refactor Toast
 - BUG: se lanzan 2 peticiones siempre
