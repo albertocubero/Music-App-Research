@@ -1,0 +1,63 @@
+<link rel="import" href="../bower_components/app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
+<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+
+<dom-module id="base-iron-ajax">
+  <template>
+
+    <iron-ajax
+        id="request"
+        headers='{"Accept": "application/json"}'
+        handle-as="json"
+        url={{url}}
+        last-response="{{data}}"
+        debounce-duration="300">
+    </iron-ajax>
+
+    <app-indexeddb-mirror
+        key="albums"
+        data="[[data]]"
+        persisted-data="{{response}}">
+    </app-indexeddb-mirror>
+
+  </template>
+
+  <script>
+    Polymer({
+        is: 'base-iron-ajax',
+
+        properties: {
+            query: {
+                type: String
+            },
+            response: {
+                notify: true
+            }
+        },
+
+        attached: function () {
+            if(this.auto) {
+                this.generateRequest();
+            }
+        },
+
+        generateRequest: function () {
+            if(this.query) {
+                this._cancelCurrentRequest();
+                this._performSearch();
+            }
+        },
+
+        // Private methods
+        _cancelCurrentRequest: function () {
+            if (this.$.request.lastRequest) {
+              this.$.request.lastRequest.abort();
+            }
+        },
+
+        _performSearch: function () {
+            this.$.request.params = {"q":this.query,"type":"album","limit":"50"};
+            this.$.request.generateRequest();
+        }
+    });
+  </script>
+</dom-module>

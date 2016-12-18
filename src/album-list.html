@@ -115,7 +115,7 @@
 
         refresh: function (data) {
             // var albumCardsNodes = Polymer.dom(this.root).querySelectorAll("album-card"); // Another way
-            var albumCardsNodes = [].prototype.slice.call(this.shadowRoot.querySelectorAll("album-card"));
+            var albumCardsNodes = Array.prototype.slice.call(this.shadowRoot.querySelectorAll("album-card"));
             var selectedNodes = albumCardsNodes.filter(function (card) {
                 return card['albumId'] === data.id;
             });
@@ -169,7 +169,7 @@
         },
 
         _isEmpty: function () {
-            return (this.response.albums.items.length === 0);
+            return (this.response && this.response.albums && this.response.albums.items.length === 0);
         },
 
         _queryChanged: function () {

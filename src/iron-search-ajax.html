@@ -1,64 +1,36 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="../bower_components/app-storage/app-indexeddb-mirror/app-indexeddb-mirror.html">
-<link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
+
+<link rel="import" href="base-iron-ajax.html">
 
 <dom-module id="iron-search-ajax">
-  <template>
+    <template>
 
-    <iron-ajax
-        id="search"
-        url="https://api.spotify.com/v1/search"
-        headers='{"Accept": "application/json"}'
-        handle-as="json"
-        last-response="{{data}}"
-        debounce-duration="300">
-    </iron-ajax>
+        <base-iron-ajax
+            id="search"
+            query={{query}}
+            url="https://api.spotify.com/v1/search"
+            response={{response}}>
+        </base-iron-ajax>
 
-    <app-indexeddb-mirror
-        key="albums"
-        data="[[data]]"
-        persisted-data="{{response}}">
-    </app-indexeddb-mirror>
+    </template>
 
-  </template>
+    <script>
+      Polymer({
+          is: 'iron-search-ajax',
 
-  <script>
-    Polymer({
-        is: 'iron-search-ajax',
+          properties: {
+              query: {
+                  type: String
+              },
+              response: {
+                  notify: true
+              }
+          },
 
-        properties: {
-            query: {
-                type: String
-            },
-            response: {
-                notify: true
-            }
-        },
-
-        attached: function () {
-            if(this.auto) {
-                this.generateRequest();
-            }
-        },
-
-        generateRequest: function () {
-            if(this.query) {
-                this._cancelCurrentRequest();
-                this._performSearch();
-            }
-        },
-
-        // Private methods
-        _cancelCurrentRequest: function () {
-            if (this.$.search.lastRequest) {
-              this.$.search.lastRequest.abort();
-            }
-        },
-
-        _performSearch: function () {
-            this.$.search.params = {"q":this.query,"type":"album","limit":"50"};
-            this.$.search.generateRequest();
-        }
-    });
-  </script>
+          generateRequest: function () {
+              this.$.search.params = {"q":this.query,"type":"album","limit":"50"};
+              this.$.search.generateRequest();
+          }
+      });
+    </script>
 </dom-module>
