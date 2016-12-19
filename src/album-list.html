@@ -23,7 +23,7 @@
         <app-header effects="resize-title" condenses fixed shadow>
             <app-toolbar class="top-toolbar">
                 <content select="[drawer-toggle]"></content>
-                <div class="title">Albums Novelty</div>
+                <div class="title">Albums Finder</div>
                 <div main-title></div>
                 <div condensed-title></div>
             </app-toolbar>
@@ -32,29 +32,29 @@
             query="{{query}}"
             placeholder="Enter a title to perform a search">
         </search-bar>
+        <template is="dom-if" if="{{onRequest}}">
+            <div class="content-message">
+                <div class="title">Searching...</div>
+            </div>
+        </template>
+        <template is="dom-if" if="{{_isEmptyQuery(query)}}">
+            <div class="content-message">
+                <div class="title">Find your favorite music</div>
+                <div class="message">Search for songs, artists, albums, playlists and profiles.</div>
+            </div>
+        </template>
+        <template is="dom-if" if="{{_isEmptyAlbums(query, response.albums.items)}}">
+            <div class="content-message">
+                <div class="title">No results were found for “{{query}}”</div>
+                <div class="message">Please, make sure the words are spelled correctly or try fewer words or different words.</div>
+            </div>
+        </template>
         <div class="content">
-            <template is="dom-if" if="{{onRequest}}">
-                <div class="content-message">
-                    <h3 class="title">Searching...</h3>
-                </div>
-            </template>
             <template is="dom-if" if="{{!onRequest}}">
                 <template is="dom-if" if="{{!_isEmptyQuery(query)}}">
                     <template is="dom-repeat" items="{{response.albums.items}}" as="album">
                         <album-card album=[[album]] album-id="[[album.id]]"></album-card>
                     </template>
-                </template>
-                <template is="dom-if" if="{{_isEmptyQuery(query)}}">
-                    <div class="content-message">
-                        <h3 class="title">Find your favorite music</h3>
-                        <div class="message">Search for songs, artists, albums, playlists and profiles.</div>
-                    </div>
-                </template>
-                <template is="dom-if" if="{{_isEmptyAlbums(query, response.albums.items)}}">
-                    <div class="content-message">
-                        <h3 class="title">No results were found for “{{query}}”</h3>
-                        <div class="message">Please, make sure the words are spelled correctly or try fewer words or different words.</div>
-                    </div>
                 </template>
             </template>
         </div>
