@@ -26,9 +26,6 @@
         is: 'base-iron-ajax',
 
         properties: {
-            query: {
-                type: String
-            },
             response: {
                 notify: true
             }
@@ -40,11 +37,10 @@
             }
         },
 
-        generateRequest: function () {
-            if(this.query) {
-                this._cancelCurrentRequest();
-                this._performSearch();
-            }
+        generateRequest: function (options) {
+            this._cancelCurrentRequest();
+            this._setRequestParameters(options);
+            this._performSearch();
         },
 
         // Private methods
@@ -54,9 +50,26 @@
             }
         },
 
-        _performSearch: function () {
-            this.$.request.params = {"q":this.query,"type":"album","limit":"50"};
+        _performSearch: function (params) {
             this.$.request.generateRequest();
+        },
+
+        _setRequestParameters: function (options) {
+            this._setUrl(options);
+            this._setParams(options);
+        },
+
+        _setUrl: function (options) {
+            if (options.url) {
+                this.$.request.url = options.url;
+            }
+        },
+
+        _setParams: function (options) {
+            this.$.request.params = undefined;
+            if (options.params) {
+                this.$.request.params = options.params;
+            }
         }
     });
   </script>

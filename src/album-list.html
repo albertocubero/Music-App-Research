@@ -17,7 +17,6 @@
 
     <iron-search-ajax
         id="searchAjax"
-        query="{{query}}"
         response="{{response}}">
     </iron-search-ajax>
     <app-header-layout>
@@ -173,7 +172,7 @@
         },
 
         _queryChanged: function () {
-            this.$.searchAjax.generateRequest();
+            this.$.searchAjax.generateRequest(this.query);
         }
     });
   </script>

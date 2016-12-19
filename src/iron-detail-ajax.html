@@ -7,7 +7,6 @@
 
         <base-iron-ajax
             id="detail"
-            query={{query}}
             response={{response}}>
         </base-iron-ajax>
 
@@ -18,17 +17,16 @@
           is: 'iron-detail-ajax',
 
           properties: {
-              query: {
-                  type: String
-              },
               response: {
                   notify: true
               }
           },
 
-          generateRequest: function () {
-              this.$.detail.url = "https://api.spotify.com/v1/albums/"+this.query;
-              this.$.detail.generateRequest();
+          generateRequest: function (query) {
+              var options = {
+                  url: "https://api.spotify.com/v1/albums/"+query
+              };
+              this.$.detail.generateRequest(options);
           }
       });
     </script>

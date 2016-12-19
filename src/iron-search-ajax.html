@@ -7,7 +7,6 @@
 
         <base-iron-ajax
             id="search"
-            query={{query}}
             url="https://api.spotify.com/v1/search"
             response={{response}}>
         </base-iron-ajax>
@@ -19,17 +18,16 @@
           is: 'iron-search-ajax',
 
           properties: {
-              query: {
-                  type: String
-              },
               response: {
                   notify: true
               }
           },
 
-          generateRequest: function () {
-              this.$.search.params = {"q":this.query,"type":"album","limit":"50"};
-              this.$.search.generateRequest();
+          generateRequest: function (query) {
+              var options = {
+                  params: { "q" : query, "type" : "album", "limit" : "50" }
+              };
+              this.$.search.generateRequest(options);
           }
       });
     </script>

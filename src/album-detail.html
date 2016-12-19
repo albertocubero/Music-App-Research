@@ -218,13 +218,6 @@
       }
     },
 
-    attached: function () {
-        if(this.albumId) {
-            this.$.detailAjax.query = this.albumId;
-            this.$.detailAjax.generateRequest();
-        }
-    },
-
     onClickFavorite: function(event, detail) {
         this._updateFavorite();
         this._toggleAlbumOnLS();
@@ -241,8 +234,9 @@
     },
 
     _performRequest: function () {
-        this.$.detailAjax.query = this.albumId;
-        this.$.detailAjax.generateRequest();
+        if(this.albumId) {
+            this.$.detailAjax.generateRequest(this.albumId);
+        }
     },
 
     __albumChanged: function() {
