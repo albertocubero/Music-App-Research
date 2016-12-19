@@ -9,7 +9,7 @@ Installation Steps:
 https://www.cooper.com/journal/2016/11/stretching-google-material-to-make-better-desktop-navigation
 
 
-- Pagina de detalle
+(OK) - Pagina de detalle
     (OK) - Mostrar toda la info
     (OK) - Navegar desde lista de albums/lista de favoritos
     (OK) - Mostrar 'song' o 'songs' dependiendo del numero de canciones
@@ -24,10 +24,14 @@ https://www.cooper.com/journal/2016/11/stretching-google-material-to-make-better
         (DEPRECATED)- Usar Jquery Events?
 (OK) - Refactor services
 (OK) - Refactor Toast
-- BUG: se lanzan 2 peticiones siempre
+(OK) - BUG: se lanzan 2 peticiones siempre
+(DEPRECATED) - Mostrar resultados por tipo (artista, albums)
+(DEPRECATED) - En la peticion inicial de lista de albums, que aparezca el mensaje de buscando
+(OK) - Si ponemos cadena vacia en el campo de busqueda, que aparezca un mensaje
+- Style: hacer mas visible el mensaje que sale mientras buscamos o cuando no hay favoritos
 - Escuchar el album
     - Si estoy en favoritos, voy a un detail, reproduzco musica, y le quito favorite, parar la reproduccion.
-- Mostrar resultados por tipo (artista, albums)
+
 - Comentar Codigo
 - Todos los textos en ingles
 - Modificar README.md (Guidelines: https://github.com/xDae/readme-boilerplate)
