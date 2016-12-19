@@ -1,0 +1,29 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
+
+<dom-module id="favorite-toast">
+  <template>
+
+    <style>
+        paper-toast {
+            left: inherit !important;
+            right: 0 !important;
+        }
+    </style>
+
+    <paper-toast id="toast"></paper-toast>
+  </template>
+
+  <script>
+  Polymer({
+    is: 'favorite-toast',
+
+    show: function (isFavorite) {
+        var text = (isFavorite) ? 'Favorite Saved !' : 'Favorite Removed !';
+        this.$.toast.show(text);
+    }
+  });
+  </script>
+
+</dom-module>

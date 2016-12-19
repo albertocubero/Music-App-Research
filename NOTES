@@ -22,8 +22,8 @@ https://www.cooper.com/journal/2016/11/stretching-google-material-to-make-better
         (OK) - Mostrar Toast
         (OK) - estilos
         (DEPRECATED)- Usar Jquery Events?
-- Refactor services
-- Refactor Toast
+(OK) - Refactor services
+(OK) - Refactor Toast
 - BUG: se lanzan 2 peticiones siempre
 - Escuchar el album
     - Si estoy en favoritos, voy a un detail, reproduzco musica, y le quito favorite, parar la reproduccion.

@@ -2,10 +2,10 @@
 
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="../bower_components/iron-image/iron-image.html">
 
 <link rel="import" href="album-storage-manager.html">
+<link rel="import" href="favorite-toast.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="album-card">
@@ -49,11 +49,6 @@
             color: inherit;
         }
 
-        paper-toast {
-            left: inherit !important;
-            right: 0 !important;
-        }
-
         @media (max-width: 960px) {
             .card {
                 width: 47.7%;
@@ -75,7 +70,7 @@
 
     </style>
 
-    <paper-toast id="toast"></paper-toast>
+    <favorite-toast id="toast"></favorite-toast>
     <paper-card id="card" class="card" image="{{album.images.0.url}}" elevation="5">
         <a href="#/detail/{{album.id}}" class="card-container" style="color: inherit;text-decoration: inherit;">
             <div class="card-content">
@@ -198,8 +193,7 @@
         },
 
         _showMessage: function () {
-            var text = (this.isFavorite) ? 'Favorite Saved !' : 'Favorite Removed !';
-            this.$.toast.show(text);
+            this.$.toast.show(this.isFavorite);
         }
     });
   </script>

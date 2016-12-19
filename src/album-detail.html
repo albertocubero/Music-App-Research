@@ -14,9 +14,9 @@
 <link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
-<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
 
 <link rel="import" href="iron-detail-ajax.html">
+<link rel="import" href="favorite-toast.html">
 
 <dom-module id="album-detail">
 
@@ -115,11 +115,6 @@
             padding-right: 20px;
         }
 
-        paper-toast {
-            left: inherit !important;
-            right: 0 !important;
-        }
-
         @media (max-width: 1280px) {
             .cover {
                 background-size: 100vw;
@@ -139,7 +134,7 @@
 
     </style>
 
-    <paper-toast id="toast"></paper-toast>
+    <favorite-toast id="toast"></favorite-toast>
     <iron-detail-ajax
         id="detailAjax"
         response="{{album}}">
@@ -328,8 +323,7 @@
     },
 
     _showMessage: function () {
-        var text = (this.__favorite) ? 'Favorite Saved !' : 'Favorite Removed !';
-        this.$.toast.show(text);
+        this.$.toast.show(this.__favorite);
     },
   });
   </script>
