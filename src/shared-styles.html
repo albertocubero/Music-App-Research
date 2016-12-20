@@ -20,6 +20,10 @@
           font-size: 48px;
           font-weight: 800;
           text-align: center;
+          overflow:hidden;
+          white-space:nowrap;
+          text-overflow: ellipsis;
+          padding: 0 60px;
       }
 
       .content {
@@ -33,6 +37,11 @@
       .content-message {
           padding-top: 80px;
           text-align: center;
+      }
+
+      .content-message .icon {
+          height: 140px;
+          width: 140px;
       }
 
       .content-message .title {
@@ -75,7 +84,7 @@
               height: 60px;
           }
           .title {
-              font-size: 36px;
+              display: none;
           }
           .content {
               max-width: 400px;
