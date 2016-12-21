@@ -145,8 +145,17 @@
         },
 
         _addEventHandlers: function () {
-            this.$.card.shadowRoot.querySelector('.header').removeEventListener('click', this.clickCoverHandler);
-            this.$.card.shadowRoot.querySelector('.header').addEventListener('click', this.clickCoverHandler);
+            // Hack
+            try {
+                // Chrome
+                Polymer.dom(this.$.card).node.querySelector('::shadow .header').removeEventListener('click', this.clickCoverHandler);
+                Polymer.dom(this.$.card).node.querySelector('::shadow .header').addEventListener('click', this.clickCoverHandler);
+            }
+            catch(err) {
+                // Not Support - Firefox
+                Polymer.dom(this.$.card).node.querySelector('.header').removeEventListener('click', this.clickCoverHandler);
+                Polymer.dom(this.$.card).node.querySelector('.header').addEventListener('click', this.clickCoverHandler);
+            }
         },
 
         _updateFavoriteStatusFromLS: function () {
