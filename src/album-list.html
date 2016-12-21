@@ -123,8 +123,7 @@
         },
 
         refresh: function (data) {
-            // var albumCardsNodes = Polymer.dom(this.root).querySelectorAll("album-card"); // Another way
-            var albumCardsNodes = Array.prototype.slice.call(this.shadowRoot.querySelectorAll("album-card"));
+            var albumCardsNodes = Polymer.dom(this.root).querySelectorAll("album-card");
             var selectedNodes = albumCardsNodes.filter(function (card) {
                 return card['albumId'] === data.id;
             });
