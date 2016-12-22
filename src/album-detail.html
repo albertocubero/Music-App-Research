@@ -15,6 +15,9 @@
 <link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
 
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-icons/social-icons.html">
+
 <link rel="import" href="iron-detail-ajax.html">
 <link rel="import" href="favorite-toast.html">
 
@@ -51,7 +54,7 @@
             margin: 0 auto;
         }
 
-        paper-fab {
+        .btn-favorite {
             position: absolute;
             top: -28px;
             right: 40px;
@@ -113,6 +116,9 @@
         .track-name {
             @apply(--layout-flex);
             padding-right: 20px;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
 
         @media (max-width: 1280px) {
@@ -146,19 +152,19 @@
             <app-toolbar>
                 <!-- back button -->
                 <a href="#/home" tabindex="-1">
-                    <paper-icon-button icon="arrow-back" class="toolbar-btn"></paper-icon-button>
+                    <paper-icon-button icon="icons:arrow-back" class="toolbar-btn"></paper-icon-button>
                 </a>
                 <div main-title>Search</div>
                 <div class="title">{{album.name}}</div>
                 <paper-menu-button horizontal-align="right">
-                    <paper-icon-button icon="more-vert" class="toolbar-btn dropdown-trigger" alt="menu"></paper-icon-button>
+                    <paper-icon-button icon="icons:more-vert" class="toolbar-btn dropdown-trigger" alt="menu"></paper-icon-button>
                     <paper-listbox class="dropdown-content">
                         <paper-icon-item>
-                            <iron-icon icon="share" item-icon></iron-icon>
+                            <iron-icon icon="social:share" item-icon></iron-icon>
                             Tweet album
                         </paper-icon-item>
                         <paper-icon-item>
-                            <iron-icon icon="group" item-icon></iron-icon>
+                            <iron-icon icon="social:people" item-icon></iron-icon>
                             Share on Facebook
                         </paper-icon-item>
                     </paper-listbox>
@@ -192,7 +198,7 @@
                         </template>
                     </div>
                 </paper-card>
-                <paper-fab icon="{{__computeFavIcon(__favorite)}}" on-tap="onClickFavorite"></paper-fab>
+                <paper-fab class="btn-favorite" icon="{{__computeFavIcon(__favorite)}}" on-tap="onClickFavorite"></paper-fab>
             </div>
         </div>
     </app-header-layout>
@@ -281,7 +287,7 @@
     },
 
     __computeFavIcon: function(favorite) {
-        return favorite ? 'favorite' : 'favorite-outline';
+        return favorite ? 'icons:favorite' : 'icons:favorite-border';
     },
 
     _getAlbumDuration: function (tracks) {

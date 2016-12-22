@@ -17,13 +17,13 @@
 <link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="../bower_components/app-layout/app-scrollpos-control/app-scrollpos-control.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 
 <link rel="import" href="view-404.html">
 <link rel="import" href="album-list.html">
 <link rel="import" href="album-list.html">
 <link rel="import" href="album-detail.html">
 <link rel="import" href="favorite-list.html">
-<link rel="import" href="icons.html">
 
 <dom-module id="albums-app">
 
@@ -121,7 +121,7 @@
                         <paper-item-body>
                             <div>Search</div>
                         </paper-item-body>
-                        <paper-icon-button icon="search" alt="favourite this!"></paper-icon-button>
+                        <paper-icon-button icon="icons:search" alt="favourite this!"></paper-icon-button>
                     </paper-icon-item>
 
                     <paper-icon-item name="favorites" class="option">
@@ -129,7 +129,7 @@
                         <paper-item-body>
                             <div>Favorites</div>
                         </paper-item-body>
-                        <paper-icon-button icon="favorite-outline" alt="favourite this!"></paper-icon-button>
+                        <paper-icon-button icon="icons:favorite-border" alt="favourite this!"></paper-icon-button>
                     </paper-icon-item>
 
                 </paper-listbox>
@@ -140,14 +140,14 @@
             reset="[[_isDetailPage(_pageData.page)]]"></app-scrollpos-control>
         <iron-pages selected="[[_pageData.page]]" attr-for-selected="name" fallback-selection="404">
             <album-list name="home" id="albumsList">
-                <paper-icon-button icon="menu" class="toolbar-menu-btn" drawer-toggle></paper-icon-button>
+                <paper-icon-button icon="icons:menu" class="toolbar-menu-btn" drawer-toggle></paper-icon-button>
             </album-list>
             <favorite-list name="favorites" id="favorites">
-                <paper-icon-button icon="menu" class="toolbar-menu-btn" drawer-toggle></paper-icon-button>
+                <paper-icon-button icon="icons:menu" class="toolbar-menu-btn" drawer-toggle></paper-icon-button>
             </favorite-list>
             <album-detail id="detail" name="detail" album-id="[[_idData.id]]"></album-detail>
             <view-404 name="404">
-                <paper-icon-button icon="menu" class="toolbar-menu-btn" drawer-toggle></paper-icon-button>
+                <paper-icon-button icon="icons:menu" class="toolbar-menu-btn" drawer-toggle></paper-icon-button>
             </view-404>
         </iron-pages>
     </app-drawer-layout>
