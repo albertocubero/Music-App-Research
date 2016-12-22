@@ -1,0 +1,122 @@
+<script>
+
+    function createPlayer() {
+
+        function createSongPlayer (url) {
+
+            var ctx = new (window.AudioContext || window.webkitAudioContext)();
+            var buffer;
+            var sourceNode;
+            var startedAt;
+            var pausedAt;
+            var paused;
+
+            function load() {
+                var request = new XMLHttpRequest();
+                request.open('GET', url, true);
+                request.responseType = 'arraybuffer';
+                request.onload = function() {
+                    ctx.decodeAudioData(request.response, onBufferLoad, onBufferError);
+                };
+                request.send();
+            };
+
+            function play() {
+                sourceNode = ctx.createBufferSource();
+                sourceNode.connect(ctx.destination);
+                sourceNode.buffer = buffer;
+                paused = false;
+
+                if (pausedAt) {
+                    startedAt = Date.now() - pausedAt;
+                    sourceNode.start(0, pausedAt / 1000);
+                }
+                else {
+                    startedAt = Date.now();
+                    sourceNode.start(0);
+                }
+            };
+
+            function stop() {
+                sourceNode.stop(0);
+                pausedAt = Date.now() - startedAt;
+                paused = true;
+            };
+
+            function onBufferLoad(b) {
+                buffer = b;
+                play();
+            };
+
+            function onBufferError(e) {
+                console.log('onBufferError', e);
+            };
+
+            load();
+
+            return {
+                load: load,
+                play: play,
+                stop: stop
+            }
+        };
+
+        var track;
+        var playlist;
+        var player;
+
+        function load (songs) {
+            init(songs);
+            start();
+        }
+
+        function init (songs) {
+            track = 0;
+            playlist = parseSongs(songs);
+            pause();
+        }
+
+        function parseSongs (songs) {
+            if( typeof songs === 'string' ) {
+                songs = [songs];
+            }
+            return songs;
+        }
+
+        function start () {
+            var song = getSong();
+            if(song) {
+                createPlayer(song);
+            }
+        }
+
+        function createPlayer (song) {
+            player = createSongPlayer(song);
+        }
+
+        function getSong () {
+            return playlist[track++];
+        }
+
+        function pause () {
+            if(player) {
+                player.stop()
+            }
+        }
+
+        function play () {
+            if(player) {
+                player.play()
+            }
+        }
+
+        return {
+            load: load,
+            play: play,
+            pause: pause
+        };
+    }
+
+    window.App = window.App || {};
+    window.App.Player = window.App.Player || createPlayer();
+</script>

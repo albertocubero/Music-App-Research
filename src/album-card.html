@@ -3,10 +3,13 @@
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/iron-image/iron-image.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/iron-icons/av-icons.html">
 
 <link rel="import" href="album-storage-manager.html">
 <link rel="import" href="favorite-toast.html">
 <link rel="import" href="shared-styles.html">
+<link rel="import" href="player.html">
 
 <dom-module id="album-card">
 
@@ -30,7 +33,23 @@
             height: 283px !important;
         }
 
+        .btn-play {
+            position: absolute;
+            top: -28px;
+            right: 20px;
+            --paper-fab-background: #EF5458;
+            --paper-fab-keyboard-focus-background: #DF4448;
+        }
+
+        .card-content {
+            padding-right: 64px;
+        }
+
         .info-artist-name {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            padding-right: 71px;
             font-weight: bold;
         }
 
@@ -71,22 +90,32 @@
     </style>
 
     <favorite-toast id="toast"></favorite-toast>
+    <iron-detail-ajax
+        id="detailAjax"
+        response="{{albumDetail}}">
+    </iron-detail-ajax>
     <paper-card id="card" class="card" image="{{album.images.0.url}}" elevation="5">
-        <a href="#/detail/{{album.id}}" class="card-container" style="color: inherit;text-decoration: inherit;">
+        <a href="#/detail/{{album.id}}" class="card-container" style="color: inherit;text-decoration: inherit; position: relative;">
             <div class="card-content">
+                <template is="dom-if" if="{{!playing}}">
+                    <paper-fab class="btn-play" icon="av:play-arrow" on-tap="_playAlbum"></paper-fab>
+                </template>
+                <template is="dom-if" if="{{playing}}">
+                    <paper-fab class="btn-play" icon="av:pause" on-tap="_pauseAlbum"></paper-fab>
+                </template>
                 <div class="info-artist-name">{{album.artists.0.name}}</div>
                 <p class="info-title">{{album.name}}</p>
             </div>
         </a>
         <div class="card-actions">
             <template is="dom-if" if="{{_isTruthy(isFavorite)}}">
-                <paper-icon-button icon="favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="btn-favorite pink"></paper-icon-button>
+                <paper-icon-button icon="icons:favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="btn-favorite pink"></paper-icon-button>
             </template>
             <template is="dom-if" if="{{_isFalsy(isFavorite)}}">
-                <paper-icon-button icon="favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="btn-favorite"></paper-icon-button>
+                <paper-icon-button icon="icons:favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="btn-favorite"></paper-icon-button>
             </template>
             <a href="{{album.external_urls.spotify}}" target="_blank" class="btn-external">
-                <paper-icon-button icon="link"></paper-icon-button>
+                <paper-icon-button icon="icons:link"></paper-icon-button>
             </a>
         </div>
     </paper-card>
@@ -103,7 +132,19 @@
                 value: {},
                 observer: '_albumChanged'
             },
+            albumDetail: {
+                type: Object,
+                observer: '_albumDetailChanged'
+            },
+            playing: {
+                type: Boolean,
+                value: false
+            },
             isFavorite: {
+                type: Boolean,
+                value: false
+            },
+            playerLoaded: {
                 type: Boolean,
                 value: false
             }
@@ -203,6 +244,40 @@
 
         _showMessage: function () {
             this.$.toast.show(this.isFavorite);
+        },
+
+        _playAlbum: function (e) {
+            e.preventDefault();
+            if (!this.albumDetail) {
+                this.$.detailAjax.generateRequest(this.album.id);
+            } else {
+                this._playSongs();
+            }
+        },
+
+        _albumDetailChanged: function () {
+            this._playSongs();
+        },
+
+        _playSongs: function () {
+            if(this.get('playerLoaded')) {
+                this.set('playing', true);
+                window.App.Player.play();
+            }
+            else {
+                var songs = this.albumDetail.tracks.items.map(function (track) {
+                    return track.preview_url;
+                });
+                this.set('playerLoaded', true);
+                this.set('playing', true);
+                window.App.Player.load(songs);
+            }
+        },
+
+        _pauseAlbum: function (e) {
+            e.preventDefault();
+            this.set('playing', false);
+            window.App.Player.pause();
         }
     });
   </script>

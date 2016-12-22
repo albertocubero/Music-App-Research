@@ -8,32 +8,25 @@ Installation Steps:
 
 https://www.cooper.com/journal/2016/11/stretching-google-material-to-make-better-desktop-navigation
 
-
-(OK) - Pagina de detalle
-    (OK) - Mostrar toda la info
-    (OK) - Navegar desde lista de albums/lista de favoritos
-    (OK) - Mostrar 'song' o 'songs' dependiendo del numero de canciones
-    (OK) - Efecto Blink en el cover
-        (OK) - Incluir Jquery
-        (OK) - CARD y DETALLE
-    - Actualizar Favorito
-        (OK) - Al iniciar Detalle, ver si es o no favorito.
-        (OK) - Si se cambia Favorito desde Detalle, actualizar la lista y los favoritos.
-        (OK) - Mostrar Toast
-        (OK) - estilos
-        (DEPRECATED)- Usar Jquery Events?
-(OK) - Refactor services
-(OK) - Refactor Toast
-(OK) - BUG: se lanzan 2 peticiones siempre
-(DEPRECATED) - Mostrar resultados por tipo (artista, albums)
-(DEPRECATED) - En la peticion inicial de lista de albums, que aparezca el mensaje de buscando
-(OK) - Si ponemos cadena vacia en el campo de busqueda, que aparezca un mensaje
-(OK)- Style: hacer mas visible el mensaje que sale mientras buscamos o cuando no hay favoritos
 - Escuchar el album
-    - Si estoy en favoritos, voy a un detail, reproduzco musica, y le quito favorite, parar la reproduccion.
+    - Player:
+        - Mover Player a Custom Element
+        - Eventos de Playlist terminada para poner el boton en estado natural
+    - Detalle: ver donde poner el boton de PLAY, alomejor donde esta el de favorito, y colocar el de favorito donde esta el menu de arriba derecha.
+    - Si cualquier album se esta reproducciendo, y otro desde cualquier pagina se empieza a reproducir, que actualizen el estado del icono de PLAY/PAUSE. Para ello, crear una vista que envuelva el player, y que el player cuando pase que envie eventos para que restauren el icono.
+
+- Meter jquery dentro de albums-app
+- Quitar style en linea del codigo
+- Refactorizar "CSS puntos suspensivos" a shared-styles.
+- Añadir este Service Worker:
+    - https://github.com/PolymerElements/platinum-sw
 - Cambiar el color a naranja (Como google Play music)
+Nombre: Music App Research
+
 
 - Comentar Codigo
 - Todos los textos en ingles
 - Modificar README.md (Guidelines: https://github.com/xDae/readme-boilerplate)
+    EJEMPLO:
+    - https://github.com/ebidel/polymer-gmail
 - Colgar la pagina en Github Pages para que este life (https://help.github.com/articles/what-is-github-pages/)
