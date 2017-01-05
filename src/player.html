@@ -1,15 +1,26 @@
+<script src="/bower_components/emitter.js/emitter.js"></script>
 <script>
 
     var PlayerFactory = function () {
 
         function createSongPlayer (url) {
 
-            var ctx = new (window.AudioContext || window.webkitAudioContext)();
+            var API;
+            var ctx;
             var buffer;
             var sourceNode;
             var startedAt;
             var pausedAt;
             var paused;
+
+            function init () {
+                ctx = createContext();
+                load();
+            }
+
+            function createContext() {
+                return new (window.AudioContext || window.webkitAudioContext)();
+            }
 
             function load() {
                 var request = new XMLHttpRequest();
@@ -17,12 +28,12 @@
                 request.responseType = 'arraybuffer';
                 request.onload = function() {
                     ctx.decodeAudioData(request.response, onBufferLoad, onBufferError);
-                };
+                }
                 request.send();
-            };
+            }
 
             function play() {
-                sourceNode = ctx.createBufferSource();
+                sourceNode = createBufferSource();
                 sourceNode.connect(ctx.destination);
                 sourceNode.buffer = buffer;
                 paused = false;
@@ -35,48 +46,69 @@
                     startedAt = Date.now();
                     sourceNode.start(0);
                 }
-            };
+            }
 
-            function stop() {
+            function createBufferSource() {
+                var sourceNode = ctx.createBufferSource();
+                sourceNode.onended = function() {
+                    if(!paused) {
+                        API.trigger('song:finished');
+                    }
+                }
+                return sourceNode;
+            }
+
+            function pause() {
                 sourceNode.stop(0);
                 pausedAt = Date.now() - startedAt;
                 paused = true;
-            };
+            }
+
+            function stop () {
+                sourceNode.stop(0);
+                pausedAt = 0;
+                paused = false;
+            }
 
             function onBufferLoad(b) {
                 buffer = b;
                 play();
-            };
+            }
 
             function onBufferError(e) {
                 console.log('onBufferError', e);
-            };
+            }
 
-            load();
+            init();
 
-            return {
+            API = window.Emitter({
                 load: load,
                 play: play,
+                pause: pause,
                 stop: stop
-            }
-        };
+            });
 
-        var track;
+            return API;
+        }
+
+        var API;
+        var song;
+        var songs;
         var playlist;
         var player;
 
-        function load (songs) {
-            init(songs);
+        function load (tracks) {
+            songs = tracks;
+            init();
             start();
         }
 
-        function init (songs) {
-            track = 0;
-            playlist = parseSongs(songs);
-            pause();
+        function init () {
+            song = 0;
+            playlist = parseSongs();
         }
 
-        function parseSongs (songs) {
+        function parseSongs () {
             if( typeof songs === 'string' ) {
                 songs = [songs];
             }
@@ -84,23 +116,41 @@
         }
 
         function start () {
+            stop();
+            next();
+        }
+
+        function next () {
             var song = getSong();
             if(song) {
                 createPlayer(song);
+            } else {
+                playlistFinished();
             }
+        }
+
+        function playlistFinished () {
+            init();
+            API.trigger('playlist:finished');
         }
 
         function createPlayer (song) {
             player = createSongPlayer(song);
+            player.on('song:finished', function () {
+                setTimeout(function () {
+                    next();
+                }, 200);
+
+            });
         }
 
         function getSong () {
-            return playlist[track++];
+            return playlist[song++];
         }
 
         function pause () {
             if(player) {
-                player.stop()
+                player.pause()
             }
         }
 
@@ -111,15 +161,20 @@
         }
 
         function stop () {
-            init(songs);
+            if(player) {
+                player.stop();
+            }
+            init();
         }
 
-        return {
+        API = window.Emitter({
             load: load,
             play: play,
             pause: pause,
             stop: stop
-        };
+        });
+
+        return API;
     }
 
     window.App = window.App || {};

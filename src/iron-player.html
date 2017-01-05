@@ -14,10 +14,10 @@
       <iron-signals on-iron-signal-mysignal="stopPlayer"></iron-signals>
 
       <template is="dom-if" if="{{!playing}}">
-          <paper-fab class="btn-play" icon="av:play-arrow" on-tap="_playAlbum"></paper-fab>
+          <paper-fab class="btn-play" icon="av:play-arrow" on-tap="_playAlbumHandler"></paper-fab>
       </template>
       <template is="dom-if" if="{{playing}}">
-          <paper-fab class="btn-play" icon="av:pause" on-tap="_pauseAlbum"></paper-fab>
+          <paper-fab class="btn-play" icon="av:pause" on-tap="_pauseAlbumHandler"></paper-fab>
       </template>
 
   </template>
@@ -58,14 +58,19 @@
 
         _createPlayer: function () {
             this.player = window.App.PlayerFactory();
+            this.player.on('playlist:finished', this._pauseAlbum.bind(this));
         },
 
         _albumDetailChanged: function () {
             this._playSongs();
         },
 
-        _playAlbum: function (e) {
+        _playAlbumHandler: function (e) {
             e.preventDefault();
+            this._playAlbum();
+        },
+
+        _playAlbum: function () {
             if (!this.albumDetail) {
                 this.$.detailAjax.generateRequest(this.albumId);
             } else {
@@ -88,8 +93,12 @@
             }
         },
 
-        _pauseAlbum: function (e) {
+        _pauseAlbumHandler: function (e) {
             e.preventDefault();
+            this._pauseAlbum();
+        },
+
+        _pauseAlbum: function () {
             this.set('playing', false);
             this.player.pause();
         }

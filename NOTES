@@ -12,6 +12,7 @@ https://www.cooper.com/journal/2016/11/stretching-google-material-to-make-better
     - Player:
         - Mover Player a Custom Element
         - Eventos de Playlist terminada para poner el boton en estado natural
+        - Toast para cada cancion
     - Detalle: ver donde poner el boton de PLAY, alomejor donde esta el de favorito, y colocar el de favorito donde esta el menu de arriba derecha.
     - Si cualquier album se esta reproducciendo, y otro desde cualquier pagina se empieza a reproducir, que actualizen el estado del icono de PLAY/PAUSE. Para ello, crear una vista que envuelva el player, y que el player cuando pase que envie eventos para que restauren el icono.
 
