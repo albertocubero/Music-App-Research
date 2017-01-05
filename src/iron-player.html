@@ -2,6 +2,7 @@
 <link rel="import" href="../bower_components/iron-signals/iron-signals.html">
 
 <link rel="import" href="iron-detail-ajax.html">
+<link rel="import" href="player.html">
 
 <dom-module id="iron-player">
   <template>
@@ -23,8 +24,6 @@
 
   <script>
 
-  (function () {
-
       Polymer({
         is: 'iron-player',
         properties: {
@@ -40,7 +39,7 @@
                 type: Boolean,
                 value: false
             },
-            playerLoaded: {
+            requestLoaded: {
                 type: Boolean,
                 value: false
             }
@@ -58,7 +57,7 @@
         },
 
         _createPlayer: function () {
-            this.player = createPlayer();
+            this.player = window.App.PlayerFactory();
         },
 
         _albumDetailChanged: function () {
@@ -66,7 +65,6 @@
         },
 
         _playAlbum: function (e) {
-            console.log('this.albumId: ', this.albumId);
             e.preventDefault();
             if (!this.albumDetail) {
                 this.$.detailAjax.generateRequest(this.albumId);
@@ -76,7 +74,7 @@
         },
 
         _playSongs: function () {
-            if(this.get('playerLoaded')) {
+            if(this.get('requestLoaded')) {
                 this.set('playing', true);
                 this.player.play();
             }
@@ -84,7 +82,7 @@
                 var songs = this.albumDetail.tracks.items.map(function (track) {
                     return track.preview_url;
                 });
-                this.set('playerLoaded', true);
+                this.set('requestLoaded', true);
                 this.set('playing', true);
                 this.player.load(songs);
             }
@@ -96,132 +94,6 @@
             this.player.pause();
         }
       });
-
-      // CREATE FACTORY
-      function createPlayer() {
-
-          function createSongPlayer (url) {
-
-              var ctx = new (window.AudioContext || window.webkitAudioContext)();
-              var buffer;
-              var sourceNode;
-              var startedAt;
-              var pausedAt;
-              var paused;
-
-              function load() {
-                  var request = new XMLHttpRequest();
-                  request.open('GET', url, true);
-                  request.responseType = 'arraybuffer';
-                  request.onload = function() {
-                      ctx.decodeAudioData(request.response, onBufferLoad, onBufferError);
-                  };
-                  request.send();
-              };
-
-              function play() {
-                  sourceNode = ctx.createBufferSource();
-                  sourceNode.connect(ctx.destination);
-                  sourceNode.buffer = buffer;
-                  paused = false;
-
-                  if (pausedAt) {
-                      startedAt = Date.now() - pausedAt;
-                      sourceNode.start(0, pausedAt / 1000);
-                  }
-                  else {
-                      startedAt = Date.now();
-                      sourceNode.start(0);
-                  }
-              };
-
-              function stop() {
-                  sourceNode.stop(0);
-                  pausedAt = Date.now() - startedAt;
-                  paused = true;
-              };
-
-              function onBufferLoad(b) {
-                  buffer = b;
-                  play();
-              };
-
-              function onBufferError(e) {
-                  console.log('onBufferError', e);
-              };
-
-              load();
-
-              return {
-                  load: load,
-                  play: play,
-                  stop: stop
-              }
-          };
-
-          var track;
-          var playlist;
-          var player;
-
-          function load (songs) {
-              init(songs);
-              start();
-          }
-
-          function init (songs) {
-              track = 0;
-              playlist = parseSongs(songs);
-              pause();
-          }
-
-          function parseSongs (songs) {
-              if( typeof songs === 'string' ) {
-                  songs = [songs];
-              }
-              return songs;
-          }
-
-          function start () {
-              var song = getSong();
-              if(song) {
-                  createPlayer(song);
-              }
-          }
-
-          function createPlayer (song) {
-              player = createSongPlayer(song);
-          }
-
-          function getSong () {
-              return playlist[track++];
-          }
-
-          function pause () {
-              if(player) {
-                  player.stop()
-              }
-          }
-
-          function play () {
-              if(player) {
-                  player.play()
-              }
-          }
-
-          function stop () {
-              init(songs);
-          }
-
-          return {
-              load: load,
-              play: play,
-              pause: pause,
-              stop: stop
-          };
-      }
-
-  })();
-
 
   </script>
 

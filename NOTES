@@ -15,6 +15,8 @@ https://www.cooper.com/journal/2016/11/stretching-google-material-to-make-better
     - Detalle: ver donde poner el boton de PLAY, alomejor donde esta el de favorito, y colocar el de favorito donde esta el menu de arriba derecha.
     - Si cualquier album se esta reproducciendo, y otro desde cualquier pagina se empieza a reproducir, que actualizen el estado del icono de PLAY/PAUSE. Para ello, crear una vista que envuelva el player, y que el player cuando pase que envie eventos para que restauren el icono.
 
+- Card:
+    - Mover Favorite Button a un nuevo Custom Element
 - Meter jquery dentro de albums-app
 - Quitar style en linea del codigo
 - Refactorizar "CSS puntos suspensivos" a shared-styles.

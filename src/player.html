@@ -1,6 +1,6 @@
 <script>
 
-    function createPlayer() {
+    var PlayerFactory = function () {
 
         function createSongPlayer (url) {
 
@@ -110,13 +110,18 @@
             }
         }
 
+        function stop () {
+            init(songs);
+        }
+
         return {
             load: load,
             play: play,
-            pause: pause
+            pause: pause,
+            stop: stop
         };
     }
 
     window.App = window.App || {};
-    window.App.Player = window.App.Player || createPlayer();
+    window.App.PlayerFactory = window.App.PlayerFactory || PlayerFactory;
 </script>
