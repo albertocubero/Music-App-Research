@@ -94,8 +94,8 @@
         <a href="#/detail/{{album.id}}" class="card-container" style="color: inherit;text-decoration: inherit; position: relative;">
             <div class="card-content">
                 <iron-player class="btn-play" id="player" album-id="{{album.id}}"></iron-player>
-                <div class="info-artist-name">{{album.artists.0.name}}</div>
-                <p class="info-title">{{album.name}}</p>
+                <div class="info-artist-name" title="{{album.artists.0.name}}">{{album.artists.0.name}}</div>
+                <p class="info-title" title="{{album.name}}">{{album.name}}</p>
             </div>
         </a>
         <div class="card-actions">
