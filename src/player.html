@@ -33,6 +33,14 @@
             }
 
             function play() {
+                if(ctx.state === 'closed') {
+                    init();
+                } else {
+                    playSong();
+                }
+            }
+
+            function playSong() {
                 sourceNode = createBufferSource();
                 sourceNode.connect(ctx.destination);
                 sourceNode.buffer = buffer;
@@ -60,20 +68,35 @@
             }
 
             function pause() {
-                sourceNode.stop(0);
+                if(sourceNode) {
+                    sourceNode.stop(0);
+                }
                 pausedAt = Date.now() - startedAt;
                 paused = true;
             }
 
             function stop () {
-                sourceNode.stop(0);
                 pausedAt = 0;
                 paused = false;
                 clear();
             }
 
             function clear () {
-                ctx.close();
+                clearSourceNode();
+                clearContext();
+            }
+
+            function clearSourceNode () {
+                if (sourceNode) {
+                    sourceNode.stop(0);
+                    sourceNode = undefined;
+                }
+            }
+
+            function clearContext () {
+                if (ctx && ctx.state !== 'closed') {
+                    ctx.close();
+                }
             }
 
             function onBufferLoad(b) {

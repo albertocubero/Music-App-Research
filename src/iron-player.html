@@ -11,13 +11,13 @@
           response="{{albumDetail}}">
       </iron-detail-ajax>
 
-      <iron-signals on-iron-signal-mysignal="stopPlayer"></iron-signals>
+      <iron-signals on-iron-signal-playing-album="stopPlayer"></iron-signals>
 
       <template is="dom-if" if="{{!playing}}">
-          <paper-fab class="btn-play" icon="av:play-arrow" on-tap="_playAlbumHandler"></paper-fab>
+          <paper-fab class="btn-play" icon="av:play-arrow" on-tap="playAlbumHandler"></paper-fab>
       </template>
       <template is="dom-if" if="{{playing}}">
-          <paper-fab class="btn-play" icon="av:pause" on-tap="_pauseAlbumHandler"></paper-fab>
+          <paper-fab class="btn-play" icon="av:pause" on-tap="pauseAlbumHandler"></paper-fab>
       </template>
 
   </template>
@@ -48,8 +48,21 @@
             this._createPlayer();
         },
 
-        stopPlayer: function () {
-            this.player.stop();
+        stopPlayer: function (data) {
+            if(this.albumId !== data.detail.albumId) {
+                this.set('playing', false);
+                this.player.stop();
+            }
+        },
+
+        playAlbumHandler: function (e) {
+            e.preventDefault();
+            this._playAlbum();
+        },
+
+        pauseAlbumHandler: function (e) {
+            e.preventDefault();
+            this._pauseAlbum();
         },
 
         _albumIdChanged: function () {
@@ -65,12 +78,11 @@
             this.player.on('playlist:finished', this._pauseAlbum.bind(this));
         },
 
-        _playAlbumHandler: function (e) {
-            e.preventDefault();
-            this._playAlbum();
-        },
-
         _playAlbum: function () {
+            this.fire('iron-signal', {name: 'playing-album', data: {
+                albumId: this.get('albumId')
+            }});
+
             if (!this.get('albumDetail')) {
                 this._fetchAlbumInfo();
             } else {
@@ -103,11 +115,6 @@
             this.set('loaded', true);
             this.set('playing', true);
             this.player.load(songs);
-        },
-
-        _pauseAlbumHandler: function (e) {
-            e.preventDefault();
-            this._pauseAlbum();
         },
 
         _pauseAlbum: function () {
