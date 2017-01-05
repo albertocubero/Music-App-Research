@@ -14,12 +14,12 @@
             var paused;
 
             function init () {
-                ctx = createContext();
+                createContext();
                 load();
             }
 
             function createContext() {
-                return new (window.AudioContext || window.webkitAudioContext)();
+                ctx = new (window.AudioContext || window.webkitAudioContext)();
             }
 
             function load() {
@@ -52,6 +52,7 @@
                 var sourceNode = ctx.createBufferSource();
                 sourceNode.onended = function() {
                     if(!paused) {
+                        clear();
                         API.trigger('song:finished');
                     }
                 }
@@ -68,6 +69,11 @@
                 sourceNode.stop(0);
                 pausedAt = 0;
                 paused = false;
+                clear();
+            }
+
+            function clear () {
+                ctx.close();
             }
 
             function onBufferLoad(b) {
