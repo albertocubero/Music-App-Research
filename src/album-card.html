@@ -9,7 +9,7 @@
 <link rel="import" href="album-storage-manager.html">
 <link rel="import" href="favorite-toast.html">
 <link rel="import" href="shared-styles.html">
-<link rel="import" href="player.html">
+<link rel="import" href="iron-player.html">
 
 <dom-module id="album-card">
 
@@ -90,19 +90,10 @@
     </style>
 
     <favorite-toast id="toast"></favorite-toast>
-    <iron-detail-ajax
-        id="detailAjax"
-        response="{{albumDetail}}">
-    </iron-detail-ajax>
     <paper-card id="card" class="card" image="{{album.images.0.url}}" elevation="5">
         <a href="#/detail/{{album.id}}" class="card-container" style="color: inherit;text-decoration: inherit; position: relative;">
             <div class="card-content">
-                <template is="dom-if" if="{{!playing}}">
-                    <paper-fab class="btn-play" icon="av:play-arrow" on-tap="_playAlbum"></paper-fab>
-                </template>
-                <template is="dom-if" if="{{playing}}">
-                    <paper-fab class="btn-play" icon="av:pause" on-tap="_pauseAlbum"></paper-fab>
-                </template>
+                <iron-player class="btn-play" id="player" album-id="{{album.id}}"></iron-player>
                 <div class="info-artist-name">{{album.artists.0.name}}</div>
                 <p class="info-title">{{album.name}}</p>
             </div>
@@ -132,22 +123,10 @@
                 value: {},
                 observer: '_albumChanged'
             },
-            albumDetail: {
-                type: Object,
-                observer: '_albumDetailChanged'
-            },
-            playing: {
-                type: Boolean,
-                value: false
-            },
             isFavorite: {
                 type: Boolean,
                 value: false
             },
-            playerLoaded: {
-                type: Boolean,
-                value: false
-            }
         },
 
         attached: function () {
@@ -244,40 +223,6 @@
 
         _showMessage: function () {
             this.$.toast.show(this.isFavorite);
-        },
-
-        _playAlbum: function (e) {
-            e.preventDefault();
-            if (!this.albumDetail) {
-                this.$.detailAjax.generateRequest(this.album.id);
-            } else {
-                this._playSongs();
-            }
-        },
-
-        _albumDetailChanged: function () {
-            this._playSongs();
-        },
-
-        _playSongs: function () {
-            if(this.get('playerLoaded')) {
-                this.set('playing', true);
-                window.App.Player.play();
-            }
-            else {
-                var songs = this.albumDetail.tracks.items.map(function (track) {
-                    return track.preview_url;
-                });
-                this.set('playerLoaded', true);
-                this.set('playing', true);
-                window.App.Player.load(songs);
-            }
-        },
-
-        _pauseAlbum: function (e) {
-            e.preventDefault();
-            this.set('playing', false);
-            window.App.Player.pause();
         }
     });
   </script>
