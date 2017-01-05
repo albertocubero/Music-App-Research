@@ -35,11 +35,11 @@
                 type: Object,
                 observer: '_albumDetailChanged'
             },
-            playing: {
+            loaded: {
                 type: Boolean,
                 value: false
             },
-            requestLoaded: {
+            playing: {
                 type: Boolean,
                 value: false
             }
@@ -56,13 +56,13 @@
             this._createPlayer();
         },
 
+        _albumDetailChanged: function () {
+            this._play();
+        },
+
         _createPlayer: function () {
             this.player = window.App.PlayerFactory();
             this.player.on('playlist:finished', this._pauseAlbum.bind(this));
-        },
-
-        _albumDetailChanged: function () {
-            this._playSongs();
         },
 
         _playAlbumHandler: function (e) {
@@ -71,26 +71,38 @@
         },
 
         _playAlbum: function () {
-            if (!this.albumDetail) {
-                this.$.detailAjax.generateRequest(this.albumId);
+            if (!this.get('albumDetail')) {
+                this._fetchAlbumInfo();
             } else {
-                this._playSongs();
+                this._play();
             }
         },
 
-        _playSongs: function () {
-            if(this.get('requestLoaded')) {
-                this.set('playing', true);
-                this.player.play();
+        _fetchAlbumInfo: function () {
+            this.$.detailAjax.generateRequest(this.get('albumId'));
+        },
+
+        _play: function () {
+            if(this.get('loaded')) {
+                this._playPlayer();
             }
             else {
-                var songs = this.albumDetail.tracks.items.map(function (track) {
-                    return track.preview_url;
-                });
-                this.set('requestLoaded', true);
-                this.set('playing', true);
-                this.player.load(songs);
+                this._loadPlayerInfo();
             }
+        },
+
+        _playPlayer: function () {
+            this.set('playing', true);
+            this.player.play();
+        },
+
+        _loadPlayerInfo: function () {
+            var songs = this.albumDetail.tracks.items.map(function (track) {
+                return track.preview_url;
+            });
+            this.set('loaded', true);
+            this.set('playing', true);
+            this.player.load(songs);
         },
 
         _pauseAlbumHandler: function (e) {

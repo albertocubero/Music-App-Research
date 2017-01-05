@@ -18,6 +18,8 @@ https://www.cooper.com/journal/2016/11/stretching-google-material-to-make-better
 
 - Card:
     - Mover Favorite Button a un nuevo Custom Element
+    - artista y titulo: poner un atributo title con el nombre completo
+    
 - Meter jquery dentro de albums-app
 - Quitar style en linea del codigo
 - Refactorizar "CSS puntos suspensivos" a shared-styles.
