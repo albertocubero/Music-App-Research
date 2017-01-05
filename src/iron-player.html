@@ -49,7 +49,12 @@
         },
 
         stopPlayer: function (data) {
-            if(this.albumId !== data.detail.albumId) {
+            if(this.albumId === data.detail.albumId) { // Same Album
+                if(data.detail.element !== this) { // Diferent Elements: STOP
+                    this.set('playing', false);
+                    this.player.stop();
+                }
+            } else { // Different Album: STOP
                 this.set('playing', false);
                 this.player.stop();
             }
@@ -80,7 +85,8 @@
 
         _playAlbum: function () {
             this.fire('iron-signal', {name: 'playing-album', data: {
-                albumId: this.get('albumId')
+                albumId: this.get('albumId'),
+                element: this
             }});
 
             if (!this.get('albumDetail')) {

@@ -9,17 +9,19 @@ Installation Steps:
 https://www.cooper.com/journal/2016/11/stretching-google-material-to-make-better-desktop-navigation
 
 - Escuchar el album
-    - Player:
-        - Mover Player a Custom Element
-        - Eventos de Playlist terminada para poner el boton en estado natural
-        - Toast para cada cancion
+    (OK)- Player:
+        (OK)- Mover Player a Custom Element
+        (OK)- Eventos de Playlist terminada para poner el boton en estado natural
+    (OK)- Si cualquier album se esta reproducciendo, y otro desde cualquier pagina se empieza a reproducir, que actualizen el estado del icono de PLAY/PAUSE. Para ello, crear una vista que envuelva el player, y que el player cuando pase que envie eventos para que restauren el icono.
+    (OK)- Si tengo el mismo album en la lista y en favoritos, que al darle a uno apague el player del otro. Ahora mismo se escuchan los 2 a la vez.
     - Detalle: ver donde poner el boton de PLAY, alomejor donde esta el de favorito, y colocar el de favorito donde esta el menu de arriba derecha.
-    - Si cualquier album se esta reproducciendo, y otro desde cualquier pagina se empieza a reproducir, que actualizen el estado del icono de PLAY/PAUSE. Para ello, crear una vista que envuelva el player, y que el player cuando pase que envie eventos para que restauren el icono.
 
 - Card:
     - Mover Favorite Button a un nuevo Custom Element
     - artista y titulo: poner un atributo title con el nombre completo
-    
+
+- Al quitar favoritos que no pertenecen a la lista, peta.
+- Al quitar un favorito que no esta en la lista, parar el sonido.
 - Meter jquery dentro de albums-app
 - Quitar style en linea del codigo
 - Refactorizar "CSS puntos suspensivos" a shared-styles.
