@@ -54,7 +54,7 @@
 
 		<div class="input-panel flex">
 			<iron-icon icon="icons:search" class="icon"></iron-icon>
-			<input is="iron-input" bind-value="{{query}}" placeholder="[[placeholder]]" class="search-input flex"></input>
+			<input id="searchInput" is="iron-input" bind-value="{{query}}" placeholder="[[placeholder]]" class="search-input flex"></input>
 		</div>
 		<paper-icon-button icon="icons:clear" hidden$="[[!query]]" on-tap="_clear" class="icon"></paper-icon-button>
 
@@ -106,12 +106,12 @@
 		// Private methods
 		_clear: function() {
 			this.query = "";
-			this.$.input.focus();
+			this.$.searchInput.focus();
 			this.fire('search-bar-clear');
 		},
 
 		_search: function() {
-			this.fire('search-bar-search', {query: this.$.input.value});
+			this.fire('search-bar-search', {query: this.$.searchInput.value});
 		}
 	});
 </script>
