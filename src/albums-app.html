@@ -167,11 +167,6 @@
 
         attached: function () {
             this._initRoute();
-            this._addEventHandlers();
-        },
-
-        detached: function () {
-            this._removeEventHandlers();
         },
 
         // Private methods
@@ -181,26 +176,6 @@
                     this.set('_route.path', '/home');
                 }
             });
-        },
-
-        _addEventHandlers: function () {
-            this.addEventListener('albumList:updated', function () {
-                this.$.favorites.refresh();
-            }.bind(this));
-            this.addEventListener('favorites:updated', function (data) {
-                this.$.albumsList.refresh(data.detail);
-                this.$.detail.refresh();
-            }.bind(this));
-            this.addEventListener('detail:updated', function (data) {
-                this.$.albumsList.refresh(data.detail);
-                this.$.favorites.refresh();
-            }.bind(this));
-        },
-
-        _removeEventHandlers: function () {
-            this.removeEventListener('albumList:updated');
-            this.removeEventListener('favorites:updated');
-            this.removeEventListener('detail:updated');
         },
 
         _isDetailPage: function (page) {

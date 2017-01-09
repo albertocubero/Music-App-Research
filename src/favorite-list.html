@@ -4,6 +4,7 @@
 <link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../bower_components/iron-signals/iron-signals.html">
 
 <link rel="import" href="album-storage-manager.html">
 <link rel="import" href="album-card.html">
@@ -12,6 +13,8 @@
 <dom-module id="favorite-list">
   <template>
     <style include="shared-styles"></style>
+
+    <iron-signals on-iron-signal-favorite-updated="_getFavoriteAlbumsFromLS"></iron-signals>
 
     <app-header-layout>
         <app-header effects="resize-title" condenses fixed shadow>
@@ -50,32 +53,11 @@
         },
 
         attached: function () {
-            this._addEventHandlers();
             this._getFavoriteAlbumsFromLS();
-        },
-
-        detached: function () {
-            this._removeEventHandlers();
-        },
-
-        refresh: function () {
-            this._getFavoriteAlbumsFromLS();
-        },
-
-        // Private methods
-        _addEventHandlers: function () {
-            this.addEventListener('card:favorite:updated', function (data) {
-                this._getFavoriteAlbumsFromLS();
-                this.fire('favorites:updated', data.detail);
-            }.bind(this));
         },
 
         _getFavoriteAlbumsFromLS: function () {
             this.set('albums', window.App.localStorage.albums.getAll());
-        },
-
-        _removeEventHandlers: function () {
-            this.removeEventListener('card:favorite:updated');
         },
 
         _isEmpty: function () {

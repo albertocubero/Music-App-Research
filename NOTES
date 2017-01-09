@@ -8,15 +8,17 @@ Installation Steps:
 
 https://www.cooper.com/journal/2016/11/stretching-google-material-to-make-better-desktop-navigation
 
+- Card:
+    (OK)- artista y titulo: poner un atributo title con el nombre completo
+    - global toast message
+    - Mover Favorite Button a un nuevo Custom Element
+
 - Escuchar el album
     - Detalle: ver donde poner el boton de PLAY, alomejor donde esta el de favorito, y colocar el de favorito donde esta el menu de arriba derecha.
 
-- Card:
-    - artista y titulo: poner un atributo title con el nombre completo
-    - Mover Favorite Button a un nuevo Custom Element
-
-
-- Al quitar favoritos que no pertenecen a la lista, peta.
+- Poner un toast generico en App para mostrar cualquier mensaje
+- cambiar de iron-player a paper-player
+(OK)- Al quitar favoritos que no pertenecen a la lista, peta.
 - Al quitar un favorito que no esta en la lista, parar el sonido.
 - Meter jquery dentro de albums-app
 - Quitar style en linea del codigo
@@ -24,7 +26,7 @@ https://www.cooper.com/journal/2016/11/stretching-google-material-to-make-better
 - Añadir este Service Worker:
     - https://github.com/PolymerElements/platinum-sw
 - Cambiar el color a naranja (Como google Play music)
-Nombre: Music App Research
+- Nombre: Music App Research
 
 
 - Comentar Codigo

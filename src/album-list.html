@@ -122,27 +122,9 @@
             this._removeEventHandlers();
         },
 
-        refresh: function (data) {
-            var albumCardsNodes = Polymer.dom(this.root).querySelectorAll("album-card");
-            var selectedNodes = albumCardsNodes.filter(function (card) {
-                return card['albumId'] === data.id;
-            });
-
-            if (selectedNodes.length) {
-                selectedNodes[0].refresh();
-            }
-        },
-
         // Private methods
         _addEventHandlers: function () {
-            this._addFavoriteEventHandlers();
             this._addRequestEventHandlers();
-        },
-
-        _addFavoriteEventHandlers: function () {
-            this.addEventListener('card:favorite:updated', function () {
-                this.fire('albumList:updated');
-            }.bind(this));
         },
 
         _addRequestEventHandlers: function () {
@@ -161,12 +143,7 @@
         },
 
         _removeEventHandlers: function () {
-            this._removeFavoriteEventHandlers();
             this._removeRequestEventHandlers();
-        },
-
-        _removeFavoriteEventHandlers: function () {
-            this.removeEventListener('card:favorite:updated');
         },
 
         _removeRequestEventHandlers: function () {
