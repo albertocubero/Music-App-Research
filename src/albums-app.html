@@ -24,6 +24,7 @@
 <link rel="import" href="album-list.html">
 <link rel="import" href="album-detail.html">
 <link rel="import" href="favorite-list.html">
+<link rel="import" href="global-toast.html">
 
 <dom-module id="albums-app">
 
@@ -89,6 +90,8 @@
         }
 
     </style>
+
+    <global-toast></global-toast>
 
     <app-location route="{{_route}}" use-hash-as-path></app-location>
     <app-route
