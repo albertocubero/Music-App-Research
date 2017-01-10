@@ -14,13 +14,13 @@ https://www.cooper.com/journal/2016/11/stretching-google-material-to-make-better
 (OK)- Poner un toast generico en App para mostrar cualquier mensaje, para que se muestre bien
 (OK)- Card: extraer la logica de favorite a un behaviour y usarla tanto en la vista de card como en la de details.
 
-- Escuchar el album
+(OK)- Escuchar el album
     (OK)- Detalle: ver donde poner el boton de PLAY, alomejor donde esta el de favorito, y colocar el de favorito donde esta el menu de arriba derecha.
 
-- cambiar de iron-player a paper-player
+(OK)- cambiar de iron-player a paper-player
 (OK)- Al quitar favoritos que no pertenecen a la lista, peta.
-- Al quitar un favorito que no esta en la lista, parar el sonido.
-- Meter jquery dentro de albums-app
+(DEPRECATED)- Al quitar un favorito que no esta en la lista, parar el sonido.
+(OK)- Meter jquery dentro de albums-app
 - Quitar style en linea del codigo
 - Refactorizar "CSS puntos suspensivos" a shared-styles.
 - Añadir este Service Worker:

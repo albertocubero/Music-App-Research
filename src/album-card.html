@@ -152,7 +152,7 @@
         },
 
         _fadeInEffect: function () {
-            $(this.$.card).removeClass('fadein').addClass('fadein');
+            this.$.card.className = [].concat( this.$.card.className.split(' '), ['fadein'] ).join(' ');
         }
     });
   </script>
