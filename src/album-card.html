@@ -33,6 +33,12 @@
             height: 283px !important;
         }
 
+        .card-container {
+            color: inherit;
+            text-decoration: inherit;
+            position: relative;
+        }
+
         .btn-play {
             position: absolute;
             top: -28px;
@@ -81,7 +87,7 @@
     </style>
 
     <paper-card id="card" class="card" image="{{album.images.0.url}}" elevation="5">
-        <a href="#/detail/{{album.id}}" class="card-container" style="color: inherit;text-decoration: inherit; position: relative;">
+        <a href="#/detail/{{album.id}}" class="card-container">
             <div class="card-content">
                 <paper-player class="btn-play" id="player" album-id="{{album.id}}"></paper-player>
                 <div class="info-artist-name" title="{{album.artists.0.name}}">{{album.artists.0.name}}</div>
