@@ -59,10 +59,6 @@
             text-overflow: ellipsis;
         }
 
-        .btn-external {
-            color: inherit;
-        }
-
         @media (max-width: 960px) {
             .card {
                 width: 47.7%;
@@ -94,6 +90,9 @@
         </a>
         <div class="card-actions">
             <paper-favorite album="{{album}}"></paper-favorite>
+            <a href="{{album.uri}}" class="icon-spotify">
+                <social-media-icons icon="spotify" color="#000000" size="20" title="Open in Spotify"></social-media-icons>
+            </a>
             <a href="{{album.external_urls.spotify}}" target="_blank" class="btn-external">
                 <paper-icon-button icon="icons:link"></paper-icon-button>
             </a>

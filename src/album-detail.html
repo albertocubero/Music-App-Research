@@ -4,6 +4,7 @@
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-icons/social-icons.html">
+<link rel="import" href="../bower_components/social-media-icons/social-media-icons.html">
 
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
@@ -81,12 +82,19 @@
         }
 
         paper-card .info {
-            border-bottom: 1px solid #ddd;
             font-size: 12px;
         }
 
         paper-card .extra {
             color: #999;
+        }
+
+        paper-card .options {
+            text-align: center;
+        }
+
+        paper-card .option-item {
+            display: inline-block;
         }
 
         .section-title {
@@ -192,6 +200,15 @@
                                 <span class="duration">{{_getAlbumDuration(album.tracks.items)}}</span>
                             </p>
                         </div>
+                        <div class="options">
+                            <paper-favorite class="option-item" album="{{album}}"></paper-favorite>
+                            <a href="{{album.uri}}" class="option-item icon-spotify">
+                                <social-media-icons icon="spotify" color="#000000" size="20" title="Open in Spotify"></social-media-icons>
+                            </a>
+                            <a href="{{album.external_urls.spotify}}" target="_blank" class="option-item btn-external">
+                                <paper-icon-button icon="icons:link"></paper-icon-button>
+                            </a>
+                        </div>
                         <h4 class="section-title">Tracks</h4>
                         <template is="dom-repeat" items="{{album.tracks.items}}">
                             <div class="track-item">
@@ -205,7 +222,6 @@
                         </template>
                     </div>
                 </paper-card>
-                <!-- <paper-fab class="btn-favorite" icon="{{__computeFavIcon(__isFavorite)}}" on-tap="onClickFavorite"></paper-fab> -->
                 <iron-player class="btn-play" id="player" album-id="{{album.id}}"></iron-player>
             </div>
         </div>
@@ -221,10 +237,12 @@
             albumId: {
                 type: Object,
                 observer: '__albumIdChanged'
+            },
+            album: {
+              type: Object,
+              observer: '__albumChanged'
             }
         },
-
-        behaviors: [FavoriteBehavior],
 
         __albumIdChanged: function () {
           this._removeCover();
@@ -238,7 +256,6 @@
         },
 
         __albumChanged: function() {
-            this._updateFavoriteStatusFromLS();
             this._updateCover();
         },
 
@@ -250,10 +267,6 @@
             if (this.get('album')) {
                 this.$.cover.style.backgroundImage = 'url(' + this.get('album').images[0].url + ')';
             }
-        },
-
-        __computeFavIcon: function(favorite) {
-            return favorite ? 'icons:favorite' : 'icons:favorite-border';
         },
 
         _getAlbumDuration: function (tracks) {
