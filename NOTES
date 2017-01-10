@@ -15,7 +15,7 @@ https://www.cooper.com/journal/2016/11/stretching-google-material-to-make-better
 (OK)- Card: extraer la logica de favorite a un behaviour y usarla tanto en la vista de card como en la de details.
 
 - Escuchar el album
-    - Detalle: ver donde poner el boton de PLAY, alomejor donde esta el de favorito, y colocar el de favorito donde esta el menu de arriba derecha.
+    (OK)- Detalle: ver donde poner el boton de PLAY, alomejor donde esta el de favorito, y colocar el de favorito donde esta el menu de arriba derecha.
 
 - cambiar de iron-player a paper-player
 (OK)- Al quitar favoritos que no pertenecen a la lista, peta.
