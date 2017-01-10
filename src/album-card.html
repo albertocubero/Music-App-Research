@@ -9,7 +9,7 @@
 <link rel="import" href="album-storage-manager.html">
 <link rel="import" href="paper-favorite.html">
 <link rel="import" href="shared-styles.html">
-<link rel="import" href="iron-player.html">
+<link rel="import" href="paper-player.html">
 
 <dom-module id="album-card">
 
@@ -83,7 +83,7 @@
     <paper-card id="card" class="card" image="{{album.images.0.url}}" elevation="5">
         <a href="#/detail/{{album.id}}" class="card-container" style="color: inherit;text-decoration: inherit; position: relative;">
             <div class="card-content">
-                <iron-player class="btn-play" id="player" album-id="{{album.id}}"></iron-player>
+                <paper-player class="btn-play" id="player" album-id="{{album.id}}"></paper-player>
                 <div class="info-artist-name" title="{{album.artists.0.name}}">{{album.artists.0.name}}</div>
                 <p class="info-title" title="{{album.name}}">{{album.name}}</p>
             </div>
