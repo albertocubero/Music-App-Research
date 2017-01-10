@@ -33,6 +33,7 @@
             },
             albumDetail: {
                 type: Object,
+                value: undefined,
                 observer: '_albumDetailChanged'
             },
             loaded: {
@@ -52,11 +53,11 @@
             if(this.albumId === data.detail.albumId) { // Same Album
                 if(data.detail.element !== this) { // Diferent Elements: STOP
                     this.set('playing', false);
-                    this.player.stop();
+                    this._stopPlayer();
                 }
             } else { // Different Album: STOP
                 this.set('playing', false);
-                this.player.stop();
+                this._stopPlayer();
             }
         },
 
@@ -71,16 +72,39 @@
         },
 
         _albumIdChanged: function () {
-            this._createPlayer();
+            this._resetStatus();
+        },
+
+        _resetStatus: function () {
+            this.set('albumDetail', undefined);
+            this.set('loaded', false);
+            this.set('playing', false);
         },
 
         _albumDetailChanged: function () {
-            this._play();
+            if(this.get('albumDetail')) {
+                this._play();
+            }
         },
 
         _createPlayer: function () {
+            this._stopPlayer();
+            this._deletePlayer();
             this.player = window.App.PlayerFactory();
             this.player.on('playlist:finished', this._pauseAlbum.bind(this));
+        },
+
+        _stopPlayer: function () {
+            if(this.player) {
+                this.player.stop();
+            }
+        },
+
+        _deletePlayer: function () {
+            if(this.player) {
+                this.player.off();
+                this.player = undefined;
+            }
         },
 
         _playAlbum: function () {

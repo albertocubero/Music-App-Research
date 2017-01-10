@@ -23,6 +23,7 @@
 <link rel="import" href="iron-detail-ajax.html">
 <link rel="import" href="favorite-toast.html">
 <link rel="import" href="favorite-behavior.html">
+<link rel="import" href="iron-player.html">
 
 <dom-module id="album-detail">
 
@@ -57,7 +58,7 @@
             margin: 0 auto;
         }
 
-        .btn-favorite {
+        .btn-play {
             position: absolute;
             top: -28px;
             right: 40px;
@@ -144,7 +145,7 @@
     </style>
 
     <iron-signals on-iron-signal-favorite-updated="_updateFavoriteStatusFromLS"></iron-signals>
-    
+
     <favorite-toast id="toast"></favorite-toast>
 
     <iron-detail-ajax
@@ -204,7 +205,8 @@
                         </template>
                     </div>
                 </paper-card>
-                <paper-fab class="btn-favorite" icon="{{__computeFavIcon(__isFavorite)}}" on-tap="onClickFavorite"></paper-fab>
+                <!-- <paper-fab class="btn-favorite" icon="{{__computeFavIcon(__isFavorite)}}" on-tap="onClickFavorite"></paper-fab> -->
+                <iron-player class="btn-play" id="player" album-id="{{album.id}}"></iron-player>
             </div>
         </div>
     </app-header-layout>
