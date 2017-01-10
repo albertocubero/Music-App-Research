@@ -22,6 +22,7 @@
 <link rel="import" href="album-storage-manager.html">
 <link rel="import" href="iron-detail-ajax.html">
 <link rel="import" href="favorite-toast.html">
+<link rel="import" href="favorite-behavior.html">
 
 <dom-module id="album-detail">
 
@@ -203,7 +204,7 @@
                         </template>
                     </div>
                 </paper-card>
-                <paper-fab class="btn-favorite" icon="{{__computeFavIcon(__favorite)}}" on-tap="onClickFavorite"></paper-fab>
+                <paper-fab class="btn-favorite" icon="{{__computeFavIcon(__isFavorite)}}" on-tap="onClickFavorite"></paper-fab>
             </div>
         </div>
     </app-header-layout>
@@ -211,124 +212,75 @@
   </template>
 
   <script>
-  Polymer({
-    is: 'album-detail',
+    Polymer({
+        is: 'album-detail',
 
-    properties: {
-      albumId: {
-        type: Object,
-        observer: '__albumIdChanged'
-      },
-      album: {
-        type: Object,
-        observer: '__albumChanged'
-      },
-      __favorite: {
-        type: Boolean,
-        value: false
-      }
-    },
+        properties: {
+            albumId: {
+                type: Object,
+                observer: '__albumIdChanged'
+            }
+        },
 
-    onClickFavorite: function(event, detail) {
-        this._updateFavorite();
-        this._toggleAlbumOnLS();
-        this._notifyFavoriteUpdated();
-    },
+        behaviors: [FavoriteBehavior],
 
-    __albumIdChanged: function () {
-      this._removeCover();
-      this._performRequest();
-    },
+        __albumIdChanged: function () {
+          this._removeCover();
+          this._performRequest();
+        },
 
-    _performRequest: function () {
-        if(this.albumId) {
-            this.$.detailAjax.generateRequest(this.albumId);
+        _performRequest: function () {
+            if(this.get('albumId')) {
+                this.$.detailAjax.generateRequest(this.get('albumId'));
+            }
+        },
+
+        __albumChanged: function() {
+            this._updateFavoriteStatusFromLS();
+            this._updateCover();
+        },
+
+        _removeCover: function () {
+            this.$.cover.style.backgroundImage = 'url()';
+        },
+
+        _updateCover: function () {
+            if (this.get('album')) {
+                this.$.cover.style.backgroundImage = 'url(' + this.get('album').images[0].url + ')';
+            }
+        },
+
+        __computeFavIcon: function(favorite) {
+            return favorite ? 'icons:favorite' : 'icons:favorite-border';
+        },
+
+        _getAlbumDuration: function (tracks) {
+            if(tracks) {
+                var duration = tracks.reduce(function (sum, item) {
+                    return sum + item.duration_ms;
+                }, 0);
+
+                return this._formatDuration(duration);
+            }
+        },
+
+        _formatDuration: function (ms) {
+            var date = new Date(ms);
+            var minutes = date.getMinutes();
+            var seconds = date.getSeconds();
+            seconds = (seconds <= 9) ? '0'+seconds : seconds;
+            return minutes+':'+seconds;
+        },
+
+        _getYear: function (date) {
+            return (date) ? date.split('-')[0] : '';
+        },
+
+        _getTotalTracksText: function (tracks) {
+            if(!tracks) return '';
+            return (tracks <= 1) ? 'song' : 'songs';
         }
-    },
-
-    __albumChanged: function() {
-        this._updateFavoriteStatusFromLS();
-        this._updateCover();
-    },
-
-    _removeCover: function () {
-        this.$.cover.style.backgroundImage = 'url()';
-    },
-
-    _updateCover: function () {
-        if (this.album) {
-            this.$.cover.style.backgroundImage = 'url(' + this.album.images[0].url + ')';
-        }
-    },
-
-    _sendFavoriteEventUpdated: function () {
-        this.fire('iron-signal', {name: 'favorite-updated', data: {
-            albumId: this.album.id
-        }});
-    },
-
-    _updateFavorite: function () {
-        this.__favorite = !this.__favorite;
-    },
-
-    _updateFavoriteStatusFromLS: function () {
-        if(this.album) {
-            this.set('__favorite', window.App.localStorage.album.exist(this.album.id));
-        }
-    },
-
-    _toggleAlbumOnLS: function () {
-        (this.__favorite) ? this._saveAlbumToLS(): this._removeAlbumToLS();
-    },
-
-    _saveAlbumToLS: function () {
-        window.App.localStorage.album.save(this.album.id, this.album);
-    },
-
-    _removeAlbumToLS: function () {
-        window.App.localStorage.album.remove(this.album.id);
-    },
-
-    __computeFavIcon: function(favorite) {
-        return favorite ? 'icons:favorite' : 'icons:favorite-border';
-    },
-
-    _getAlbumDuration: function (tracks) {
-        if(tracks) {
-            var duration = tracks.reduce(function (sum, item) {
-                return sum + item.duration_ms;
-            }, 0);
-
-            return this._formatDuration(duration);
-        }
-    },
-
-    _formatDuration: function (ms) {
-        var date = new Date(ms);
-        var minutes = date.getMinutes();
-        var seconds = date.getSeconds();
-        seconds = (seconds <= 9) ? '0'+seconds : seconds;
-        return minutes+':'+seconds;
-    },
-
-    _getYear: function (date) {
-        return (date) ? date.split('-')[0] : '';
-    },
-
-    _getTotalTracksText: function (tracks) {
-        if(!tracks) return '';
-        return (tracks <= 1) ? 'song' : 'songs';
-    },
-
-    _notifyFavoriteUpdated: function () {
-        this._sendFavoriteEventUpdated();
-        this._showMessage();
-    },
-
-    _showMessage: function () {
-        this.$.toast.show(this.__favorite);
-    },
-  });
+    });
   </script>
 
 </dom-module>

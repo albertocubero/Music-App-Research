@@ -4,6 +4,7 @@
 
 <link rel="import" href="album-storage-manager.html">
 <link rel="import" href="favorite-toast.html">
+<link rel="import" href="favorite-behavior.html">
 
 <dom-module id="paper-favorite">
   <style include="shared-styles">
@@ -14,14 +15,14 @@
   </style>
 
   <template>
-      <iron-signals on-iron-signal-favorite-updated="updateStatus"></iron-signals>
+      <iron-signals on-iron-signal-favorite-updated="_updateFavoriteStatusFromLS"></iron-signals>
 
       <favorite-toast id="toast"></favorite-toast>
 
-      <template is="dom-if" if="{{_isTruthy(status)}}">
+      <template is="dom-if" if="{{_isTruthy(__isFavorite)}}">
           <paper-icon-button icon="icons:favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="btn-favorite pink"></paper-icon-button>
       </template>
-      <template is="dom-if" if="{{_isFalsy(status)}}">
+      <template is="dom-if" if="{{_isFalsy(__isFavorite)}}">
           <paper-icon-button icon="icons:favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="btn-favorite"></paper-icon-button>
       </template>
 
@@ -29,65 +30,23 @@
 
   <script>
 
-      Polymer({
+    Polymer({
         is: 'paper-favorite',
-        properties: {
-            status: {
-                type: Boolean,
-                value: false
-            },
-            album: {
-                type: Object,
-                value: {}
-            },
-        },
+
+        behaviors: [FavoriteBehavior],
+
         attached: function () {
             this._updateFavoriteStatusFromLS();
         },
-        updateStatus: function (data) {
-            if(this.album.id === data.detail.albumId) {
-                this._updateFavoriteStatusFromLS();
-            }
+
+        _isTruthy: function (__isFavorite) {
+            return __isFavorite === true;
         },
-        onClickFavorite: function () {
-            this._updateFavorite();
-            this._toggleAlbumOnLS();
-            this._notifyFavoriteUpdated();
-        },
-        _updateFavoriteStatusFromLS: function () {
-            this.set('status', window.App.localStorage.album.exist(this.album.id));
-        },
-        _updateFavorite: function () {
-            this.set('status', !window.App.localStorage.album.exist(this.album.id));
-        },
-        _toggleAlbumOnLS: function () {
-            (this.get('status')) ? this._saveAlbumToLS(): this._removeAlbumToLS();
-        },
-        _saveAlbumToLS: function () {
-            window.App.localStorage.album.save(this.album.id, this.album);
-        },
-        _removeAlbumToLS: function () {
-            window.App.localStorage.album.remove(this.album.id);
-        },
-        _notifyFavoriteUpdated: function () {
-            this._sendFavoriteEventUpdated();
-            this._showMessage();
-        },
-        _sendFavoriteEventUpdated: function () {
-            this.fire('iron-signal', {name: 'favorite-updated', data: {
-                albumId: this.album.id
-            }});
-        },
-        _showMessage: function () {
-            this.$.toast.show(this.status);
-        },
-        _isTruthy: function (status) {
-            return status === true;
-        },
-        _isFalsy: function (status) {
-            return status === false;
+
+        _isFalsy: function (__isFavorite) {
+            return __isFavorite === false;
         }
-      });
+    });
 
   </script>
 

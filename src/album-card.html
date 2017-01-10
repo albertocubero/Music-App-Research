@@ -126,7 +126,7 @@
 
         _onClickCoverHandler: function () {
             window.location.hash = '#/detail/';
-            window.location.hash = '#/detail/' + this.album.id;
+            window.location.hash = '#/detail/' + this.get('album').id;
         },
 
         _albumChanged: function() {

@@ -8,14 +8,11 @@ Installation Steps:
 
 https://www.cooper.com/journal/2016/11/stretching-google-material-to-make-better-desktop-navigation
 
-- Card:
+(OK)- Card:
     (OK)- artista y titulo: poner un atributo title con el nombre completo
     (OK)- Mover Favorite Button a un nuevo Custom Element
-
-- Poner un toast generico en App para mostrar cualquier mensaje, para que se muestre bien
-
-- Card: extraer la logica de favorite a un behaviour y usarla tanto en la vista de card como en la de details.
-
+(OK)- Poner un toast generico en App para mostrar cualquier mensaje, para que se muestre bien
+(OK)- Card: extraer la logica de favorite a un behaviour y usarla tanto en la vista de card como en la de details.
 
 - Escuchar el album
     - Detalle: ver donde poner el boton de PLAY, alomejor donde esta el de favorito, y colocar el de favorito donde esta el menu de arriba derecha.
