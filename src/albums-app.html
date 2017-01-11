@@ -18,6 +18,7 @@
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="../bower_components/app-layout/app-scrollpos-control/app-scrollpos-control.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/platinum-sw/platinum-sw-elements.html">
 
 <link rel="import" href="view-404.html">
 <link rel="import" href="album-list.html">
@@ -90,6 +91,30 @@
         }
 
     </style>
+
+    <platinum-sw-register skip-waiting
+                            clients-claim
+                            auto-register
+                            reload-on-install>
+        <platinum-sw-import-script href="fetch-handler.js"></platinum-sw-import-script>
+        <platinum-sw-fetch handler="weatherFetchHandler"
+                           path="/v1/search"
+                           origin="https://api.spotify.com">
+        </platinum-sw-fetch>
+        <platinum-sw-cache default-cache-strategy="fastest"></platinum-sw-cache>
+    </platinum-sw-register>
+
+    <platinum-sw-register skip-waiting
+                            clients-claim
+                            auto-register
+                            reload-on-install>
+        <platinum-sw-import-script href="fetch-handler.js"></platinum-sw-import-script>
+        <platinum-sw-fetch handler="weatherFetchHandler"
+                           path="/v1/albums/"
+                           origin="https://api.spotify.com">
+        </platinum-sw-fetch>
+        <platinum-sw-cache default-cache-strategy="fastest"></platinum-sw-cache>
+    </platinum-sw-register>
 
     <global-toast></global-toast>
 

@@ -21,8 +21,8 @@ https://www.cooper.com/journal/2016/11/stretching-google-material-to-make-better
 (OK)- Al quitar favoritos que no pertenecen a la lista, peta.
 (DEPRECATED)- Al quitar un favorito que no esta en la lista, parar el sonido.
 (OK)- Meter jquery dentro de albums-app
-- Quitar style en linea del codigo
-- Refactorizar "CSS puntos suspensivos" a shared-styles.
+(OK)- Quitar style en linea del codigo
+(DEPRECATED)- Refactorizar "CSS puntos suspensivos" a shared-styles.
 - Añadir este Service Worker:
     - https://github.com/PolymerElements/platinum-sw
 - Cambiar el color a naranja (Como google Play music)
