@@ -25,8 +25,8 @@ https://www.cooper.com/journal/2016/11/stretching-google-material-to-make-better
 (DEPRECATED)- Refactorizar "CSS puntos suspensivos" a shared-styles.
 (OK)- Añadir este Service Worker:
     (OK)- https://github.com/PolymerElements/platinum-sw
-- Cambiar el color a naranja (Como google Play music)
-- Nombre header visible en mobile, que no aparece, en la lista
+(OK)- Cambiar el color a naranja (Como google Play music)
+(OK)- Nombre header visible en mobile, que no aparece, en la lista
 - Nuevo Nombre: Music App Research
 
 

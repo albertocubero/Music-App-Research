@@ -14,16 +14,18 @@
           height: 120px;
       }
 
+      .ellipsis {
+          overflow:hidden;
+          white-space:nowrap;
+          text-overflow: ellipsis;
+      }
+
       .title {
           width: 100%;
           text-align: left;
           font-size: 48px;
           font-weight: 800;
           text-align: center;
-          overflow:hidden;
-          white-space:nowrap;
-          text-overflow: ellipsis;
-          padding: 0 60px;
       }
 
       .content {
@@ -99,6 +101,10 @@
           .content {
               max-width: 800px;
           }
+          .content-message {
+              padding-left: 6px;
+              padding-right:  6px;
+          }
       }
 
       @media (max-width: 719px) {
@@ -106,7 +112,7 @@
               height: 60px;
           }
           .title {
-              display: none;
+              font-size: 24px;
           }
           .content {
               max-width: 400px;
