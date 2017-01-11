@@ -21,18 +21,18 @@
         response="{{response}}">
     </iron-search-ajax>
     <app-header-layout>
-        <app-header effects="resize-title" condenses fixed shadow>
+        <app-header effects="resize-title waterfall fade-background" reveals>
             <app-toolbar class="top-toolbar">
                 <content select="[drawer-toggle]"></content>
                 <div class="title">Albums Search</div>
                 <div main-title></div>
                 <div condensed-title></div>
             </app-toolbar>
+            <search-bar
+                query="{{query}}"
+                placeholder="Enter a title to perform a search">
+            </search-bar>
         </app-header>
-        <search-bar
-            query="{{query}}"
-            placeholder="Enter a title to perform a search">
-        </search-bar>
         <template is="dom-if" if="{{_isPerformingRequest(query, onRequest)}}">
             <div class="content-message">
                 <div class="title">Searching ...</div>
