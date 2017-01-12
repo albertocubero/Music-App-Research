@@ -1,7 +1,7 @@
 {
   "name": "albums-novelty-app",
   "version": "1.0.0",
-  "description": "Albums Novelty App",
+  "description": "Music App Research",
   "main": "index.js",
   "scripts": {
     "dev": "polymer serve",

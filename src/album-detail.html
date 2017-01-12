@@ -129,6 +129,9 @@
         }
 
         @media (max-width: 720px) {
+            #header {
+                display: none;
+            }
             .card-container {
                 width: 100%;
                 margin: 0;
@@ -158,7 +161,7 @@
                     <paper-icon-button icon="icons:arrow-back" class="toolbar-btn"></paper-icon-button>
                 </a>
                 <div main-title>Search</div>
-                <div class="title ellipsis">{{album.name}}</div>
+                <div id="header" class="title ellipsis header-title">{{album.name}}</div>
                 <paper-menu-button horizontal-align="right">
                     <paper-icon-button icon="icons:more-vert" class="toolbar-btn dropdown-trigger" alt="menu"></paper-icon-button>
                     <paper-listbox class="dropdown-content">
