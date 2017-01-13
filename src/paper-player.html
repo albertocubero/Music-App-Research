@@ -14,10 +14,10 @@
       <iron-signals on-iron-signal-playing-album="stopPlayer"></iron-signals>
 
       <template is="dom-if" if="{{!playing}}">
-          <paper-fab class="btn-play" icon="av:play-arrow" on-tap="playAlbumHandler"></paper-fab>
+          <paper-fab class="btn-play" icon="av:play-arrow" on-tap="playAlbumHandler" title="Play"></paper-fab>
       </template>
       <template is="dom-if" if="{{playing}}">
-          <paper-fab class="btn-play" icon="av:pause" on-tap="pauseAlbumHandler"></paper-fab>
+          <paper-fab class="btn-play" icon="av:pause" on-tap="pauseAlbumHandler" title="Pause"></paper-fab>
       </template>
 
   </template>

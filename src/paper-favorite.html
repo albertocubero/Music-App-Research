@@ -11,7 +11,6 @@
       .btn-favorite.pink {
           color: #fd8c00;
           --paper-icon-button-ink-color: #fd8c00;
-
       }
   </style>
 
@@ -21,10 +20,10 @@
       <favorite-toast id="toast"></favorite-toast>
 
       <template is="dom-if" if="{{_isTruthy(__isFavorite)}}">
-          <paper-icon-button icon="icons:favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="btn-favorite pink"></paper-icon-button>
+          <paper-icon-button icon="icons:favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="btn-favorite pink" title="Save to Favorites"></paper-icon-button>
       </template>
       <template is="dom-if" if="{{_isFalsy(__isFavorite)}}">
-          <paper-icon-button icon="icons:favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="btn-favorite"></paper-icon-button>
+          <paper-icon-button icon="icons:favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="btn-favorite" title="Delete from Favorites"></paper-icon-button>
       </template>
 
   </template>
