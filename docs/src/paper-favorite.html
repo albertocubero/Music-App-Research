@@ -1,0 +1,35 @@
+<html><head><link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/iron-signals/iron-signals.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+
+<link rel="import" href="album-storage-manager.html">
+<link rel="import" href="favorite-toast.html">
+<link rel="import" href="favorite-behavior.html">
+
+</head><body><dom-module id="paper-favorite">
+  <style include="shared-styles">
+      .btn-favorite.pink {
+          color: #fd8c00;
+          --paper-icon-button-ink-color: #fd8c00;
+
+      }
+  </style>
+
+  <template>
+      <iron-signals on-iron-signal-favorite-updated="_updateFavoriteStatusFromLS"></iron-signals>
+
+      <favorite-toast id="toast"></favorite-toast>
+
+      <template is="dom-if" if="{{_isTruthy(__isFavorite)}}">
+          <paper-icon-button icon="icons:favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="btn-favorite pink"></paper-icon-button>
+      </template>
+      <template is="dom-if" if="{{_isFalsy(__isFavorite)}}">
+          <paper-icon-button icon="icons:favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="btn-favorite"></paper-icon-button>
+      </template>
+
+  </template>
+
+  <script>Polymer({is:"paper-favorite",behaviors:[FavoriteBehavior],attached:function(){this._updateFavoriteStatusFromLS()},_isTruthy:function(t){return t===!0},_isFalsy:function(t){return t===!1}});</script>
+
+</dom-module>
+</body></html>

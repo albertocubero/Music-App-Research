@@ -1,0 +1,23 @@
+<html><head><link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="../bower_components/iron-signals/iron-signals.html">
+
+</head><body><dom-module id="global-toast">
+  <template>
+
+    <style>
+        paper-toast {
+            left: inherit !important;
+            right: 0 !important;
+        }
+    </style>
+
+    <iron-signals on-iron-signal-show-message="showMessage"></iron-signals>
+
+    <paper-toast id="toast"></paper-toast>
+  </template>
+
+  <script>Polymer({is:"global-toast",showMessage:function(s){this.$.toast.show(s.detail)}});</script>
+
+</dom-module>
+</body></html>

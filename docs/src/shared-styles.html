@@ -1,0 +1,129 @@
+<html><head><link rel="import" href="../bower_components/polymer/polymer.html">
+
+
+</head><body><dom-module id="shared-styles">
+  <template>
+    <style>
+
+      app-header {
+          color: #fff;
+          background-color: #fd8c00;
+      }
+
+      app-toolbar {
+          height: 120px;
+      }
+
+      .header-title {
+          padding: 0 12px;
+      }
+
+      .ellipsis {
+          overflow:hidden;
+          white-space:nowrap;
+          text-overflow: ellipsis;
+      }
+
+      .title {
+          width: 100%;
+          text-align: left;
+          font-size: 48px;
+          font-weight: 800;
+          text-align: center;
+      }
+
+      .content {
+          display: block;
+          position: relative;
+          max-width: 1000px;
+          padding: 0 10px;
+          margin: 5px auto;
+      }
+
+      .content-message {
+          padding-top: 80px;
+          text-align: center;
+      }
+
+      .content-message .icon {
+          height: 140px;
+          width: 140px;
+      }
+
+      .content-message .title {
+          padding: 24px 0;
+          font-size: 24px;
+          line-height: 32px;
+      }
+
+      .content-message .message a {
+          color: black;
+          font-weight: 800;
+      }
+
+      .btn-external {
+          color: inherit;
+      }
+
+      .icon-spotify {
+          padding: 8px;
+          height: 24px;
+          position: relative;
+          top: 6px;
+          box-sizing: border-box;
+          text-decoration: none;
+      }
+
+      .btn-play {
+          position: absolute;
+          top: -28px;
+          right: 40px;
+          --paper-fab-background: #fd8c00;
+          --paper-fab-keyboard-focus-background: #F5989A;
+
+      }
+
+      .fadein {
+          opacity: 0;
+          animation: fadein 0.4s linear 0.5s forwards;
+      }
+
+      @keyframes fadein {
+          from {
+              opacity: 0;
+          }
+
+          to {
+              opacity: 1;
+          }
+      }
+
+      @media (max-width: 960px) {
+          app-toolbar {
+              height: 90px;
+          }
+          .content {
+              max-width: 800px;
+          }
+          .content-message {
+              padding-left: 6px;
+              padding-right:  6px;
+          }
+      }
+
+      @media (max-width: 719px) {
+          app-toolbar {
+              height: 60px;
+          }
+          .title {
+              font-size: 24px;
+          }
+          .content {
+              max-width: 400px;
+          }
+      }
+
+    </style>
+  </template>
+</dom-module>
+</body></html>

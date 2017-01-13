@@ -1,0 +1,83 @@
+<html><head><script>
+    function getPlayer() {
+        var track;
+        var playlist;
+        var player;
+
+        function load (songs) {
+            init(songs);
+            startPlaylist();
+        }
+
+        function init (songs) {
+            track = 0;
+            playlist = parseSongs(songs);
+            pausePlayer();
+        }
+
+        function parseSongs (songs) {
+            if( typeof songs === 'string' ) {
+                songs = [songs];
+            }
+            return songs;
+        }
+
+        function startPlaylist (songs) {
+            var song = getSong();
+            if(song) {
+                setTimeout(function () {
+                    createPlayer(song);
+                    playPlayer();
+                }, 500);
+            }
+        }
+
+        function getSong () {
+            return playlist[track++];
+        }
+
+        function pausePlayer () {
+            if(player) {
+                player.pause();
+            }
+        }
+
+        function playPlayer () {
+            if(player) {
+                player.play();
+            }
+        }
+
+        // function createPlayer (song) {
+        //     player = new Audio(song);
+        //     player.onended = function() {
+        //         play();
+        //     };
+        // }
+
+        function createPlayer (song) {
+            player = new (window.AudioContext || window.webkitAudioContext)();
+            player.onended = function() {
+                play();
+            };
+
+
+        function pause () {
+            pausePlayer();
+        }
+
+        function play () {
+            playPlayer();
+        }
+
+        return {
+            load: load,
+            play: play,
+            pause: pause
+        };
+    }
+
+    window.App = window.App || {};
+    window.App.Player = window.App.Player || getPlayer();
+</script>
+</head><body></body></html>
