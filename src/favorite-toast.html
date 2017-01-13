@@ -3,15 +3,15 @@
 
 <dom-module id="favorite-toast">
 
-  <script>
-      Polymer({
-        is: 'favorite-toast',
+    <script>
+        Polymer({
+            is: 'favorite-toast',
 
-        show: function (isFavorite) {
-            var text = (isFavorite) ? 'Favorite Saved !' : 'Favorite Removed !';
-            this.fire('iron-signal', {name: 'show-message', data: text});
-        }
-      });
-  </script>
+            show: function (isFavorite) {
+                var text = (isFavorite) ? 'Favorite Saved !' : 'Favorite Removed !';
+                this.fire('iron-signal', {name: 'show-message', data: text});
+            }
+        });
+    </script>
 
 </dom-module>

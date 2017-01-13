@@ -1,8 +1,8 @@
 <link rel="import" href="../bower_components/polymer/polymer.html">
-
 <link rel="import" href="base-iron-ajax.html">
 
 <dom-module id="iron-search-ajax">
+
     <template>
 
         <base-iron-ajax
@@ -14,21 +14,22 @@
     </template>
 
     <script>
-      Polymer({
-          is: 'iron-search-ajax',
+        Polymer({
+            is: 'iron-search-ajax',
 
-          properties: {
-              response: {
-                  notify: true
-              }
-          },
+            properties: {
+                response: {
+                    notify: true
+                }
+            },
 
-          generateRequest: function (query) {
-              var options = {
-                  params: { "q" : query, "type" : "album", "limit" : "50" }
-              };
-              this.$.search.generateRequest(options);
-          }
-      });
+            generateRequest: function (query) {
+                var options = {
+                    params: { "q" : query, "type" : "album", "limit" : "50" }
+                };
+                this.$.search.generateRequest(options);
+            }
+        });
     </script>
+    
 </dom-module>

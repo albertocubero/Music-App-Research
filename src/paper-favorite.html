@@ -7,47 +7,45 @@
 <link rel="import" href="favorite-behavior.html">
 
 <dom-module id="paper-favorite">
-  <style include="shared-styles">
-      .btn-favorite.pink {
-          color: #fd8c00;
-          --paper-icon-button-ink-color: #fd8c00;
-      }
-  </style>
 
-  <template>
-      <iron-signals on-iron-signal-favorite-updated="_updateFavoriteStatusFromLS"></iron-signals>
+    <template>
 
-      <favorite-toast id="toast"></favorite-toast>
+        <style include="shared-styles">
+            .btn-favorite.pink {
+                color: #fd8c00;
+                --paper-icon-button-ink-color: #fd8c00;
+            }
+        </style>
 
-      <template is="dom-if" if="{{_isTruthy(__isFavorite)}}">
-          <paper-icon-button icon="icons:favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="btn-favorite pink" title="Save to Favorites"></paper-icon-button>
-      </template>
-      <template is="dom-if" if="{{_isFalsy(__isFavorite)}}">
-          <paper-icon-button icon="icons:favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="btn-favorite" title="Delete from Favorites"></paper-icon-button>
-      </template>
+        <iron-signals on-iron-signal-favorite-updated="_updateFavoriteStatusFromLS"></iron-signals>
+        <favorite-toast id="toast"></favorite-toast>
+        <template is="dom-if" if="{{_isTruthy(__isFavorite)}}">
+            <paper-icon-button icon="icons:favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="btn-favorite pink" title="Save to Favorites"></paper-icon-button>
+        </template>
+        <template is="dom-if" if="{{_isFalsy(__isFavorite)}}">
+            <paper-icon-button icon="icons:favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="btn-favorite" title="Delete from Favorites"></paper-icon-button>
+        </template>
 
-  </template>
+    </template>
 
-  <script>
+    <script>
+        Polymer({
+            is: 'paper-favorite',
 
-    Polymer({
-        is: 'paper-favorite',
+            behaviors: [FavoriteBehavior],
 
-        behaviors: [FavoriteBehavior],
+            attached: function () {
+                this._updateFavoriteStatusFromLS();
+            },
 
-        attached: function () {
-            this._updateFavoriteStatusFromLS();
-        },
+            _isTruthy: function (__isFavorite) {
+                return __isFavorite === true;
+            },
 
-        _isTruthy: function (__isFavorite) {
-            return __isFavorite === true;
-        },
-
-        _isFalsy: function (__isFavorite) {
-            return __isFavorite === false;
-        }
-    });
-
-  </script>
+            _isFalsy: function (__isFavorite) {
+                return __isFavorite === false;
+            }
+        });
+    </script>
 
 </dom-module>

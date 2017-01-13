@@ -2,75 +2,77 @@
 <link rel="import" href="../bower_components/iron-ajax/iron-ajax.html">
 
 <dom-module id="base-iron-ajax">
-  <template>
 
-    <iron-ajax
-        id="request"
-        headers='{"Accept": "application/json"}'
-        handle-as="json"
-        url={{url}}
-        last-response="{{data}}"
-        debounce-duration="300">
-    </iron-ajax>
+    <template>
 
-    <app-indexeddb-mirror
-        key="albums"
-        data="[[data]]"
-        persisted-data="{{response}}">
-    </app-indexeddb-mirror>
+        <iron-ajax
+            id="request"
+            headers='{"Accept": "application/json"}'
+            handle-as="json"
+            url={{url}}
+            last-response="{{data}}"
+            debounce-duration="300">
+        </iron-ajax>
 
-  </template>
+        <app-indexeddb-mirror
+            key="albums"
+            data="[[data]]"
+            persisted-data="{{response}}">
+        </app-indexeddb-mirror>
 
-  <script>
-    Polymer({
-        is: 'base-iron-ajax',
+    </template>
 
-        properties: {
-            response: {
-                notify: true
+    <script>
+        Polymer({
+            is: 'base-iron-ajax',
+
+            properties: {
+                response: {
+                    notify: true
+                }
+            },
+
+            attached: function () {
+                if(this.auto) {
+                    this.generateRequest();
+                }
+            },
+
+            generateRequest: function (options) {
+                this._cancelCurrentRequest();
+                this._setRequestParameters(options);
+                this._performSearch();
+            },
+
+            // Private methods
+            _cancelCurrentRequest: function () {
+                if (this.$.request.lastRequest) {
+                    this.$.request.lastRequest.abort();
+                }
+            },
+
+            _performSearch: function (params) {
+                this.$.request.generateRequest();
+            },
+
+            _setRequestParameters: function (options) {
+                this._setUrl(options);
+                this._setParams(options);
+            },
+
+            _setUrl: function (options) {
+                if (options.url) {
+                    this.$.request.url = options.url;
+                }
+            },
+
+            _setParams: function (options) {
+                this.$.request.params = undefined;
+                if (options.params) {
+                    this.$.request.params = options.params;
+                }
             }
-        },
+        });
+    </script>
 
-        attached: function () {
-            if(this.auto) {
-                this.generateRequest();
-            }
-        },
-
-        generateRequest: function (options) {
-            this._cancelCurrentRequest();
-            this._setRequestParameters(options);
-            this._performSearch();
-        },
-
-        // Private methods
-        _cancelCurrentRequest: function () {
-            if (this.$.request.lastRequest) {
-              this.$.request.lastRequest.abort();
-            }
-        },
-
-        _performSearch: function (params) {
-            this.$.request.generateRequest();
-        },
-
-        _setRequestParameters: function (options) {
-            this._setUrl(options);
-            this._setParams(options);
-        },
-
-        _setUrl: function (options) {
-            if (options.url) {
-                this.$.request.url = options.url;
-            }
-        },
-
-        _setParams: function (options) {
-            this.$.request.params = undefined;
-            if (options.params) {
-                this.$.request.params = options.params;
-            }
-        }
-    });
-  </script>
 </dom-module>

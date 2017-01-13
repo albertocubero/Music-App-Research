@@ -5,154 +5,154 @@
 <link rel="import" href="player.html">
 
 <dom-module id="paper-player">
-  <template>
-      <iron-detail-ajax
-          id="detailAjax"
-          response="{{albumDetail}}">
-      </iron-detail-ajax>
 
-      <iron-signals on-iron-signal-playing-album="stopPlayer"></iron-signals>
+    <template>
 
-      <template is="dom-if" if="{{!playing}}">
-          <paper-fab class="btn-play" icon="av:play-arrow" on-tap="playAlbumHandler" title="Play"></paper-fab>
-      </template>
-      <template is="dom-if" if="{{playing}}">
-          <paper-fab class="btn-play" icon="av:pause" on-tap="pauseAlbumHandler" title="Pause"></paper-fab>
-      </template>
+        <iron-detail-ajax
+            id="detailAjax"
+            response="{{albumDetail}}">
+        </iron-detail-ajax>
+        <iron-signals on-iron-signal-playing-album="stopPlayer"></iron-signals>
+        <template is="dom-if" if="{{!playing}}">
+            <paper-fab class="btn-play" icon="av:play-arrow" on-tap="playAlbumHandler" title="Play"></paper-fab>
+        </template>
+        <template is="dom-if" if="{{playing}}">
+            <paper-fab class="btn-play" icon="av:pause" on-tap="pauseAlbumHandler" title="Pause"></paper-fab>
+        </template>
 
-  </template>
+    </template>
 
-  <script>
+    <script>
+        Polymer({
+            is: 'paper-player',
 
-      Polymer({
-        is: 'paper-player',
-        properties: {
-            albumId: {
-                type: String,
-                observer: '_albumIdChanged'
+            properties: {
+                albumId: {
+                    type: String,
+                    observer: '_albumIdChanged'
+                },
+                albumDetail: {
+                    type: Object,
+                    value: undefined,
+                    observer: '_albumDetailChanged'
+                },
+                loaded: {
+                    type: Boolean,
+                    value: false
+                },
+                playing: {
+                    type: Boolean,
+                    value: false
+                }
             },
-            albumDetail: {
-                type: Object,
-                value: undefined,
-                observer: '_albumDetailChanged'
-            },
-            loaded: {
-                type: Boolean,
-                value: false
-            },
-            playing: {
-                type: Boolean,
-                value: false
-            }
-        },
-        attached: function () {
-            this._createPlayer();
-        },
 
-        stopPlayer: function (data) {
-            if(this.albumId === data.detail.albumId) { // Same Album
-                if(data.detail.element !== this) { // Diferent Elements: STOP
+            attached: function () {
+                this._createPlayer();
+            },
+
+            stopPlayer: function (data) {
+                if(this.albumId === data.detail.albumId) { // Same Album
+                    if(data.detail.element !== this) { // Diferent Elements: STOP
+                        this.set('playing', false);
+                        this._stopPlayer();
+                    }
+                } else { // Different Album: STOP
                     this.set('playing', false);
                     this._stopPlayer();
                 }
-            } else { // Different Album: STOP
+            },
+
+            playAlbumHandler: function (e) {
+                e.preventDefault();
+                this._playAlbum();
+            },
+
+            pauseAlbumHandler: function (e) {
+                e.preventDefault();
+                this._pauseAlbum();
+            },
+
+            _albumIdChanged: function () {
+                this._resetStatus();
+            },
+
+            _resetStatus: function () {
+                this.set('albumDetail', undefined);
+                this.set('loaded', false);
                 this.set('playing', false);
+            },
+
+            _albumDetailChanged: function () {
+                if(this.get('albumDetail')) {
+                    this._play();
+                }
+            },
+
+            _createPlayer: function () {
                 this._stopPlayer();
+                this._deletePlayer();
+                this.player = window.App.PlayerFactory();
+                this.player.on('playlist:finished', this._pauseAlbum.bind(this));
+            },
+
+            _stopPlayer: function () {
+                if(this.player) {
+                    this.player.stop();
+                }
+            },
+
+            _deletePlayer: function () {
+                if(this.player) {
+                    this.player.off();
+                    this.player = undefined;
+                }
+            },
+
+            _playAlbum: function () {
+                this.fire('iron-signal', {name: 'playing-album', data: {
+                    albumId: this.get('albumId'),
+                    element: this
+                }});
+
+                if (!this.get('albumDetail')) {
+                    this._fetchAlbumInfo();
+                } else {
+                    this._play();
+                }
+            },
+
+            _fetchAlbumInfo: function () {
+                this.$.detailAjax.generateRequest(this.get('albumId'));
+            },
+
+            _play: function () {
+                if(this.get('loaded')) {
+                    this._playPlayer();
+                }
+                else {
+                    this._loadPlayerInfo();
+                }
+            },
+
+            _playPlayer: function () {
+                this.set('playing', true);
+                this.player.play();
+            },
+
+            _loadPlayerInfo: function () {
+                var songs = this.albumDetail.tracks.items.map(function (track) {
+                    return track.preview_url;
+                });
+                this.set('loaded', true);
+                this.set('playing', true);
+                this.player.load(songs);
+            },
+
+            _pauseAlbum: function () {
+                this.set('playing', false);
+                this.player.pause();
             }
-        },
-
-        playAlbumHandler: function (e) {
-            e.preventDefault();
-            this._playAlbum();
-        },
-
-        pauseAlbumHandler: function (e) {
-            e.preventDefault();
-            this._pauseAlbum();
-        },
-
-        _albumIdChanged: function () {
-            this._resetStatus();
-        },
-
-        _resetStatus: function () {
-            this.set('albumDetail', undefined);
-            this.set('loaded', false);
-            this.set('playing', false);
-        },
-
-        _albumDetailChanged: function () {
-            if(this.get('albumDetail')) {
-                this._play();
-            }
-        },
-
-        _createPlayer: function () {
-            this._stopPlayer();
-            this._deletePlayer();
-            this.player = window.App.PlayerFactory();
-            this.player.on('playlist:finished', this._pauseAlbum.bind(this));
-        },
-
-        _stopPlayer: function () {
-            if(this.player) {
-                this.player.stop();
-            }
-        },
-
-        _deletePlayer: function () {
-            if(this.player) {
-                this.player.off();
-                this.player = undefined;
-            }
-        },
-
-        _playAlbum: function () {
-            this.fire('iron-signal', {name: 'playing-album', data: {
-                albumId: this.get('albumId'),
-                element: this
-            }});
-
-            if (!this.get('albumDetail')) {
-                this._fetchAlbumInfo();
-            } else {
-                this._play();
-            }
-        },
-
-        _fetchAlbumInfo: function () {
-            this.$.detailAjax.generateRequest(this.get('albumId'));
-        },
-
-        _play: function () {
-            if(this.get('loaded')) {
-                this._playPlayer();
-            }
-            else {
-                this._loadPlayerInfo();
-            }
-        },
-
-        _playPlayer: function () {
-            this.set('playing', true);
-            this.player.play();
-        },
-
-        _loadPlayerInfo: function () {
-            var songs = this.albumDetail.tracks.items.map(function (track) {
-                return track.preview_url;
-            });
-            this.set('loaded', true);
-            this.set('playing', true);
-            this.player.load(songs);
-        },
-
-        _pauseAlbum: function () {
-            this.set('playing', false);
-            this.player.pause();
-        }
-      });
-
+        });
   </script>
 
 </dom-module>
