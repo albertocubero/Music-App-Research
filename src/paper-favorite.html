@@ -19,10 +19,10 @@
 
         <iron-signals on-iron-signal-favorite-updated="_updateFavoriteStatusFromLS"></iron-signals>
         <favorite-toast id="toast"></favorite-toast>
-        <template is="dom-if" if="{{_isTruthy(__isFavorite)}}">
+        <template is="dom-if" if="{{_isTruthy(_isFavorite)}}">
             <paper-icon-button icon="icons:favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="btn-favorite pink" title="Save to Favorites"></paper-icon-button>
         </template>
-        <template is="dom-if" if="{{_isFalsy(__isFavorite)}}">
+        <template is="dom-if" if="{{_isFalsy(_isFavorite)}}">
             <paper-icon-button icon="icons:favorite" data-album-id="{{album.id}}" on-tap="onClickFavorite" class="btn-favorite" title="Delete from Favorites"></paper-icon-button>
         </template>
 
@@ -38,12 +38,13 @@
                 this._updateFavoriteStatusFromLS();
             },
 
-            _isTruthy: function (__isFavorite) {
-                return __isFavorite === true;
+            // Private methods
+            _isTruthy: function (_isFavorite) {
+                return _isFavorite === true;
             },
 
-            _isFalsy: function (__isFavorite) {
-                return __isFavorite === false;
+            _isFalsy: function (_isFavorite) {
+                return _isFavorite === false;
             }
         });
     </script>

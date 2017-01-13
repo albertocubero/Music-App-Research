@@ -31,8 +31,9 @@ https://www.cooper.com/journal/2016/11/stretching-google-material-to-make-better
 
 (OK)- subir a GitHub
 (OK)- Colgar la pagina en Github Pages para que este life (https://help.github.com/articles/what-is-github-pages/)
-- Todos los textos en ingles
-- Comentar Codigo
+(OK)- Todos los textos en ingles
+(OK)- Comentar Codigo
+- avatar no carga al inicio. tengo que refrescar con SHIFT para que salga. La url cambia.
 - borrar fichero inutiles (URLS, NOTES)
 - Modificar README.md (Guidelines: https://github.com/xDae/readme-boilerplate)
     EJEMPLO:

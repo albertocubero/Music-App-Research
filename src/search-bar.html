@@ -72,29 +72,12 @@
     	Polymer({
     		is: 'search-bar',
 
-    		 /**
-    		 * Fired when the user requests to search for a query
-    		 *
-    		 * @event paper-search-search
-    		 */
-    		 /**
-    		 * Fired when the user taps the clear icon
-    		 *
-    		 * @event paper-search-clear
-    		 */
-
     		properties: {
-    			/**
-    			 * Text for which the user is searching
-    			 */
     			query: {
     				type: String,
     				notify: true,
     				value: ''
     			},
-    			/**
-    			 * Text shown in the search box if the user didn't enter any query
-    			 */
     			placeholder: {
     				type: String,
     				value: 'Search'

@@ -4,23 +4,23 @@
     FavoriteBehavior = {
 
         properties: {
-            __isFavorite: {
+            _isFavorite: {
                 type: Boolean,
                 value: false
             },
             album: {
               type: Object,
-              observer: '__albumChanged'
+              observer: '_albumChanged'
             }
         },
 
-        __albumChanged: function() {
+        _albumChanged: function() {
             this._updateFavoriteStatusFromLS();
         },
 
         _updateFavoriteStatusFromLS: function () {
             if(this.album) {
-                this.set('__isFavorite', window.App.localStorage.album.exist(this.album.id));
+                this.set('_isFavorite', window.App.localStorage.album.exist(this.album.id));
             }
         },
 
@@ -31,11 +31,11 @@
         },
 
         _updateFavorite: function () {
-            this.set('__isFavorite', !window.App.localStorage.album.exist(this.album.id));
+            this.set('_isFavorite', !window.App.localStorage.album.exist(this.album.id));
         },
 
         _toggleAlbumOnLS: function () {
-            (this.get('__isFavorite')) ? this._saveAlbumToLS(): this._removeAlbumToLS();
+            (this.get('_isFavorite')) ? this._saveAlbumToLS(): this._removeAlbumToLS();
         },
 
         _saveAlbumToLS: function () {
@@ -56,7 +56,7 @@
         },
 
         _showMessage: function () {
-            this.$.toast.show(this.get('__isFavorite'));
+            this.$.toast.show(this.get('_isFavorite'));
         }
 
     };

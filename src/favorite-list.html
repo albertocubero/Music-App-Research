@@ -58,6 +58,7 @@
                 this._getFavoriteAlbumsFromLS();
             },
 
+            // Private methods
             _getFavoriteAlbumsFromLS: function () {
                 this.set('albums', window.App.localStorage.albums.getAll());
             },

@@ -220,15 +220,16 @@
         properties: {
             albumId: {
                 type: Object,
-                observer: '__albumIdChanged'
+                observer: '_albumIdChanged'
             },
             album: {
               type: Object,
-              observer: '__albumChanged'
+              observer: '_albumChanged'
             }
         },
 
-        __albumIdChanged: function () {
+        // Private methods
+        _albumIdChanged: function () {
           this._removeCover();
           this._performRequest();
         },
@@ -239,7 +240,7 @@
             }
         },
 
-        __albumChanged: function() {
+        _albumChanged: function() {
             this._updateCover();
         },
 
