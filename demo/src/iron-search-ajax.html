@@ -1,8 +1,8 @@
 <html><head><link rel="import" href="../bower_components/polymer/polymer.html">
-
 <link rel="import" href="base-iron-ajax.html">
 
 </head><body><dom-module id="iron-search-ajax">
+
     <template>
 
         <base-iron-ajax id="search" url="https://api.spotify.com/v1/search" response="{{response}}">
@@ -11,5 +11,6 @@
     </template>
 
     <script>Polymer({is:"iron-search-ajax",properties:{response:{notify:!0}},generateRequest:function(e){var r={params:{q:e,type:"album",limit:"50"}};this.$.search.generateRequest(r)}});</script>
+    
 </dom-module>
 </body></html>

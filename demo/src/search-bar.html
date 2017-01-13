@@ -12,7 +12,6 @@
 	<template>
 
 		<style>
-
 			:host {
 				background: var(--background-color, white);
 				display: block;
@@ -59,18 +58,17 @@
                     font-size: 12px;
                 }
             }
-
 		</style>
 
 		<div class="input-panel flex">
 			<iron-icon icon="icons:search" class="icon"></iron-icon>
 			<input id="searchInput" is="iron-input" bind-value="{{query}}" placeholder="[[placeholder]]" class="search-input flex">
 		</div>
-		<paper-icon-button icon="icons:clear" hidden$="[[!query]]" on-tap="_clear" class="icon"></paper-icon-button>
+		<paper-icon-button icon="icons:clear" hidden$="[[!query]]" on-tap="_clear" class="icon" title="Clean"></paper-icon-button>
 
 	</template>
 
-</dom-module>
+    <script>Polymer({is:"search-bar",properties:{query:{type:String,notify:!0,value:""},placeholder:{type:String,value:"Search"}},behaviors:[Polymer.IronA11yKeysBehavior],keyBindings:{enter:"_search"},_clear:function(){this.query="",this.$.searchInput.focus(),this.fire("search-bar-clear")},_search:function(){this.fire("search-bar-search",{query:this.$.searchInput.value})}});</script>
 
-<script>Polymer({is:"search-bar",properties:{query:{type:String,notify:!0,value:""},placeholder:{type:String,value:"Search"}},behaviors:[Polymer.IronA11yKeysBehavior],keyBindings:{enter:"_search"},_clear:function(){this.query="",this.$.searchInput.focus(),this.fire("search-bar-clear")},_search:function(){this.fire("search-bar-search",{query:this.$.searchInput.value})}});</script>
+</dom-module>
 </body></html>

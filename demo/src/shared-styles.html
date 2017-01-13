@@ -2,128 +2,131 @@
 
 
 </head><body><dom-module id="shared-styles">
-  <template>
-    <style>
 
-      app-header {
-          color: #fff;
-          background-color: #fd8c00;
-      }
+    <template>
 
-      app-toolbar {
-          height: 120px;
-      }
+        <style>
 
-      .header-title {
-          padding: 0 12px;
-      }
+            app-header {
+                color: #fff;
+                background-color: #fd8c00;
+            }
 
-      .ellipsis {
-          overflow:hidden;
-          white-space:nowrap;
-          text-overflow: ellipsis;
-      }
+            app-toolbar {
+                height: 120px;
+            }
 
-      .title {
-          width: 100%;
-          text-align: left;
-          font-size: 48px;
-          font-weight: 800;
-          text-align: center;
-      }
+            .header-title {
+                padding: 0 12px;
+            }
 
-      .content {
-          display: block;
-          position: relative;
-          max-width: 1000px;
-          padding: 0 10px;
-          margin: 5px auto;
-      }
+            .ellipsis {
+                overflow:hidden;
+                white-space:nowrap;
+                text-overflow: ellipsis;
+            }
 
-      .content-message {
-          padding-top: 80px;
-          text-align: center;
-      }
+            .title {
+                width: 100%;
+                text-align: left;
+                font-size: 48px;
+                font-weight: 800;
+                text-align: center;
+            }
 
-      .content-message .icon {
-          height: 140px;
-          width: 140px;
-      }
+            .content {
+                display: block;
+                position: relative;
+                max-width: 1000px;
+                padding: 0 10px;
+                margin: 5px auto;
+            }
 
-      .content-message .title {
-          padding: 24px 0;
-          font-size: 24px;
-          line-height: 32px;
-      }
+            .content-message {
+                padding-top: 80px;
+                text-align: center;
+            }
 
-      .content-message .message a {
-          color: black;
-          font-weight: 800;
-      }
+            .content-message .icon {
+                height: 140px;
+                width: 140px;
+            }
 
-      .btn-external {
-          color: inherit;
-      }
+            .content-message .title {
+                padding: 24px 0;
+                font-size: 24px;
+                line-height: 32px;
+            }
 
-      .icon-spotify {
-          padding: 8px;
-          height: 24px;
-          position: relative;
-          top: 6px;
-          box-sizing: border-box;
-          text-decoration: none;
-      }
+            .content-message .message a {
+                color: black;
+                font-weight: 800;
+            }
 
-      .btn-play {
-          position: absolute;
-          top: -28px;
-          right: 40px;
-          --paper-fab-background: #fd8c00;
-          --paper-fab-keyboard-focus-background: #F5989A;
+            .btn-external {
+                color: inherit;
+            }
 
-      }
+            .icon-spotify {
+                padding: 8px;
+                height: 24px;
+                position: relative;
+                top: 6px;
+                box-sizing: border-box;
+                text-decoration: none;
+            }
 
-      .fadein {
-          opacity: 0;
-          animation: fadein 0.4s linear 0.5s forwards;
-      }
+            .btn-play {
+                position: absolute;
+                top: -28px;
+                right: 40px;
+                --paper-fab-background: #fd8c00;
+                --paper-fab-keyboard-focus-background: #F5989A;
+            }
 
-      @keyframes fadein {
-          from {
-              opacity: 0;
-          }
+            .fadein {
+                opacity: 0;
+                animation: fadein 0.4s linear 0.5s forwards;
+            }
 
-          to {
-              opacity: 1;
-          }
-      }
+            @keyframes fadein {
+                from {
+                    opacity: 0;
+                }
 
-      @media (max-width: 960px) {
-          app-toolbar {
-              height: 90px;
-          }
-          .content {
-              max-width: 800px;
-          }
-          .content-message {
-              padding-left: 6px;
-              padding-right:  6px;
-          }
-      }
+                to {
+                    opacity: 1;
+                }
+            }
 
-      @media (max-width: 719px) {
-          app-toolbar {
-              height: 60px;
-          }
-          .title {
-              font-size: 24px;
-          }
-          .content {
-              max-width: 400px;
-          }
-      }
+            @media (max-width: 960px) {
+                app-toolbar {
+                    height: 90px;
+                }
+                .content {
+                    max-width: 800px;
+                }
+                .content-message {
+                    padding-left: 6px;
+                    padding-right:  6px;
+                }
+            }
 
-    </style>
-  </template>
+            @media (max-width: 719px) {
+                app-toolbar {
+                    height: 60px;
+                }
+                .title {
+                    font-size: 24px;
+                }
+                .content {
+                    max-width: 400px;
+                }
+            }
+
+        </style>
+
+    </template>
+
 </dom-module>
 </body></html>

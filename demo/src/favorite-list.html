@@ -1,34 +1,37 @@
 <html><head><meta charset="UTF-8"><link rel="import" href="albums-app.html"></head><body><dom-module id="favorite-list">
-  <template>
-    <style include="shared-styles"></style>
 
-    <iron-signals on-iron-signal-favorite-updated="_getFavoriteAlbumsFromLS"></iron-signals>
+    <template>
 
-    <app-header-layout>
-        <app-header effects="resize-title" condenses="" fixed="" shadow="">
-            <app-toolbar class="top-toolbar">
-                <content select="[drawer-toggle]"></content>
-                <div class="title ellipsis header-title">Favorites</div>
-                <div main-title=""></div>
-                <div condensed-title=""></div>
-            </app-toolbar>
-        </app-header>
-        <div class="content">
-            <template is="dom-repeat" items="[[albums]]">
-                <album-card album="[[item]]" album-id="[[item.id]]"></album-card>
-            </template>
-            <template is="dom-if" if="{{_isEmpty(albums)}}">
-                <div class="content-message">
-                    <iron-icon class="icon" icon="icons:favorite-border" item-icon=""></iron-icon>
-                    <div class="title">This is where you'll find all your saved albums.</div>
-                    <div class="message">Find more of the music you love among our <a href="#/home">Search Page</a></div>
-                </div>
-            </template>
-        </div>
-    </app-header-layout>
+        <style include="shared-styles"></style>
 
-  </template>
+        <iron-signals on-iron-signal-favorite-updated="_getFavoriteAlbumsFromLS"></iron-signals>
 
-  <script>Polymer({is:"favorite-list",properties:{albums:{type:Array,value:[]}},attached:function(){this._getFavoriteAlbumsFromLS()},_getFavoriteAlbumsFromLS:function(){this.set("albums",window.App.localStorage.albums.getAll())},_isEmpty:function(){return 0===this.albums.length}});</script>
+        <app-header-layout>
+            <app-header effects="resize-title" condenses="" fixed="" shadow="">
+                <app-toolbar class="top-toolbar">
+                    <content select="[drawer-toggle]"></content>
+                    <div class="title ellipsis header-title">Favorites</div>
+                    <div main-title=""></div>
+                    <div condensed-title=""></div>
+                </app-toolbar>
+            </app-header>
+            <div class="content">
+                <template is="dom-repeat" items="[[albums]]">
+                    <album-card album="[[item]]" album-id="[[item.id]]"></album-card>
+                </template>
+                <template is="dom-if" if="{{_isEmpty(albums)}}">
+                    <div class="content-message">
+                        <iron-icon class="icon" icon="icons:favorite-border" item-icon=""></iron-icon>
+                        <div class="title">This is where you'll find all your saved albums.</div>
+                        <div class="message">Find more of the music you love among our <a href="#/home">Search Page</a></div>
+                    </div>
+                </template>
+            </div>
+        </app-header-layout>
+
+    </template>
+
+    <script>Polymer({is:"favorite-list",properties:{albums:{type:Array,value:[]}},attached:function(){this._getFavoriteAlbumsFromLS()},_getFavoriteAlbumsFromLS:function(){this.set("albums",window.App.localStorage.albums.getAll())},_isEmpty:function(){return 0===this.albums.length}});</script>
+
 </dom-module>
 </body></html>

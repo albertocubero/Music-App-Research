@@ -10,30 +10,31 @@
 
 </head><body><dom-module id="view-404">
 
-  <template>
+    <template>
 
-    <style include="shared-styles"></style>
+        <style include="shared-styles"></style>
 
-    <app-header-layout>
-        <app-header effects="resize-title" condenses="" fixed="" shadow="">
-            <app-toolbar class="top-toolbar">
-                <content select="[drawer-toggle]"></content>
-                <div class="title ellipsis header-title">OOPS!</div>
-                <div main-title=""></div>
-                <div condensed-title=""></div>
-            </app-toolbar>
-        </app-header>
-        <div class="content">
-            <div class="content-message">
-                <iron-icon class="icon" icon="icons:block" item-icon=""></iron-icon>
-                <div class="title">404. Page not found</div>
-                <div class="message">Unfortunately, this page does not exist. Please check your URL or return to the <a href="/#/home">Search Page</a></div>
+        <app-header-layout>
+            <app-header effects="resize-title" condenses="" fixed="" shadow="">
+                <app-toolbar class="top-toolbar">
+                    <content select="[drawer-toggle]"></content>
+                    <div class="title ellipsis header-title">OOPS!</div>
+                    <div main-title=""></div>
+                    <div condensed-title=""></div>
+                </app-toolbar>
+            </app-header>
+            <div class="content">
+                <div class="content-message">
+                    <iron-icon class="icon" icon="icons:block" item-icon=""></iron-icon>
+                    <div class="title">404. Page not found</div>
+                    <div class="message">Unfortunately, this page does not exist. Please check your URL or return to the <a href="/#/home">Search Page</a></div>
+                </div>
             </div>
-        </div>
-    </app-header-layout>
+        </app-header-layout>
 
-  </template>
+    </template>
 
-  <script>Polymer({is:"view-404"});</script>
+    <script>Polymer({is:"view-404"});</script>
+
 </dom-module>
 </body></html>

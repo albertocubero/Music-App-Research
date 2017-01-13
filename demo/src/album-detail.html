@@ -1,23 +1,19 @@
 <html><head><link rel="import" href="../bower_components/polymer/polymer.html">
-
 <link rel="import" href="../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../bower_components/iron-icon/iron-icon.html">
 <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../bower_components/iron-icons/social-icons.html">
 <link rel="import" href="../bower_components/social-media-icons/social-media-icons.html">
-
 <link rel="import" href="../bower_components/paper-card/paper-card.html">
 <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../bower_components/paper-listbox/paper-listbox.html">
 <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../bower_components/paper-item/paper-icon-item.html">
 <link rel="import" href="../bower_components/paper-menu-button/paper-menu-button.html">
-
 <link rel="import" href="../bower_components/app-layout/app-header-layout/app-header-layout.html">
 <link rel="import" href="../bower_components/app-layout/app-header/app-header.html">
 <link rel="import" href="../bower_components/app-layout/app-scroll-effects/app-scroll-effects.html">
 <link rel="import" href="../bower_components/app-layout/app-toolbar/app-toolbar.html">
-
 <link rel="import" href="../bower_components/iron-signals/iron-signals.html">
 
 <link rel="import" href="album-storage-manager.html">
@@ -195,7 +191,7 @@
                                 <social-media-icons icon="spotify" color="#000000" size="20" title="Open in Spotify"></social-media-icons>
                             </a>
                             <a href="{{album.external_urls.spotify}}" target="_blank" class="option-item btn-external">
-                                <paper-icon-button icon="icons:link"></paper-icon-button>
+                                <paper-icon-button icon="icons:link" title="Open in browser"></paper-icon-button>
                             </a>
                         </div>
                         <h4 class="section-title">Tracks</h4>
@@ -215,7 +211,7 @@
 
   </template>
 
-  <script>Polymer({is:"album-detail",properties:{albumId:{type:Object,observer:"__albumIdChanged"},album:{type:Object,observer:"__albumChanged"}},__albumIdChanged:function(){this._removeCover(),this._performRequest()},_performRequest:function(){this.get("albumId")&&this.$.detailAjax.generateRequest(this.get("albumId"))},__albumChanged:function(){this._updateCover()},_removeCover:function(){this.$.cover.style.backgroundImage="url()"},_updateCover:function(){this.get("album")&&(this.$.cover.style.backgroundImage="url("+this.get("album").images[0].url+")")},_getAlbumDuration:function(e){if(e){var t=e.reduce(function(e,t){return e+t.duration_ms},0);return this._formatDuration(t)}},_formatDuration:function(e){var t=new Date(e),r=t.getMinutes(),u=t.getSeconds();return u=u<=9?"0"+u:u,r+":"+u},_getYear:function(e){return e?e.split("-")[0]:""},_getTotalTracksText:function(e){return e?e<=1?"song":"songs":""}});</script>
+  <script>Polymer({is:"album-detail",properties:{albumId:{type:Object,observer:"_albumIdChanged"},album:{type:Object,observer:"_albumChanged"}},_albumIdChanged:function(){this._removeCover(),this._performRequest()},_performRequest:function(){this.get("albumId")&&this.$.detailAjax.generateRequest(this.get("albumId"))},_albumChanged:function(){this._updateCover()},_removeCover:function(){this.$.cover.style.backgroundImage="url()"},_updateCover:function(){this.get("album")&&(this.$.cover.style.backgroundImage="url("+this.get("album").images[0].url+")")},_getAlbumDuration:function(e){if(e){var t=e.reduce(function(e,t){return e+t.duration_ms},0);return this._formatDuration(t)}},_formatDuration:function(e){var t=new Date(e),r=t.getMinutes(),u=t.getSeconds();return u=u<=9?"0"+u:u,r+":"+u},_getYear:function(e){return e?e.split("-")[0]:""},_getTotalTracksText:function(e){return e?e<=1?"song":"songs":""}});</script>
 
 </dom-module>
 </body></html>

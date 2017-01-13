@@ -5,22 +5,22 @@
 <link rel="import" href="player.html">
 
 </head><body><dom-module id="paper-player">
-  <template>
-      <iron-detail-ajax id="detailAjax" response="{{albumDetail}}">
-      </iron-detail-ajax>
 
-      <iron-signals on-iron-signal-playing-album="stopPlayer"></iron-signals>
+    <template>
 
-      <template is="dom-if" if="{{!playing}}">
-          <paper-fab class="btn-play" icon="av:play-arrow" on-tap="playAlbumHandler"></paper-fab>
-      </template>
-      <template is="dom-if" if="{{playing}}">
-          <paper-fab class="btn-play" icon="av:pause" on-tap="pauseAlbumHandler"></paper-fab>
-      </template>
+        <iron-detail-ajax id="detailAjax" response="{{albumDetail}}">
+        </iron-detail-ajax>
+        <iron-signals on-iron-signal-playing-album="stopPlayer"></iron-signals>
+        <template is="dom-if" if="{{!playing}}">
+            <paper-fab class="btn-play" icon="av:play-arrow" on-tap="playAlbumHandler" title="Play"></paper-fab>
+        </template>
+        <template is="dom-if" if="{{playing}}">
+            <paper-fab class="btn-play" icon="av:pause" on-tap="pauseAlbumHandler" title="Pause"></paper-fab>
+        </template>
 
-  </template>
+    </template>
 
-  <script>Polymer({is:"paper-player",properties:{albumId:{type:String,observer:"_albumIdChanged"},albumDetail:{type:Object,value:void 0,observer:"_albumDetailChanged"},loaded:{type:Boolean,value:!1},playing:{type:Boolean,value:!1}},attached:function(){this._createPlayer()},stopPlayer:function(t){this.albumId===t.detail.albumId?t.detail.element!==this&&(this.set("playing",!1),this._stopPlayer()):(this.set("playing",!1),this._stopPlayer())},playAlbumHandler:function(t){t.preventDefault(),this._playAlbum()},pauseAlbumHandler:function(t){t.preventDefault(),this._pauseAlbum()},_albumIdChanged:function(){this._resetStatus()},_resetStatus:function(){this.set("albumDetail",void 0),this.set("loaded",!1),this.set("playing",!1)},_albumDetailChanged:function(){this.get("albumDetail")&&this._play()},_createPlayer:function(){this._stopPlayer(),this._deletePlayer(),this.player=window.App.PlayerFactory(),this.player.on("playlist:finished",this._pauseAlbum.bind(this))},_stopPlayer:function(){this.player&&this.player.stop()},_deletePlayer:function(){this.player&&(this.player.off(),this.player=void 0)},_playAlbum:function(){this.fire("iron-signal",{name:"playing-album",data:{albumId:this.get("albumId"),element:this}}),this.get("albumDetail")?this._play():this._fetchAlbumInfo()},_fetchAlbumInfo:function(){this.$.detailAjax.generateRequest(this.get("albumId"))},_play:function(){this.get("loaded")?this._playPlayer():this._loadPlayerInfo()},_playPlayer:function(){this.set("playing",!0),this.player.play()},_loadPlayerInfo:function(){var t=this.albumDetail.tracks.items.map(function(t){return t.preview_url});this.set("loaded",!0),this.set("playing",!0),this.player.load(t)},_pauseAlbum:function(){this.set("playing",!1),this.player.pause()}});</script>
+    <script>Polymer({is:"paper-player",properties:{albumId:{type:String,observer:"_albumIdChanged"},albumDetail:{type:Object,value:void 0,observer:"_albumDetailChanged"},loaded:{type:Boolean,value:!1},playing:{type:Boolean,value:!1}},attached:function(){this._createPlayer()},stopPlayer:function(t){this.albumId===t.detail.albumId?t.detail.element!==this&&(this.set("playing",!1),this._stopPlayer()):(this.set("playing",!1),this._stopPlayer())},playAlbumHandler:function(t){t.preventDefault(),this._playAlbum()},pauseAlbumHandler:function(t){t.preventDefault(),this._pauseAlbum()},_albumIdChanged:function(){this._resetStatus()},_resetStatus:function(){this.set("albumDetail",void 0),this.set("loaded",!1),this.set("playing",!1)},_albumDetailChanged:function(){this.get("albumDetail")&&this._play()},_createPlayer:function(){this._stopPlayer(),this._deletePlayer(),this.player=window.App.PlayerFactory(),this.player.on("playlist:finished",this._pauseAlbum.bind(this))},_stopPlayer:function(){this.player&&this.player.stop()},_deletePlayer:function(){this.player&&(this.player.off(),this.player=void 0)},_playAlbum:function(){this.fire("iron-signal",{name:"playing-album",data:{albumId:this.get("albumId"),element:this}}),this.get("albumDetail")?this._play():this._fetchAlbumInfo()},_fetchAlbumInfo:function(){this.$.detailAjax.generateRequest(this.get("albumId"))},_play:function(){this.get("loaded")?this._playPlayer():this._loadPlayerInfo()},_playPlayer:function(){this.set("playing",!0),this.player.play()},_loadPlayerInfo:function(){var t=this.albumDetail.tracks.items.map(function(t){return t.preview_url});this.set("loaded",!0),this.set("playing",!0),this.player.load(t)},_pauseAlbum:function(){this.set("playing",!1),this.player.pause()}});</script>
 
 </dom-module>
 </body></html>
