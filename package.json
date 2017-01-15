@@ -4,14 +4,14 @@
   "description": "Music App Research",
   "main": "index.js",
   "scripts": {
-    "dev": "polymer serve",
-    "build": "polymer build --entrypoint index.html",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "polymer serve",
+    "build": "polymer build --entrypoint index.html"
   },
   "keywords": [
-    "albums",
-    "novelty",
-    "polymer"
+    "polymer",
+    "album",
+    "search",
+    "spotify"
   ],
   "author": "Alberto Cubero Navas",
   "license": "ISC"
