@@ -2,7 +2,7 @@
 
 A template of README best practices to make your README simple to understand and easy to use.
 
-![Screenshot of Music App Research](https://albertocubero.github.com/src/images/screenshot.png)
+![Screenshot of Music App Research](https://raw.githubusercontent.com/albertocubero/Music-App-Research/master/src/images/screenshot.png)
 
 ## Installation
 
