@@ -6,35 +6,5 @@ Installation Steps:
 
 -----
 
-https://www.cooper.com/journal/2016/11/stretching-google-material-to-make-better-desktop-navigation
-
-(OK)- Card:
-    (OK)- artista y titulo: poner un atributo title con el nombre completo
-    (OK)- Mover Favorite Button a un nuevo Custom Element
-(OK)- Poner un toast generico en App para mostrar cualquier mensaje, para que se muestre bien
-(OK)- Card: extraer la logica de favorite a un behaviour y usarla tanto en la vista de card como en la de details.
-
-(OK)- Escuchar el album
-    (OK)- Detalle: ver donde poner el boton de PLAY, alomejor donde esta el de favorito, y colocar el de favorito donde esta el menu de arriba derecha.
-
-(OK)- cambiar de iron-player a paper-player
-(OK)- Al quitar favoritos que no pertenecen a la lista, peta.
-(DEPRECATED)- Al quitar un favorito que no esta en la lista, parar el sonido.
-(OK)- Meter jquery dentro de albums-app
-(OK)- Quitar style en linea del codigo
-(DEPRECATED)- Refactorizar "CSS puntos suspensivos" a shared-styles.
-(OK)- Añadir este Service Worker:
-    (OK)- https://github.com/PolymerElements/platinum-sw
-(OK)- Cambiar el color a naranja (Como google Play music)
-(OK)- Nombre header visible en mobile, que no aparece, en la lista
-(OK)- Nuevo Nombre: Albums Novelty App -> Music App Research -> Music App Research
-
-(OK)- subir a GitHub
-(OK)- Colgar la pagina en Github Pages para que este life (https://help.github.com/articles/what-is-github-pages/)
-(OK)- Todos los textos en ingles
-(OK)- Comentar Codigo
-- avatar no carga al inicio. tengo que refrescar con SHIFT para que salga. La url cambia.
+- Cambiar normbre del proyecto: Music-App-Research -> polymer-MusicAppResearch
 - borrar fichero inutiles (URLS, NOTES)
-- Modificar README.md (Guidelines: https://github.com/xDae/readme-boilerplate)
-    EJEMPLO:
-    - https://github.com/ebidel/polymer-gmail

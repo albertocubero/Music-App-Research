@@ -4,11 +4,13 @@ This is a Polymer App using Web Component that implements a Search component for
 
 ![Screenshot of Music App Research](https://raw.githubusercontent.com/albertocubero/Music-App-Research/master/src/images/screenshot.png)
 
+- [Demo](https://albertocubero.github.io/Music-App-Research/demo)
+
 ## Installation
 
 Download or clone the project:
 
-```sh
+```
 npm install -g bower
 npm install -g polymer-cli
 bower install
@@ -30,6 +32,17 @@ It correctly bundles Polymer in production mode and optimizes the build for the 
 
 The build is minified and the filenames include the hashes.<br>
 Your app is ready to be deployed!
+
+## Resources
+
+Here’s a few resources that helped me out along the way:
+
+Docs
+
+* Polymer Docs: https://www.polymer-project.org/1.0/docs/devguide/feature-overview
+* Spotify Web API: https://developer.spotify.com/web-api/
+
+Read / written something helpful? Let me know and I’ll include it!
 
 ## Support
 
