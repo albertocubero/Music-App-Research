@@ -2,9 +2,9 @@
 
 This is a Polymer App using Web Component that implements a Search component for searching albums, play or save it as favorite, using the Spotify API.
 
-![Screenshot of Music App Research](https://raw.githubusercontent.com/albertocubero/Music-App-Research/master/src/images/screenshot.png)
+![Screenshot of Polymer Music App Research](https://raw.githubusercontent.com/albertocubero/music-app-research/master/src/images/screenshot.png)
 
-- DEMO: [Demo](https://albertocubero.github.io/Music-App-Research/demo)
+- DEMO: [Demo](https://albertocubero.github.io/music-app-research/demo)
 
 ## Installation
 
@@ -46,8 +46,8 @@ Read / written something helpful? Let me know and I’ll include it!
 
 ## Support
 
-Please [open an issue](https://github.com/albertocubero/Music-App-Research/issues/new) for support.
+Please [open an issue](https://github.com/albertocubero/music-app-research/issues/new) for support.
 
 ## Contributing
 
-Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/albertocubero/Music-App-Research/compare/).
+Please contribute using [Github Flow](https://guides.github.com/introduction/flow/). Create a branch, add commits, and [open a pull request](https://github.com/albertocubero/music-app-research/compare/).
