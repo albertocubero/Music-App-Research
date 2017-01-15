@@ -4,7 +4,7 @@ This is a Polymer App using Web Component that implements a Search component for
 
 ![Screenshot of Music App Research](https://raw.githubusercontent.com/albertocubero/Music-App-Research/master/src/images/screenshot.png)
 
-- [Demo](https://albertocubero.github.io/Music-App-Research/demo)
+- DEMO: [Demo](https://albertocubero.github.io/Music-App-Research/demo)
 
 ## Installation
 
