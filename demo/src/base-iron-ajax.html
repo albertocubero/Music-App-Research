@@ -4,8 +4,8 @@
 </head><body><dom-module id="base-iron-ajax">
 
     <template>
-
-        <iron-ajax id="request" headers="{&quot;Accept&quot;: &quot;application/json&quot;}" handle-as="json" url="{{url}}" last-response="{{data}}" debounce-duration="300">
+        
+        <iron-ajax id="request" headers="{&quot;Authorization&quot;: &quot;Bearer BQAJ3KkvH0Hc21sJMlrn9Y-vThSQi7my2UZOC1DRc9MqtD29G91ICGdWulZ3d3aBXEvBHmU5oSaiQS5OkGUj0Q&quot;, &quot;Accept&quot;: &quot;application/json&quot;}" handle-as="json" url="{{url}}" last-response="{{data}}" debounce-duration="300">
         </iron-ajax>
 
         <app-indexeddb-mirror key="albums" data="[[data]]" persisted-data="{{response}}">
