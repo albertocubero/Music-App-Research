@@ -5,9 +5,30 @@
 
     <template>
 
+        <!-- <iron-ajax
+            id="auth"
+            url="https://accounts.spotify.com/api/token"
+            method="POST"
+            body='{"grant_type": "client_credentials"}'
+            with-credentials="true"
+            handle-as="json"
+            content-type="application/json"
+            last-response="{{auth_data}}"
+            on-response="handleResponse"
+            debounce-duration="300">
+        </iron-ajax> -->
+
+        <!-- ClientID -->
+        <!-- btoa(025200ce49b547a993af36486f5d625f:318477b7d9e24b93a1b17408bb43003a) -->
+        <!-- 025200ce49b547a993af36486f5d625f:318477b7d9e24b93a1b17408bb43003a -->
+
+        <!-- Temp token -->
+        <!-- BQDIlLztTit0U7tYX4kIfwHj2z13xeHjaHFIWyZpfnNqWxqgS6Aj0su7Bpjjw73e-L1aTcdjztmCC0wFIa5W6g -->
+        <!-- See Postman request to refresh -->
+
         <iron-ajax
             id="request"
-            headers='{"Accept": "application/json"}'
+            headers='{"Accept": "application/json", "Authorization":"Bearer BQAJ3KkvH0Hc21sJMlrn9Y-vThSQi7my2UZOC1DRc9MqtD29G91ICGdWulZ3d3aBXEvBHmU5oSaiQS5OkGUj0Q"}'
             handle-as="json"
             url={{url}}
             last-response="{{data}}"
@@ -39,10 +60,30 @@
             },
 
             generateRequest: function (options) {
+                // this.generateToken();
+
                 this._cancelCurrentRequest();
                 this._setRequestParameters(options);
                 this._performSearch();
             },
+
+            // generateToken: function (options) {
+            //     if (this.$.auth.lastRequest) {
+            //         this.$.auth.lastRequest.abort();
+            //     }
+            //     this.$.auth.headers = {
+            //         "Access-Control-Allow-Origin": "*",
+            //         "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
+            //         'Content-Type': 'application/x-www-form-urlencoded',
+            //         'Authorization': btoa('025200ce49b547a993af36486f5d625f:318477b7d9e24b93a1b17408bb43003a')
+            //     };
+            //
+            //     this.$.auth.generateRequest();
+            // },
+            //
+            // handleResponse: function (response) {
+            //     console.log(response);
+            // },
 
             // Private methods
             _cancelCurrentRequest: function () {
