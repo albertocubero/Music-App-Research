@@ -42,13 +42,12 @@
             },
 
             generateToken: function (options) {
-                debugger;
                 // Temporal
                 $.ajax({
                     context: this,
                     async: false,
                     type: 'GET',
-                    url: 'http://www.hhadictos.com/external/spotifytoken.php',
+                    url: 'http://www.hhadictos.com/external/github/music-app-research/spotifytoken.php',
                     dataType: 'json',
                     error: function () {
                         console.log('Unable to load feed, Incorrect path or invalid feed');
