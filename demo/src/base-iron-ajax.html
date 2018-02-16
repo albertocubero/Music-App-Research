@@ -5,7 +5,7 @@
 
     <template>
 
-        <iron-ajax id="request" headers="{&quot;Authorization&quot;: &quot;Bearer BQAJ3KkvH0Hc21sJMlrn9Y-vThSQi7my2UZOC1DRc9MqtD29G91ICGdWulZ3d3aBXEvBHmU5oSaiQS5OkGUj0Q&quot;, &quot;Accept&quot;: &quot;application/json&quot;}" handle-as="json" url="{{url}}" last-response="{{data}}" debounce-duration="300">
+        <iron-ajax id="request" handle-as="json" url="{{url}}" last-response="{{data}}" debounce-duration="300">
         </iron-ajax>
 
         <app-indexeddb-mirror key="albums" data="[[data]]" persisted-data="{{response}}">
@@ -13,7 +13,79 @@
 
     </template>
 
-    <script>Polymer({is:"base-iron-ajax",properties:{response:{notify:!0}},attached:function(){console.log('test token');this.auto&&this.generateRequest()},generateRequest:function(e){this._cancelCurrentRequest(),this._setRequestParameters(e),this._performSearch()},_cancelCurrentRequest:function(){this.$.request.lastRequest&&this.$.request.lastRequest.abort()},_performSearch:function(e){this.$.request.generateRequest()},_setRequestParameters:function(e){this._setUrl(e),this._setParams(e)},_setUrl:function(e){e.url&&(this.$.request.url=e.url)},_setParams:function(e){this.$.request.params=void 0,e.params&&(this.$.request.params=e.params)}});</script>
+    <script>
+        Polymer({
+            is: 'base-iron-ajax',
+
+            properties: {
+                response: {
+                    notify: true
+                }
+            },
+
+            attached: function () {
+                if(this.auto) {
+                    this.generateRequest();
+                }
+            },
+
+            generateRequest: function (options) {
+                this.generateToken(options);
+            },
+
+            generateToken: function (options) {
+                // Temporal
+                $.ajax({
+                    context: this,
+                    async: false,
+                    type: 'GET',
+                    url: 'http://www.hhadictos.com/external/spotifytoken.php',
+                    dataType: 'json',
+                    error: function () {
+                        console.log('Unable to load feed, Incorrect path or invalid feed');
+                    },
+                    success: function (auth) {
+                        this.$.request.headers = {
+                            'Accept': 'application/json',
+                            'Authorization': 'Bearer '+auth.access_token
+                        };
+                        this._cancelCurrentRequest();
+                        this._setRequestParameters(options);
+                        this._performSearch();
+                    }
+                });
+            },
+
+            // Private methods
+            _cancelCurrentRequest: function () {
+                if (this.$.request.lastRequest) {
+                    this.$.request.lastRequest.abort();
+                }
+            },
+
+            _performSearch: function (params) {
+                this.$.request.generateRequest();
+            },
+
+            _setRequestParameters: function (options) {
+                this._setUrl(options);
+                this._setParams(options);
+            },
+
+            _setUrl: function (options) {
+                if (options.url) {
+                    this.$.request.url = options.url;
+                }
+            },
+
+            _setParams: function (options) {
+                this.$.request.params = undefined;
+                if (options.params) {
+                    this.$.request.params = options.params;
+                }
+            }
+        });
+    </script>
 
 </dom-module>
 </body></html>
